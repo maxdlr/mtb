@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Prompt{% endblock %}
+
+{% block body %}
+    <h1>Edit Prompt</h1>
+<turbo-frame id="prompt-edit">
+            {{ include('admin/prompt/_form.html.twig', {'button_label': 'Update'}) }}
+</turbo-frame>
+    <a href="{{ path('app_prompt_index') }}">back to list</a>
+
+    {{ include('admin/prompt/_delete_form.html.twig') }}
+{% endblock %}

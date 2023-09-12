@@ -24,6 +24,9 @@ class Prompt
     #[ORM\Column(length: 255)]
     private ?string $name_en = null;
 
+    #[ORM\Column]
+    private ?int $dayNumber = null;
+
     public function __construct()
     {
         $this->prompt_list = new ArrayCollection();
@@ -36,12 +39,12 @@ class Prompt
 
     public function getNameFr(): ?string
     {
-        return $this->name;
+        return $this->name_fr;
     }
 
     public function setNameFr(string $name_fr): static
     {
-        $this->name = $name_fr;
+        $this->name_fr = $name_fr;
 
         return $this;
     }
@@ -78,6 +81,18 @@ class Prompt
     public function setNameEn(string $name_en): static
     {
         $this->name_en = $name_en;
+
+        return $this;
+    }
+
+    public function getDayNumber(): ?int
+    {
+        return $this->dayNumber;
+    }
+
+    public function setDayNumber(int $dayNumber): static
+    {
+        $this->dayNumber = $dayNumber;
 
         return $this;
     }

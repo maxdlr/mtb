@@ -1,0 +1,38 @@
+{% set promptFormClasses = 'form-control rounded-5' %}
+
+{{ form_start(form) }}
+
+<div class="d-flex justify-content-around align-items-center">
+
+    {{ form_start(form, {
+        'attr': {
+            'class': promptFormClasses
+        }
+    }) }}
+
+    {{ form_row(form.dayNumber, {
+        'attr': {
+            'class': promptFormClasses
+        }
+    }) }}
+    {{ form_row(form.name_fr, {
+        'attr': {
+            'class': promptFormClasses
+        }
+    }) }}
+    {{ form_row(form.name_en, {
+        'attr': {
+            'class': promptFormClasses
+        }
+    }) }}
+    {{ form_row(form.prompt_list, {
+        'attr': {
+            'class': promptFormClasses
+        }
+    }) }}
+
+    {{ form_end(form) }}
+
+</div>
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

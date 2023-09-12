@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prompt{% endblock %}
+
+{% block body %}
+    <h1>Prompt</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ prompt.id }}</td>
+            </tr>
+            <tr>
+                <th>Name_fr</th>
+                <td>{{ prompt.nameFr }}</td>
+            </tr>
+            <tr>
+                <th>Name_en</th>
+                <td>{{ prompt.nameEn }}</td>
+            </tr>
+            <tr>
+                <th>Année{% if prompt.promptList|length > 1 %}s{% endif %}</th>
+                <td>
+                    {% for x in prompt.promptList %}
+                        {{ x.year }}{% if prompt.promptList|length > 1 %},{% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_prompt_index') }}">back to list</a>
+
+    <a href="{{ path('app_prompt_edit', {'id': prompt.id}) }}">edit</a>
+
+    {{ include('prompt/_delete_form.html.twig') }}
+{% endblock %}
