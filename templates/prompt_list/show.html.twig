@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PromptList{% endblock %}
+
+{% block body %}
+    <h1>PromptList</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ prompt_list.id }}</td>
+            </tr>
+            <tr>
+                <th>Year</th>
+                <td>{{ prompt_list.year }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_prompt_list_index') }}">back to list</a>
+
+    <a href="{{ path('app_prompt_list_edit', {'id': prompt_list.id}) }}">edit</a>
+
+    {{ include('prompt_list/_delete_form.html.twig') }}
+{% endblock %}

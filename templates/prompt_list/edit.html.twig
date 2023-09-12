@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit PromptList{% endblock %}
+
+{% block body %}
+    <h1>Edit PromptList</h1>
+
+    {{ include('prompt_list/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_prompt_list_index') }}">back to list</a>
+
+    {{ include('prompt_list/_delete_form.html.twig') }}
+{% endblock %}

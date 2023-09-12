@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PromptList index{% endblock %}
+
+{% block body %}
+    <h1>PromptList index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Year</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for prompt_list in prompt_lists %}
+            <tr>
+                <td>{{ prompt_list.id }}</td>
+                <td>{{ prompt_list.year }}</td>
+                <td>
+                    <a href="{{ path('app_prompt_list_show', {'id': prompt_list.id}) }}">show</a>
+                    <a href="{{ path('app_prompt_list_edit', {'id': prompt_list.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_prompt_list_new') }}">Create new</a>
+{% endblock %}
