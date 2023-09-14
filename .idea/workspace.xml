@@ -5,32 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="345dd539-8329-4de7-a157-a91ba9050a9e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/mtb.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mtb.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/phpspec.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpspec.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/PromptController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/PromptListController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/PromptFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/PromptFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/PromptListType.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/PromptType.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/prompt/_delete_form.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/prompt/_form.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/prompt/edit.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/prompt/index.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/prompt/new.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/prompt/show.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/prompt_list/_delete_form.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/prompt_list/_form.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/prompt_list/edit.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/prompt_list/index.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/prompt_list/new.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/prompt_list/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20230914094303.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20230914095145.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20230914100644.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/LoginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/UserFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/UserFixtures.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -218,7 +202,7 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "create-list",
+    "git-widget-placeholder": "registration",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "/Users/maxdlr/Documents/GitHub/mtb/templates/admin/prompt",
     "node.js.detected.package.eslint": "true",
@@ -265,7 +249,7 @@
       <workItem from="1694182952238" duration="9988000" />
       <workItem from="1694595871124" duration="721000" />
       <workItem from="1694615430616" duration="1977000" />
-      <workItem from="1694676475272" duration="14363000" />
+      <workItem from="1694676475272" duration="16278000" />
     </task>
     <servers />
   </component>

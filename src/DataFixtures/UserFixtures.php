@@ -15,12 +15,10 @@ class UserFixtures extends Fixture
     {
         $user = new User();
         $user->setUsername('maxdlr')
-        ->setEmail('contact@maxdlr.com')
         ->setPassword($this->userPasswordHasher->hashPassword(
             $user,
             'password'
         ))
-            ->setIsAdmin(true)
             ->setRoles(['ROLE_ADMIN'])
         ;
 
