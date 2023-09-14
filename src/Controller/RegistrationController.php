@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Page;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,6 +18,9 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
+        $page = new Page();
+        $now = new \DateTimeImmutable();
+
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
@@ -27,7 +31,10 @@ class RegistrationController extends AbstractController
                     $user,
                     $form->get('plainPassword')->getData()
                 )
-            );
+            )
+                ->setPage($page)
+                ->setRegistrationDate($now)
+            ;
 
             $entityManager->persist($user);
             $entityManager->flush();
