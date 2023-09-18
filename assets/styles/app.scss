@@ -1,1 +1,27 @@
 @import "~bootstrap/scss/bootstrap";
+@import "font/fonts.css";
+
+.title-font {
+  font-family: 'Geomanist', serif;
+}
+.para-font {
+  font-family: 'Geomanist Book', serif;
+}
+
+.text-red {
+  color: #e01f20;
+}
+.text-blue {
+  color: #2a00ff;
+}
+.text-yellow {
+  color: #ffaa01;
+}
+
+.line-devider {
+  display: block;
+  content: "";
+  width: 100%;
+  height: 1px;
+  background-color: black;
+}
