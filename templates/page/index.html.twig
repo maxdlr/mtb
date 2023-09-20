@@ -1,15 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Page de {{ user.username |title }}{% endblock %}
+{% block title %}Page de {{ owner.username |title }}{% endblock %}
 
 {% block body %}
-    <h1>Page de {{ user.username |title }}</h1>
+    <h1>Page de {{ owner.username |title }}</h1>
 
-    <turbo-frame>
+    {% if app.user == owner %}
+        {{ include('shared/modal/_crud-modal.html.twig', {
+            modalID: 'post-upload',
+            title: 'Ajouter un post',
+            buttonLabel: 'Ajouter un post',
+            form: postForm
+        }) }}
+    {% else %}
+      <a href="{{ path('app_login') }}" class="btn btn-primary">Ajouter un post</a>
+    {% endif %}
 
-    </turbo-frame>
 
-    {% for post in user.posts %}
-        {{ post }}
+    {% for post in owner.posts %}
+        {{ post.imageName }}
     {% endfor %}
 {% endblock %}
