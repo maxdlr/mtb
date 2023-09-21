@@ -16,8 +16,8 @@
       <a href="{{ path('app_login') }}" class="btn btn-primary">Ajouter un post</a>
     {% endif %}
 
+{#    {% for post in owner.posts %}#}
+{#        {{ post.imageName }}#}
+{#    {% endfor %}#}
 
-    {% for post in owner.posts %}
-        {{ post.imageName }}
-    {% endfor %}
 {% endblock %}
