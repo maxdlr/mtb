@@ -3,7 +3,7 @@
 {% block title %}Page de {{ owner.username |title }}{% endblock %}
 
 {% block body %}
-    <main class="container-lg">
+    <main class="container-md">
 
         <h1>Page de {{ owner.username |title }}</h1>
 
@@ -18,14 +18,17 @@
           <a href="{{ path('app_login') }}" class="btn btn-primary">Ajouter un post</a>
         {% endif %}
 
+      <section class="row row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 ">
         {% for post in owner.posts %}
-            <section class="row row-cols-lg-6">
-                <img
+
+          <img
                   src="{{ asset('images/posts/' ~ post.fileName) }}"
-                  class="img-fluid"
+                  class="img-fluid p-0 m-0"
                 >
-            </section>
     {#             alt="Gif de {{ owner.username }} numéro {{ post.prompt.dayNumber }}">#}
+
         {% endfor %}
+      </section>
+
     </main>
 {% endblock %}

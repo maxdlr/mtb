@@ -41,9 +41,8 @@ class PostController extends AbstractController
 
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
-        $user = $userRepository->findOneBy(['username' => $this->getUser()->getUserIdentifier()]);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $this->getUser()) {
             // /** @var UploadedFile $imgFile */
 
             $postFiles = $request->files->get('post')['posts'];
@@ -71,6 +70,7 @@ class PostController extends AbstractController
                     // instead of its contents
                     $singlePost = new Post();
 
+                    $user = $userRepository->findOneBy(['username' => $this->getUser()->getUserIdentifier()]);
                     $singlePost->addUser($user);
                     $singlePost->setUploadedOn($now);
 
