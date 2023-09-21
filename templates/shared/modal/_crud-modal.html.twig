@@ -6,6 +6,7 @@
 {% block modalTitle %}{{ title }}{% endblock %}
 
 {% block modalBody %}
+
   {{ form_start(form) }}
 
   {% for child in form %}
@@ -14,7 +15,6 @@
     {% endif %}
   {% endfor %}
 
-{#  {{ form_end(form) }}#}
 {% endblock %}
 
 {% block submitButton %}{{ form_row(form.submit) }}{% endblock %}

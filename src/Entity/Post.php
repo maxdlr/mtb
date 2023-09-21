@@ -24,6 +24,9 @@ class Post
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'posts')]
     private Collection $user;
 
+    #[ORM\Column(type: 'string')]
+    private string $fileName;
+
     public function __construct()
     {
         $this->user = new ArrayCollection();
@@ -78,6 +81,18 @@ class Post
     public function removeUser(User $user): static
     {
         $this->user->removeElement($user);
+
+        return $this;
+    }
+
+    public function getFileName(): string
+    {
+        return $this->fileName;
+    }
+
+    public function setFileName(string $fileName): self
+    {
+        $this->fileName = $fileName;
 
         return $this;
     }
