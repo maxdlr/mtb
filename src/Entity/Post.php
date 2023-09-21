@@ -29,7 +29,7 @@ class Post
     #[ORM\Column]
     private ?\DateTimeImmutable $postDate = null;
 
-    #[Vich\UploadableField(mapping: 'posts', fileNameProperty: 'imageName', size: 'imageSize')]
+    #[Vich\UploadableField(mapping: 'products', fileNameProperty: 'imageName', size: 'imageSize')]
     private ?File $imageFile = null;
 
     #[ORM\Column(nullable: true)]
