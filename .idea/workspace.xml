@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="345dd539-8329-4de7-a157-a91ba9050a9e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Controller/RedirectController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/PageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/RegistrationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RegistrationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/PostRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/PostRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/page/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/index.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,7 +203,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "create-post",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "/Users/maxdlr/Documents/GitHub/mtb/templates/admin/prompt",
+    "last_opened_file_path": "C:/Users/maxro/Documents/mtb/public/images",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -222,6 +216,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\maxro\Documents\mtb\public\images" />
       <recent name="$PROJECT_DIR$/templates/admin/prompt" />
       <recent name="$PROJECT_DIR$" />
       <recent name="C:\Users\maxro\Documents\mtb" />
@@ -256,7 +251,7 @@
       <workItem from="1694615430616" duration="1977000" />
       <workItem from="1694676475272" duration="16953000" />
       <workItem from="1694765167021" duration="1207000" />
-      <workItem from="1695284705370" duration="14546000" />
+      <workItem from="1695284705370" duration="14910000" />
     </task>
     <servers />
   </component>
