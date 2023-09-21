@@ -41,7 +41,7 @@ class RegistrationController extends AbstractController
             $this->addFlash('success', 'Compte créé.');
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_user_page', ['username' => $this->getUser()->getUserIdentifier()]);
         }
         $this->addFlash('danger', 'Erreur.');
 

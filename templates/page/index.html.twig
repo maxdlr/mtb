@@ -3,21 +3,29 @@
 {% block title %}Page de {{ owner.username |title }}{% endblock %}
 
 {% block body %}
-    <h1>Page de {{ owner.username |title }}</h1>
+    <main class="container-lg">
 
-    {% if app.user == owner %}
-        {{ include('shared/modal/_crud-modal.html.twig', {
-            modalID: 'post-upload',
-            title: 'Ajouter un post',
-            buttonLabel: 'Ajouter un post',
-            form: postForm
-        }) }}
-    {% else %}
-      <a href="{{ path('app_login') }}" class="btn btn-primary">Ajouter un post</a>
-    {% endif %}
+        <h1>Page de {{ owner.username |title }}</h1>
 
-{#    {% for post in owner.posts %}#}
-{#        {{ post.imageName }}#}
-{#    {% endfor %}#}
+        {% if app.user == owner %}
+            {{ include('shared/modal/_crud-modal.html.twig', {
+                modalID: 'post-upload',
+                title: 'Ajouter un post',
+                buttonLabel: 'Ajouter un post',
+                form: postForm
+            }) }}
+        {% else %}
+          <a href="{{ path('app_login') }}" class="btn btn-primary">Ajouter un post</a>
+        {% endif %}
 
+        {% for post in owner.posts %}
+            <section class="row row-cols-lg-6">
+                <img
+                  src="{{ asset('images/posts/' ~ post.fileName) }}"
+                  class="img-fluid"
+                >
+            </section>
+    {#             alt="Gif de {{ owner.username }} numéro {{ post.prompt.dayNumber }}">#}
+        {% endfor %}
+    </main>
 {% endblock %}

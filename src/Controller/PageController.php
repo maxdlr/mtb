@@ -2,29 +2,31 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
+use App\Repository\PostRepository;
 use App\Repository\UserRepository;
-use App\Service\PostManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 
 class PageController extends AbstractController
 {
     public function __construct(
-        PostManager $postManager
     ){}
 
     #[Route('/{username}', name: 'app_user_page', methods: ['GET', 'POST'])]
     public function index(
         UserRepository $userRepository,
+        PostRepository $postRepository,
         string $username,
-        PostManager $postManager,
         Request $request,
+        PostController $postController,
+        EntityManagerInterface $entityManager,
+        SluggerInterface $slugger,
     ): Response | FormView
     {
         $owner = $userRepository->findOneBy(['username' => $username]);
@@ -34,11 +36,20 @@ class PageController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        $postForm = $postManager->createNewUserPostsForm($request);
+        $postForm = $postController->new(
+            $request,
+            $entityManager,
+            $userRepository,
+            $postRepository,
+            $slugger
+        );
+
+//        $postForm = $postManager->createNewUserPostsForm($request);
 
         return $this->render('page/index.html.twig', [
             'owner' => $owner,
             'postForm' => $postForm,
         ]);
     }
+
 }

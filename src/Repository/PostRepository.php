@@ -38,7 +38,6 @@ class PostRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
 //    /**
 //     * @return Post[] Returns an array of Post objects
 //     */
