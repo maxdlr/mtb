@@ -5,24 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="345dd539-8329-4de7-a157-a91ba9050a9e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/controllers/modal-window_controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/modal-window-base.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/shared/modal/_modal-window.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/shared/modal/_post-modal.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/09-curve-SD-650c367de9bcc.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/09-curve-SD-650c369232243.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/11-fly-SD-650c367decd2e.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/11-fly-SD-650c369234b21.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/13-twin-sd-650c367dede7f.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/13-twin-sd-650c369235cd6.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/17-evolve-sd-650c367deef79.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/17-evolve-sd-650c369236d76.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/19-revolve-sd-650c367df00fb.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/19-revolve-sd-650c369237eed.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/20-trick-sd-650c367df144d.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/20-trick-sd-650c36923918e.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/22-start-sd-650c364023f1a.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/23-blow-sd-650c36c72138c.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/25-ride-sd-650c3640273e2.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/29-swing-sd-650c2cc2148e8.gif" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/page/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/shared/modal/_crud-modal-btn.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/shared/modal/_modal-btn.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -220,7 +209,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "create-post",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/maxro/Documents/mtb/public/images",
+    "last_opened_file_path": "C:/Users/maxro/Documents/mtb/assets/controllers",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -233,10 +222,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\maxro\Documents\mtb\assets\controllers" />
+      <recent name="C:\Users\maxro\Documents\mtb\templates" />
       <recent name="C:\Users\maxro\Documents\mtb\public\images" />
       <recent name="$PROJECT_DIR$/templates/admin/prompt" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="C:\Users\maxro\Documents\mtb" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/templates/admin" />
@@ -268,7 +258,7 @@
       <workItem from="1694615430616" duration="1977000" />
       <workItem from="1694676475272" duration="16953000" />
       <workItem from="1694765167021" duration="1207000" />
-      <workItem from="1695284705370" duration="15649000" />
+      <workItem from="1695284705370" duration="28288000" />
     </task>
     <servers />
   </component>

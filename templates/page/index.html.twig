@@ -2,8 +2,15 @@
 
 {% block title %}Page de {{ owner.username |title }}{% endblock %}
 
+
 {% block body %}
-    <main class="container-md">
+
+  {{ include('shared/modal/_modal-window.html.twig', {
+    modalID: 'postModal',
+    title: 'nom du post',
+  }) }}
+
+  <main class="container-md">
 
         <h1>Page de {{ owner.username |title }}</h1>
 
@@ -14,18 +21,29 @@
                 buttonLabel: 'Ajouter un post',
                 form: postForm
             }) }}
+
         {% else %}
           <a href="{{ path('app_login') }}" class="btn btn-primary">Ajouter un post</a>
         {% endif %}
 
-      <section class="row row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 ">
+      <section data-controller="modal-window" class="row row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 ">
+
+        {{ include('shared/modal/_modal-window.html.twig', {
+          modalID: 'postModal',
+          title: 'nom du post',
+        }) }}
+
         {% for post in owner.posts %}
 
-          <img
-                  src="{{ asset('images/posts/' ~ post.fileName) }}"
-                  class="img-fluid p-0 m-0"
-                >
-    {#             alt="Gif de {{ owner.username }} numéro {{ post.prompt.dayNumber }}">#}
+          <div data-bs-toggle="modal" data-bs-target="#postModal">
+            <input data-modal-window-target="postFileName" value="{{ post.fileName }}" type="text">
+            <img
+              data-action="click->modal-window#showPost"
+              src="{{ asset('images/posts/' ~ post.fileName) }}"
+              type="button"
+              class="img-fluid p-0 m-1 pointer"
+            >
+          </div>
 
         {% endfor %}
       </section>
