@@ -5,13 +5,51 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="345dd539-8329-4de7-a157-a91ba9050a9e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/controllers/modal-window_controller.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/modal-window-base.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/shared/modal/_modal-window.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/shared/modal/_post-modal.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/ombrages.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Black.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Black.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Black.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Black.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Bold.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Bold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Bold.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Bold.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Book.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Book.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Book.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Book.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-ExtraLight.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-ExtraLight.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-ExtraLight.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-ExtraLight.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Light.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Light.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Light.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Light.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Medium.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Medium.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Medium.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Medium.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Regular.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Regular.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Regular.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Thin.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Thin.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Thin.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Thin.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Ultra.eot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Ultra.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Ultra.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Ultra.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/demo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/styles/font/fonts.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/page/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/shared/modal/_crud-modal-btn.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/shared/modal/_modal-btn.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -183,11 +221,7 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
       <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
       <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
-      <path value="$PROJECT_DIR$/vendor/symfony/ux-live-component" />
     </include_path>
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -203,30 +237,27 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "create-post",
+    "git-widget-placeholder": "Merging create-post",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/maxro/Documents/mtb/assets/controllers",
+    "last_opened_file_path": "/Users/maxdlr/Documents/GitHub/mtb",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "php.override.implement.member.chooser.php.doc": "NONE",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "settings.editor.selected.configurable": "settings.php.debug.servers",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\maxro\Documents\mtb\assets\controllers" />
-      <recent name="C:\Users\maxro\Documents\mtb\templates" />
-      <recent name="C:\Users\maxro\Documents\mtb\public\images" />
-      <recent name="$PROJECT_DIR$/templates/admin/prompt" />
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/templates/admin/prompt" />
+      <recent name="C:\Users\maxro\Documents\mtb" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/templates/admin" />
@@ -257,30 +288,16 @@
       <workItem from="1694595871124" duration="721000" />
       <workItem from="1694615430616" duration="1977000" />
       <workItem from="1694676475272" duration="16953000" />
-      <workItem from="1694765167021" duration="1207000" />
-      <workItem from="1695284705370" duration="28288000" />
+      <workItem from="1694772751317" duration="527000" />
+      <workItem from="1695030083178" duration="10635000" />
+      <workItem from="1695627353066" duration="588000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="VcsManagerConfiguration">
     <option name="LAST_COMMIT_MESSAGE" value="" />
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>

@@ -17,6 +17,7 @@ Encore
         from: './assets/images',
         to: 'images/[path][name].[ext]',
     })
+
     /*
      * ENTRY CONFIG
      *

@@ -1,1 +1,46 @@
+$red-color: #e01f20;
+$blue-color: #2a00ff;
+$yellow-color: #ffaa01;
+
 @import "~bootstrap/scss/bootstrap";
+@import "font/fonts.css";
+
+.title-font {
+  font-family: 'Geomanist', serif;
+}
+.para-font {
+  font-family: 'Geomanist Book', serif;
+}
+
+.text-red {
+  color: $red-color;
+}
+.text-blue {
+  color: $blue-color;
+}
+.text-yellow {
+  color: $yellow-color;
+}
+
+.line-divider {
+  display: block;
+  content: "";
+  width: 100%;
+  height: 1px;
+  background-color: $yellow-color;
+}
+
+.prompt-list-item {
+  &.text-red:hover {
+    background-color: $red-color;
+  }
+  &.text-blue:hover {
+    background-color: $blue-color;
+  }
+  &.text-yellow:hover {
+    background-color: $yellow-color;
+  }
+  &:hover {
+    color: white;
+  }
+}
