@@ -42,12 +42,5 @@ $yellow-color: #ffaa01;
   }
   &:hover {
     color: white;
-    &:before, &:after {
-      display: block;
-      content: "";
-      width: 10px;
-      height: 10px;
-      background-color: green;
-    }
   }
 }
