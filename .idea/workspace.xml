@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="345dd539-8329-4de7-a157-a91ba9050a9e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/page/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,9 +181,6 @@
       <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
     </include_path>
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -200,9 +198,9 @@
     &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;create-profiles&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;style--homepage&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/maxdlr/Documents/GitHub/mtb/templates/admin/prompt&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/maxdlr/Documents/GitHub/mtb&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -215,8 +213,8 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/templates/admin/prompt" />
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/templates/admin/prompt" />
       <recent name="C:\Users\maxro\Documents\mtb" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -248,22 +246,13 @@
       <workItem from="1694595871124" duration="721000" />
       <workItem from="1694615430616" duration="1977000" />
       <workItem from="1694676475272" duration="16953000" />
-      <workItem from="1694765167021" duration="1207000" />
+      <workItem from="1694772751317" duration="527000" />
+      <workItem from="1695030083178" duration="10635000" />
+      <workItem from="1695627353066" duration="588000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
 </project>
