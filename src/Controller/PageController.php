@@ -15,19 +15,20 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class PageController extends AbstractController
 {
-    public function __construct(
-    ){}
+    public function __construct()
+    {
+    }
 
     #[Route('/{username}', name: 'app_user_page', methods: ['GET', 'POST'])]
     public function index(
-        UserRepository $userRepository,
-        PostRepository $postRepository,
-        string $username,
-        Request $request,
-        PostController $postController,
+        UserRepository         $userRepository,
+        PostRepository         $postRepository,
+        string                 $username,
+        Request                $request,
+        PostController         $postController,
         EntityManagerInterface $entityManager,
-        SluggerInterface $slugger,
-    ): Response | FormView
+        SluggerInterface       $slugger,
+    ): Response|FormView
     {
         $owner = $userRepository->findOneBy(['username' => $username]);
 
@@ -43,6 +44,12 @@ class PageController extends AbstractController
             $postRepository,
             $slugger
         );
+
+        if ($postForm->isSubmitted() && $postForm->isValid() && $this->getUser()) {
+            $user = $userRepository->findOneBy(['username' => $this->getUser()->getUserIdentifier()]);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_user_page', ['username' => $user->getUsername()], Response::HTTP_SEE_OTHER);
+        }
 
 //        $postForm = $postManager->createNewUserPostsForm($request);
 
