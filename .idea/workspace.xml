@@ -5,50 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="345dd539-8329-4de7-a157-a91ba9050a9e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/images/ombrages.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Black.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Black.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Black.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Black.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Bold.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Bold.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Bold.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Bold.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Book.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Book.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Book.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Book.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-ExtraLight.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-ExtraLight.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-ExtraLight.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-ExtraLight.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Light.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Light.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Light.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Light.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Medium.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Medium.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Medium.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Medium.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Regular.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Regular.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Regular.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Regular.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Thin.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Thin.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Thin.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Thin.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Ultra.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Ultra.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Ultra.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/Geomanist-Ultra.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/demo.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/font/fonts.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/shared/modal/_modal-post.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/mtb.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mtb.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/phpspec.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpspec.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/controllers.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/controllers.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/controllers/modal-window_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/controllers/modal-window_controller.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/home/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/PageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PageController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PostController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/PostType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PostType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/modal-base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/modal-base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/modal-window-base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/modal-window-base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/page/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/shared/modal/_modal-window.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/shared/modal/_post-modal.html.twig" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,6 +36,9 @@
   <component name="ComposerSettings" notifyAboutMissingVendor="false" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -221,6 +201,8 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
       <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
       <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/ux-live-component" />
+      <path value="$PROJECT_DIR$/vendor/twbs/bootstrap-icons" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -240,7 +222,7 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Merging create-post",
+    "git-widget-placeholder": "create-post",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "/Users/maxdlr/Documents/GitHub/mtb",
     "node.js.detected.package.eslint": "true",
@@ -249,7 +231,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "php.override.implement.member.chooser.php.doc": "NONE",
-    "settings.editor.selected.configurable": "settings.php.debug.servers",
+    "settings.editor.selected.configurable": "preferences.sourceCode.Twig",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -299,5 +281,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="LAST_COMMIT_MESSAGE" value="" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

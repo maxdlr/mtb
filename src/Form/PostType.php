@@ -19,7 +19,7 @@ class PostType extends AbstractType
     {
         $builder
             ->add('posts', DropzoneType::class, [
-                'label' => false,
+                'label' => "Fichiers .gif uniquement. Moins de 20 mo. Uploadable 10 par 10. ",
 
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
@@ -42,8 +42,7 @@ class PostType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('submit', SubmitType::class)
-        ;
+            ->add('submit', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
