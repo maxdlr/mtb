@@ -5,50 +5,48 @@
 
 {% block body %}
 
+  {{ include('shared/modal/_modal-window.html.twig', {
+    modalID: 'postModal',
+    title: 'nom du post',
+  }) }}
+
   <main class="container-md">
 
-    <h1>Page de {{ owner.username |title }}</h1>
+        <h1>Page de {{ owner.username |title }}</h1>
 
-    {% if app.user == owner %}
-      {{ include('shared/modal/_crud-modal.html.twig', {
-        modalID: 'post-upload',
-        title: 'Ajouter un post',
-        buttonLabel: 'Ajouter un post',
-        form: postForm
-      }) }}
+        {% if app.user == owner %}
+            {{ include('shared/modal/_crud-modal.html.twig', {
+                modalID: 'post-upload',
+                title: 'Ajouter un post',
+                buttonLabel: 'Ajouter un post',
+                form: postForm
+            }) }}
 
-    {% else %}
-      <a href="{{ path('app_login') }}" class="btn btn-primary">Ajouter un post</a>
-    {% endif %}
+        {% else %}
+          <a href="{{ path('app_login') }}" class="btn btn-primary">Ajouter un post</a>
+        {% endif %}
 
-    <section {{ stimulus_controller('modal-window') }}
-      class="row row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 ">
+      <section data-controller="modal-window" class="row row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 ">
 
-      {{ include('shared/modal/_modal-post.html.twig', {
-        modalID: 'postModal'
-      }) }}
+        {{ include('shared/modal/_modal-window.html.twig', {
+          modalID: 'postModal',
+          title: 'nom du post',
+        }) }}
 
-      {% for post in owner.posts %}
+        {% for post in owner.posts %}
 
-        <div
-          data-bs-toggle="modal"
-          data-bs-target="#postModal"
-          class="p-0 m-1"
-          type="button"
-        >
-          <img
-            {{ stimulus_action('modal-window', 'showPost', 'click') }}
-            {{ stimulus_target('modal-window', 'thumbnail') }}
-            data-modal-window-postfilename-param="{{ asset('images/posts/' ~ post.fileName) }}"
-            src="{{ asset('images/posts/' ~ post.fileName) }}"
-            class="img-fluid p-0 m-0 rounded-3"
-          >
-        </div>
+          <div data-bs-toggle="modal" data-bs-target="#postModal">
+            <input data-modal-window-target="postFileName" value="{{ post.fileName }}" type="text">
+            <img
+              data-action="click->modal-window#showPost"
+              src="{{ asset('images/posts/' ~ post.fileName) }}"
+              type="button"
+              class="img-fluid p-0 m-1 pointer"
+            >
+          </div>
 
-      {% else %}
-        <h4>Pas encore de posts</h4>
-      {% endfor %}
-    </section>
+        {% endfor %}
+      </section>
 
-  </main>
+    </main>
 {% endblock %}
