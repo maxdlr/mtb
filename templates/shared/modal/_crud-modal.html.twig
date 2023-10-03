@@ -1,9 +1,17 @@
 {% extends 'modal-base.html.twig' %}
 
 {% block modalID %}{{ modalID }}{% endblock %}
-{% block buttonLabel %}{{ buttonLabel }}{% endblock %}
+{% block buttonLabel %}
+  {% if buttonLabel == 'add' %}
+    {{ addBtn|raw }}
+  {% else %}
+    {{ buttonLabel }}
+  {% endif %}
+{% endblock %}
 
-{% block modalTitle %}{{ title }}{% endblock %}
+{% block modalTitle %}
+  {{ title }}
+{% endblock %}
 
 {% block modalBody %}
 

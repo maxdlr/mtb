@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Entity\User;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
+use App\Service\SecurityManager;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,7 +35,6 @@ class PostController extends AbstractController
         Request                $request,
         EntityManagerInterface $entityManager,
         UserRepository         $userRepository,
-        PostRepository         $postRepository,
         SluggerInterface       $slugger,
     ): FormInterface|RedirectResponse
     {
@@ -43,7 +44,7 @@ class PostController extends AbstractController
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() && $this->getUser()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             // /** @var UploadedFile $imgFile */
 
             $postFiles = $request->files->get('post')['posts'];
@@ -111,13 +112,20 @@ class PostController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_post_delete', methods: ['POST'])]
-    public function delete(Request $request, Post $post, EntityManagerInterface $entityManager): Response
+    public function delete(
+        Request                $request,
+        Post                   $post,
+        EntityManagerInterface $entityManager,
+        SecurityManager        $securityManager
+    ): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->request->get('_token'))) {
+        $owner = $post->getUser()->get(0);
+
+        if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->request->get('_token')) && $securityManager->isOwnerPost($post)) {
             $entityManager->remove($post);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_user_page', ['username' => $owner->getUsername()], Response::HTTP_SEE_OTHER);
     }
 }

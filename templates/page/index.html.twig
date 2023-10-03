@@ -13,9 +13,13 @@
       {{ include('shared/modal/_crud-modal.html.twig', {
         modalID: 'post-upload',
         title: 'Ajouter un post',
-        buttonLabel: 'Ajouter un post',
+        buttonLabel: 'add',
         form: postForm
       }) }}
+
+      <a href="{{ path('app_user_editpage', {'username': owner.username}) }}" class="btn btn-outline-primary">
+        <i class="bi bi-pencil"></i>
+      </a>
 
     {% else %}
       <a href="{{ path('app_login') }}" class="btn btn-primary">Ajouter un post</a>
@@ -33,7 +37,7 @@
         <div
           data-bs-toggle="modal"
           data-bs-target="#postModal"
-          class="p-0 m-1"
+          class="p-0 m-1 position-relative"
           type="button"
         >
           <img
