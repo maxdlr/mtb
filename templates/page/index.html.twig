@@ -17,37 +17,65 @@
         form: postForm
       }) }}
 
-      <a href="{{ path('app_user_editpage', {'username': owner.username}) }}" class="btn btn-outline-primary">
-        <i class="bi bi-pencil"></i>
-      </a>
-
-    {% else %}
-      <a href="{{ path('app_login') }}" class="btn btn-primary">Ajouter un post</a>
     {% endif %}
 
     <section {{ stimulus_controller('modal-window') }}
       class="row row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 ">
 
-      {{ include('shared/modal/_modal-post.html.twig', {
+      {{ include('shared/modal/_modal-window.html.twig', {
         modalID: 'postModal'
       }) }}
 
       {% for post in owner.posts %}
 
-        <div
-          data-bs-toggle="modal"
-          data-bs-target="#postModal"
-          class="p-0 m-1 position-relative"
-          type="button"
+        <article
+          class="card p-0 m-0"
+          {{ stimulus_target('modal-window', 'listItem') }}
+          id="{{ post.id }}"
         >
-          <img
-            {{ stimulus_action('modal-window', 'showPost', 'click') }}
-            {{ stimulus_target('modal-window', 'thumbnail') }}
-            data-modal-window-postfilename-param="{{ asset('images/posts/' ~ post.fileName) }}"
-            src="{{ asset('images/posts/' ~ post.fileName) }}"
-            class="img-fluid p-0 m-0 rounded-3"
+          <div class="card-header d-flex justify-content-between">
+            <div class="card-title">
+              Octobre {{ post.prompt.promptList[0].year }} -- {{ post.prompt.dayNumber }} - {{ post.prompt.nameFr }}
+            </div>
+            {% if app.user == owner %}
+              <div class="card-group d-flex justify-content-center">
+                {{ include('shared/buttons/_deleteButton.html.twig', {route: 'app_post_delete', item: post}) }}
+
+
+                <button
+                  class="btn btn-outline-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#postModal"
+                  {{ stimulus_action('modal-window', 'editPost', 'click') }}
+                  data-modal-window-postid-param="{{ post.id }}"
+                  id="post-editBtn-{{ post.id }}"
+                >
+                  {{ editBtn|raw }}
+                </button>
+
+
+              </div>
+            {% endif %}
+
+          </div>
+          <div
+            data-bs-toggle="modal"
+            data-bs-target="#postModal"
+            class="p-0 m-0 card-body gallery-card rounded-3"
+            type="button"
           >
-        </div>
+            <img
+              {{ stimulus_action('modal-window', 'showPost', 'click') }}
+              {{ stimulus_target('modal-window', 'listItemImg') }}
+              data-modal-window-postfilename-param="{{ asset('images/posts/' ~ post.fileName) }}"
+              data-modal-window-postid-param="{{ post.id }}"
+              src="{{ asset('images/posts/' ~ post.fileName) }}"
+              class="post-img img-fluid p-2 m-0"
+              id="post-img-{{ post.id }}"
+              alt="Image animé de {{ owner.username }} pour le thème {{ post.prompt.nameFr }}"
+            >
+          </div>
+        </article>
 
       {% else %}
         <h4>Pas encore de posts</h4>

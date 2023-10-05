@@ -23,10 +23,12 @@ class PromptAutocompleteField extends AbstractType
             'no_results_found_text' => 'On a rien trouvé !',
             'no_more_results_text' => 'Y a plus rien !',
             'searchable_fields' => ['name_fr', 'name_en', 'dayNumber'],
+            'multiple' => false,
+            'row_attr' => ['class' => 'py-0 px-2 m-0'],
 
-            'query_builder' => function (PromptRepository $promptRepository) {
-                return $promptRepository->createQueryBuilder('prompt');
-            },
+//            'query_builder' => function (PromptRepository $promptRepository) {
+//                return $promptRepository->createQueryBuilder('prompt');
+//            },
             //'security' => 'ROLE_SOMETHING',
         ]);
     }

@@ -1,7 +1,7 @@
 <!-- Modal -->
 <div class="modal fade" id="{% block modalID %}{% endblock %}" tabindex="-1"
      aria-labelledby="{{ block('modalID') }}Label" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
 
       {% if block('modalTitle') %}
@@ -13,13 +13,13 @@
         </div>
       {% endif %}
 
-      <div class="modal-body">
+      <div class="modal-body container-fluid">
         {% block modalBody %}{% endblock %}
       </div>
 
       {% if block('modalFooter') %}
         <div class="modalFooter">
-          {% block footer %}{% endblock %}
+          {% block modalFooter %}{% endblock %}
         </div>
       {% endif %}
 

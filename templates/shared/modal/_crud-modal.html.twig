@@ -25,4 +25,8 @@
 
 {% endblock %}
 
-{% block submitButton %}{{ form_row(form.submit) }}{% endblock %}
+ {% block submitButton %}
+   {#   {{ form_row(form.submit) }} #}
+   <button class="btn">{{ button_label|default('Save') }}</button>
+
+ {% endblock %}

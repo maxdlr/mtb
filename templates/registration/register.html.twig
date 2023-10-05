@@ -3,16 +3,25 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
+
+  {% if app.user %}
+    <h3>Déja connecté</h3>
+    <a href="{{ path('app_logout') }}">
+      Déconnexion
+    </a>
+  {% else %}
+
     <h1>Register</h1>
 
     {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
+    {{ form_row(registrationForm.username) }}
+    {{ form_row(registrationForm.plainPassword, {
+      label: 'Password'
+    }) }}
 
-{#        <button type="submit" class="btn">Register</button>#}
+    {#        <button type="submit" class="btn">Register</button> #}
     {{ form_end(registrationForm) }}
+  {% endif %}
 {% endblock %}
