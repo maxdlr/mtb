@@ -30,10 +30,6 @@
     <section {{ stimulus_controller('modal-window') }}
       class="row row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 ">
 
-      {{ include('shared/modal/_modal-window.html.twig', {
-        modalID: 'postModal'
-      }) }}
-
       {% for post in owner.posts %}
 
         <article
