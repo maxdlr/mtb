@@ -1,0 +1,32 @@
+{% extends 'modal-base.html.twig' %}
+
+{% block modalID %}{{ modalID }}{% endblock %}
+{% block buttonLabel %}
+  {% if buttonLabel == 'add' %}
+    {{ addBtn|raw }}
+  {% else %}
+    {{ buttonLabel }}
+  {% endif %}
+{% endblock %}
+
+{% block modalTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block modalBody %}
+
+  {{ form_start(form) }}
+
+  {% for child in form %}
+    {% if 'submit' != child.vars.name %}
+      {{ form_row(child) }}
+    {% endif %}
+  {% endfor %}
+
+{% endblock %}
+
+ {% block submitButton %}
+   {{ form_row(form.submit) }}
+   {#   <button class="btn">{{ button_label|default('Save') }}</button> #}
+
+ {% endblock %}

@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class PromptFixtures extends Fixture implements DependentFixtureInterface
 {
-    public array $currentListFr = [
+    public array $twentyThreeListFr = [
         "Fluide",
         "Notification",
         "Géométrie",
@@ -44,8 +44,7 @@ class PromptFixtures extends Fixture implements DependentFixtureInterface
         "Aventure",
         "Haltères"
     ];
-
-    public array $currentListEn = [
+    public array $twentyThreeListEn = [
         "Fluid",
         "Notification",
         "Geometry",
@@ -78,22 +77,157 @@ class PromptFixtures extends Fixture implements DependentFixtureInterface
         "Adventure",
         "Dumbbells",
     ];
+    public array $twentyTwoListFr = [
+        'scalpel',
+        'boucle',
+        'Chenille',
+        'art Martial',
+        'velu',
+        'renard',
+        'galaxie',
+        'verticale',
+        'torche',
+        'vague',
+        'astronome',
+        'botanique',
+        'foudre',
+        'foulard',
+        'totem',
+        'invisible',
+        'plan',
+        'hallucination',
+        'ligne',
+        'chaud',
+        'petit',
+        'bar',
+        'colline',
+        'penché',
+        'laser',
+        'magicien',
+        'gros',
+        'reculer',
+        'fleur',
+        'lampe',
+        'extensible',
+    ];
+    public array $twentyTwoListEn = [
+        'scalpel',
+        'loop',
+        'caterpillar',
+        'martial art',
+        'hairy',
+        'fox',
+        'galaxy',
+        'vertical',
+        'torch',
+        'wave',
+        'astronomer',
+        'botanic',
+        'lightning',
+        'scarf',
+        'totem',
+        'invisible',
+        'plan',
+        'hallucination',
+        'line',
+        'hot',
+        'small',
+        'bar',
+        'hill',
+        'leaning',
+        'laser',
+        'wizard',
+        'fat',
+        'move back',
+        'flower',
+        'lamp',
+        'expandable',
+    ];
+    public array $twentyOneListFr = [
+        'rebond',
+        'etirement',
+        'roule',
+        'tir',
+        'retourne',
+        'vitesse',
+        'saut',
+        'bosse',
+        'courbe',
+        'colle',
+        'vole',
+        'fendre',
+        'jumeaux',
+        'torsion',
+        'gravité',
+        'volume',
+        'Evolue',
+        'Attire',
+        'tourner',
+        'ruse',
+        'marche',
+        'commence',
+        'soufle',
+        'espace',
+        'ride',
+        'tombe',
+        'glisse',
+        'plie',
+        'balance',
+        'tire',
+        'branche',
+    ];
+    public array $twentyOneListEn = [
+        'bounce',
+        'stretch',
+        'roll',
+        'shot',
+        'flip',
+        'speed',
+        'jump',
+        'bump',
+        'curve',
+        'stick',
+        'fly',
+        'slice',
+        'twin',
+        'twist',
+        'gravity',
+        'volume',
+        'evolve',
+        'attract',
+        'revolve',
+        'trick',
+        'walk',
+        'start',
+        'blow',
+        'space',
+        'ride',
+        'fall',
+        'slide',
+        'bend',
+        'swing',
+        'pull',
+        'plug',
+    ];
 
-    public function __construct(private ParameterBagInterface $params)
-    {
-        $this->params = $params;
-    }
 
     public function load(ObjectManager $manager): void
     {
-        for ($i = 0; $i <= 30; $i++)
-        {
-            $prompt = new Prompt();
-            $prompt->setNameFr($this->currentListFr[$i])
-                ->setNameEn($this->currentListEn[$i])
-                ->setDayNumber($i+1)
-                ->addPromptList($this->getReference('promptList_' . PromptListFixtures::PROMPTLISTS));
+        $listPrompts = [
+            ['fr' => $this->twentyOneListFr, 'en' => $this->twentyOneListEn],
+            ['fr' => $this->twentyTwoListFr, 'en' => $this->twentyTwoListEn],
+            ['fr' => $this->twentyThreeListFr, 'en' => $this->twentyThreeListEn],
+        ];
+
+        for ($y = 0; $y < count(PromptListFixtures::PROMPTLISTS); $y++) {
+            for ($i = 0; $i <= 30; $i++) {
+                $prompt = new Prompt();
+                $prompt->setNameFr($listPrompts[$y]['fr'][$i])
+                    ->setNameEn($listPrompts[$y]['en'][$i])
+                    ->setDayNumber($i + 1)
+                    ->addPromptList($this->getReference('promptList_' . PromptListFixtures::PROMPTLISTS[$y]));
                 $manager->persist($prompt);
+            }
         }
 
         $manager->flush();

@@ -3,11 +3,13 @@ $blue-color: #2a00ff;
 $yellow-color: #ffaa01;
 
 @import "~bootstrap/scss/bootstrap";
+@import "~bootstrap-icons/font/bootstrap-icons";
 @import "font/fonts.css";
 
 .title-font {
   font-family: 'Geomanist', serif;
 }
+
 .para-font {
   font-family: 'Geomanist Book', serif;
 }
@@ -15,9 +17,11 @@ $yellow-color: #ffaa01;
 .text-red {
   color: $red-color;
 }
+
 .text-blue {
   color: $blue-color;
 }
+
 .text-yellow {
   color: $yellow-color;
 }
@@ -34,12 +38,15 @@ $yellow-color: #ffaa01;
   &.text-red:hover {
     background-color: $red-color;
   }
+
   &.text-blue:hover {
     background-color: $blue-color;
   }
+
   &.text-yellow:hover {
     background-color: $yellow-color;
   }
+
   &:hover {
     color: white;
   }

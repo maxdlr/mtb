@@ -1,0 +1,28 @@
+<!-- Modal -->
+<div class="modal fade" id="{% block modalID %}{% endblock %}" tabindex="-1"
+     aria-labelledby="{{ block('modalID') }}Label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+
+      {% if block('modalTitle') %}
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="{{ block('modalID') }}Label">
+            {% block modalTitle %}{% endblock %}
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+      {% endif %}
+
+      <div class="modal-body container-fluid">
+        {% block modalBody %}{% endblock %}
+      </div>
+
+      {% if block('modalFooter') %}
+        <div class="modalFooter">
+          {% block modalFooter %}{% endblock %}
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</div>

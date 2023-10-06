@@ -33,17 +33,15 @@ class RegistrationController extends AbstractController
                 )
             )
                 ->setPage($page)
-                ->setRegistrationDate($now)
-            ;
+                ->setRegistrationDate($now);
 
             $entityManager->persist($user);
             $entityManager->flush();
             $this->addFlash('success', 'Compte créé.');
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_redirect_userlogger');
         }
-        $this->addFlash('danger', 'Erreur.');
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),

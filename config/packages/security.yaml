@@ -19,6 +19,7 @@ security:
             form_login:
                 login_path: app_login
                 check_path: app_login
+                default_target_path: app_redirect_userlogger
             json_login:
                 check_path: api_login
             logout:

@@ -38,6 +38,7 @@
         "symfony/string": "6.3.*",
         "symfony/translation": "6.3.*",
         "symfony/twig-bundle": "6.3.*",
+        "symfony/ux-autocomplete": "^2.12",
         "symfony/ux-dropzone": "^2.11",
         "symfony/ux-turbo": "^2.11",
         "symfony/ux-twig-component": "^2.11",
@@ -45,7 +46,9 @@
         "symfony/web-link": "6.3.*",
         "symfony/webpack-encore-bundle": "^2.0",
         "symfony/yaml": "6.3.*",
+        "twbs/bootstrap-icons": "^1.11",
         "twig/extra-bundle": "^2.12|^3.0",
+        "twig/intl-extra": "^3.7",
         "twig/twig": "^2.12|^3.0"
     },
     "config": {
@@ -92,7 +95,7 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
+            "allow-contrib": true,
             "require": "6.3.*"
         }
     },

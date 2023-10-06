@@ -1,0 +1,42 @@
+<div id="edit-post-title">
+  <h3>Modifie ton post</h3>
+  {% if post.prompt %}
+    <h6>Post du thème {{ post.prompt.nameFr|title }} de {{ post.user[0].username|title }}</h6>
+
+  {% endif %}
+</div>
+
+<div id="edit-post-body" data-id="{{ post.id }}" id="post-edit-{{ post.id }}">
+  <div class="row post-edit">
+    {% if post.prompt %}
+
+      <img src="{{ asset('images/posts/' ~ post.fileName) }}"
+           class="img-fluid m-0 p-0 col-4"
+           alt="Image animé de {{ post.user[0].username|title }} pour le thème {{ post.prompt.nameFr }}"
+      >
+    {% endif %}
+
+    <div class="col-8">
+      {{ form_start(form, {
+        'attr': {'id': 'editForm'}
+      }) }}
+      {{ form_row(form.post) }}
+    </div>
+  </div>
+
+  <p>{{ post.uploadedOn|date("d/m/Y") }} à {{ post.uploadedOn|date("h:i") }}</p>
+  {{ form_row(form.prompt) }}
+
+</div>
+
+<div id="edit-post-footer">
+  <div {{ stimulus_action('modal-window', 'submitForm', 'click') }} data-modal-window-postid-param="{{ post.id }}">
+    {{ form_row(form.submit) }}
+  </div>
+  {{ form_widget(form._token, {
+    'data-csrf-token': true,
+    'attr': {'id': 'editForm-token'}
+  }) }}
+  {{ form_end(form) }}
+</div>
+

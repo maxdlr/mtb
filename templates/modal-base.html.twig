@@ -1,0 +1,26 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+        data-bs-target="#{% block modalID %}{% endblock %}">
+  {% block buttonLabel %}{% endblock %}
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="{{ block('modalID') }}" tabindex="-1" aria-labelledby="{{ block('modalID') }}Label"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="{{ block('modalID') }}Label">
+          {% block modalTitle %}{% endblock %}
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {% block modalBody %}{% endblock %}
+      </div>
+      <div class="modal-footer">
+        {% block submitButton %}{% endblock %}
+      </div>
+    </div>
+  </div>
+</div>
