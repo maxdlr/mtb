@@ -14,12 +14,15 @@
         modalID: 'post-upload',
         title: 'Ajouter un post',
         buttonLabel: 'add',
-        form: postForm
+        form: newPostForm
       }) }}
-      {{ include('shared/buttons/_editButton.html.twig', {
-        route: 'app_user_editpage',
-        optionValue: owner.username
-      }) }}
+
+      {% if owner.posts|length > 0 %}
+        {{ include('shared/buttons/_editButton.html.twig', {
+          route: 'app_user_editpage',
+          optionValue: owner.username
+        }) }}
+      {% endif %}
 
 
     {% endif %}

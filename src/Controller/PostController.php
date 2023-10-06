@@ -78,7 +78,6 @@ class PostController extends AbstractController
                 $singlePost->setPrompt($form->get('prompt')->getData());
 
                 $singlePost->setFileName($newFilename);
-                $this->addFlash('success', 'posts uploadées');
                 $entityManager->persist($singlePost);
             }
         }

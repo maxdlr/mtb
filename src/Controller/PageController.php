@@ -10,6 +10,7 @@ use App\Form\PromptToPostType;
 use App\Repository\PromptRepository;
 use App\Repository\UserRepository;
 use App\Service\SecurityManager;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,20 +22,18 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\UX\Turbo\TurboBundle;
 
-
+#[Route('/u')]
 class PageController extends AbstractController
 {
-    public function __construct()
-    {
-    }
 
-    #[Route('/u/{username}', name: 'app_user_page', methods: ['GET', 'POST'])]
+    #[Route('/{username}', name: 'app_user_page', methods: ['GET', 'POST'])]
     public function index(
         UserRepository         $userRepository,
         string                 $username,
@@ -52,21 +51,22 @@ class PageController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        $postForm = $postController->new(
+        $newPostForm = $postController->new(
             $request,
             $entityManager,
             $userRepository,
             $slugger
         );
 
-        if ($postForm->isSubmitted() && $postForm->isValid() && $securityManager->userIs($owner)) {
+        if ($newPostForm->isSubmitted() && $newPostForm->isValid() && $securityManager->userIs($owner)) {
             $entityManager->flush();
+            $this->addFlash('success', 'posts uploadées');
             return $this->redirectToRoute('app_user_page', ['username' => $owner->getUsername()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('page/index.html.twig', [
             'owner' => $owner,
-            'postForm' => $postForm,
+            'newPostForm' => $newPostForm,
         ]);
     }
 
@@ -106,7 +106,9 @@ class PageController extends AbstractController
             $posts,
             $request,
             $entityManager,
-            $formFactory
+            $formFactory,
+            $slugger,
+            $owner
         );
 
         foreach ($formViewsAndPersistedForms['formViews'] as $form) {
@@ -119,6 +121,11 @@ class PageController extends AbstractController
                 $entityManager->flush();
                 return $this->redirectToRoute('app_user_editpage', ['username' => $username], Response::HTTP_SEE_OTHER);
             }
+        }
+
+        if (count($posts) < 1) {
+            $this->addFlash('danger', 'Aucun post a modifier !');
+            return $this->redirectToRoute('app_redirect_userlogger');
         }
 
 
@@ -137,7 +144,9 @@ class PageController extends AbstractController
         Collection             $posts,
         Request                $request,
         EntityManagerInterface $entityManager,
-        FormFactoryInterface   $formFactory
+        FormFactoryInterface   $formFactory,
+        SluggerInterface       $slugger,
+        User                   $owner,
     ): array
     {
         $formViews = [];
@@ -147,8 +156,42 @@ class PageController extends AbstractController
             $form = $formFactory->createNamed('post_' . $post->getId(), PostType::class, $post);
             $form->handleRequest($request);
             $formViews[] = $form->createView();
+            $now = new DateTimeImmutable();
 
             if ($form->isSubmitted() && $form->isValid()) {
+
+                // /** @var UploadedFile $imgFile */
+
+                $postFile = $form->get('post')->getData();
+
+                if ($postFile) {
+                    $originalFilename = pathinfo($postFile->getClientOriginalName(), PATHINFO_FILENAME);
+                    // this is needed to safely include the file name as part of the URL
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $postFile->guessExtension();
+
+                    // Move the file to the directory where imgs are stored
+                    try {
+                        $postFile->move(
+                            $this->getParameter('posts_directory'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        // ... handle exception if something happens during file upload
+                    }
+
+                    // updates the 'imgFilename' property to store the PDF file name
+                    // instead of its contents
+                    $singlePost = $post;
+
+                    $singlePost->setUploadedOn($now);
+                    $singlePost->setPrompt($form->get('prompt')->getData());
+                    $singlePost->addUser($owner);
+                    $singlePost->setFileName($newFilename);
+                    $this->addFlash('success', 'post uploadées');
+                    $entityManager->persist($singlePost);
+                }
+
                 $entityManager->persist($post);
                 $submittedForms[] = $form;
             }
