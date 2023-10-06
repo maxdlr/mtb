@@ -25,14 +25,6 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('/post')]
 class PostController extends AbstractController
 {
-    #[Route('/', name: 'app_post_index', methods: ['GET'])]
-    public function index(PostRepository $postRepository): Response
-    {
-        return $this->render('post/index.html.twig', [
-            'posts' => $postRepository->findAll(),
-        ]);
-    }
-
     #[Route('/new', name: 'app_post_new', methods: ['GET', 'POST'])]
     public function new(
         Request                $request,
@@ -82,33 +74,6 @@ class PostController extends AbstractController
             }
         }
         return $form;
-    }
-
-    #[Route('/{id}', name: 'app_post_show', methods: ['GET'])]
-    public function show(Post $post): Response
-    {
-        return $this->render('post/show.html.twig', [
-            'post' => $post,
-        ]);
-    }
-
-    #[Route('/{id}/edit', name: 'app_post_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Post $post, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(PostType::class, $post);
-        $form->handleRequest($request);
-        $post->setPrompt($form->get('prompt')->getData());
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('post/edit.html.twig', [
-            'post' => $post,
-            'form' => $form,
-        ]);
     }
 
     #[Route('/{id}', name: 'app_post_delete', methods: ['POST'])]
