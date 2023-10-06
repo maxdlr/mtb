@@ -19,6 +19,9 @@ class PostType extends AbstractType
         $builder
             ->add('post', DropzoneType::class, [
                 'label' => "40mo max 😭",
+                'attr' => [
+                    'placeholder' => 'Drop it likes it\'s hot'
+                ],
 
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
@@ -40,11 +43,8 @@ class PostType extends AbstractType
                     ])
                 ],
             ])
-            ->add('prompt', EntityType::class, [
-                'class' => Prompt::class,
-                'choice_label' => function (Prompt $prompt) {
-                    return $prompt->getDayNumber() . ' - ' . $prompt->getNameFr() . ' / ' . $prompt->getNameEn();
-                },
+            ->add('prompt', PromptAutocompleteField::class, [
+                'label' => false,
             ])
             ->add('submit', SubmitType::class);
     }

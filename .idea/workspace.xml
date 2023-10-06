@@ -5,72 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="345dd539-8329-4de7-a157-a91ba9050a9e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/controllers/submit-confirm_controller.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/shared/buttons/_deleteButton.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/shared/loaders/_spinner.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/mtb.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mtb.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/shared/buttons/_editButton.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/controllers.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/controllers.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/controllers/modal-window_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/controllers/modal-window_controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/01-bounce-sd-6516d47d65e33.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/03-roll-sd-6516d3c5735f7.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/03-roll-sd-6516e97a345ce.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/04-shot-SD-6516e97a35764.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/05-flip-sd-6516d38dc56c6.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/09-curve-SD-6516e97a36789.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/10-stick-sd-6516d65487869.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/11-fly-SD-6516d02b9915d.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/11-fly-SD-6516d035c4830.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/11-fly-SD-6516d03770c47.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/11-fly-SD-6516d04a61ac3.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/11-fly-SD-6516e97a37751.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/11-fly-SD-651abb88d234e.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/13-twin-sd-6516d02b9e45a.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/13-twin-sd-6516d035c88e2.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/13-twin-sd-6516d03773f26.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/13-twin-sd-6516d04a646fa.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/13-twin-sd-6516e97a38622.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/15-gravity-sd-6516d7b6c6e93.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/17-evolve-sd-6516d02b9fb1a.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/17-evolve-sd-6516d035ca047.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/17-evolve-sd-6516d037753de.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/17-evolve-sd-6516d04a65993.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/17-evolve-sd-6516d10903c18.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/17-evolve-sd-6516e97a39ca7.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/19-revolve-sd-6516e97a3ab0b.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/20-trick-sd-6516e97a3b7e9.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/21-walk-sd-6516d0bbeb7eb.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/21-walk-sd-6516e97a3c358.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/22-start-sd-6516e97a3d076.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/23-blow-sd-6516d638377e6.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/25-ride-sd-6516903e34291.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/25-ride-sd-6516e97a3dd4b.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/27-slide-sd-651abacbd8096.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/29-swing-sd-6516903e3cd08.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/posts/29-swing-sd-6516e2bc81aa6.gif" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/PageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PostController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/RegistrationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RegistrationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Post.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/EditPostType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PromptToPostType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Form/PostType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PostType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/PromptAutocompleteField.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PromptAutocompleteField.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/login/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/modal-window-base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/modal-window-base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/page/_edit-post.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/_edit-post.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/page/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/edit.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/page/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/post/_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/post/_form.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/post/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/post/edit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registration/register.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/register.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/shared/buttons/_deleteButton.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/shared/buttons/_deleteButton.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/shared/modal/_crud-modal.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/shared/modal/_crud-modal.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/shared/modal/_modal-btn.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/shared/modal/_modal-btn.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/shared/modal/_modal-post.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/shared/modal/_modal-window.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -270,7 +212,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "create-post",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "/Users/maxdlr/Documents/GitHub/mtb",
+    "last_opened_file_path": "C:/Users/maxro/Documents/mtb/templates/shared/buttons",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -283,6 +225,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\maxro\Documents\mtb\templates\shared\buttons" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/templates/admin/prompt" />
       <recent name="C:\Users\maxro\Documents\mtb" />

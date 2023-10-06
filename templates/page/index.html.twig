@@ -16,6 +16,11 @@
         buttonLabel: 'add',
         form: postForm
       }) }}
+      {{ include('shared/buttons/_editButton.html.twig', {
+        route: 'app_user_editpage',
+        optionValue: owner.username
+      }) }}
+
 
     {% endif %}
 
@@ -39,19 +44,7 @@
             </div>
             {% if app.user == owner %}
               <div class="card-group d-flex justify-content-center">
-                {{ include('shared/buttons/_deleteButton.html.twig', {route: 'app_post_delete', item: post}) }}
-
-
-                <button
-                  class="btn btn-outline-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#postModal"
-                  {{ stimulus_action('modal-window', 'editPost', 'click') }}
-                  data-modal-window-postid-param="{{ post.id }}"
-                  id="post-editBtn-{{ post.id }}"
-                >
-                  {{ editBtn|raw }}
-                </button>
+                {{ include('shared/buttons/_deleteButton.html.twig', {route: 'app_post_delete', itemId: post.id}) }}
 
 
               </div>
@@ -65,10 +58,6 @@
             type="button"
           >
             <img
-              {{ stimulus_action('modal-window', 'showPost', 'click') }}
-              {{ stimulus_target('modal-window', 'listItemImg') }}
-              data-modal-window-postfilename-param="{{ asset('images/posts/' ~ post.fileName) }}"
-              data-modal-window-postid-param="{{ post.id }}"
               src="{{ asset('images/posts/' ~ post.fileName) }}"
               class="post-img img-fluid p-2 m-0"
               id="post-img-{{ post.id }}"
