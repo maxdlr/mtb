@@ -1,0 +1,33 @@
+<div {{ attributes }}>
+    <div class="text-center w-100">
+        <input
+                type="search"
+                data-model="query"
+                placeholder="Cherche n'importe quoi..."
+                class="w-25"
+        >
+    </div>
+
+    {% if computed.posts|length > 0 %}
+        <div
+                data-loading="addClass(opacity-50)"
+                class="row row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 "
+        >
+            {% for post in computed.posts %}
+                <div>
+
+                    <p class="text-center m-0">{{ post.prompt.nameFr|title }} de {{ post.user[0].username|title }}</p>
+                    {# TODO: posts might have more than one author #}
+                    <img
+                            src="{{ asset('images/posts/' ~ post.fileName) }}"
+                            class="post-img img-fluid p-2 m-0"
+                            id="post-img-{{ post.id }}"
+                            alt="Gif animé - {{ post.prompt.nameFr|title }} de {{ post.user[0].username|title }}"
+                    >
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="pt-3">Ah! No packages found matching "{{ query }}"</div>
+    {% endif %}
+</div>

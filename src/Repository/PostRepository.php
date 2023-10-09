@@ -38,28 +38,35 @@ class PostRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-//    /**
-//     * @return Post[] Returns an array of Post objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
 
-//    public function findOneBySomeField($value): ?Post
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    /**
+     * @return Post[] Returns an array of Post objects
+     */
+    public function findByQuery($value, $limit): array
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.prompt', 'pr')
+            ->leftJoin('p.user', 'u')
+            ->innerJoin('pr.promptList', 'prl')
+            ->where('pr.name_fr LIKE :val')
+            ->orWhere('pr.name_en LIKE :val')
+            ->orWhere('pr.dayNumber LIKE :val')
+            ->orWhere('u.username LIKE :val')
+            ->orWhere('prl.year LIKE :val')
+            ->setParameter('val', '%' . $value . '%')
+            ->orderBy('pr.dayNumber', 'ASC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    //    public function findOneBySomeField($value): ?Post
+    //    {
+    //        return $this->createQueryBuilder('p')
+    //            ->andWhere('p.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }
