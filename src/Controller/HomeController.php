@@ -12,7 +12,8 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(PromptListRepository $promptListRepository): Response
     {
-        $currentList = $promptListRepository->findOneBy(['year' => '2023']);
+        $now = new \DateTimeImmutable();
+        $currentList = $promptListRepository->findOneBy(['year' => $now->format('Y')]);
 
         return $this->render('home/index.html.twig', [
             'currentList' => $currentList,

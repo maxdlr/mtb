@@ -13,25 +13,25 @@
         </header>
         <section>
             <h2 class="text-center title-font fs-1 text-red">
-            {{ currentList.year }}
+                {{ currentList.year }}
             </h2>
             <div class="line-divider my-3"></div>
             <table class="m-auto">
                 <thead>
-                    <tr class="title-font">
-                        <th class="px-5 rounded-start-pill py-2">#</th>
-                        <th>Français</th>
-                        <th class="px-5 rounded-end-pill py-2">English</th>
-                    </tr>
+                <tr class="title-font">
+                    <th class="px-5 rounded-start-pill py-2">#</th>
+                    <th>Français</th>
+                    <th class="px-5 rounded-end-pill py-2">English</th>
+                </tr>
                 </thead>
                 <tbody>
+
                 {% for prompt in currentList.prompts %}
 
-                    <tr class="{% if loop.index0 % 3 == 0 %}text-red{% elseif loop.index % 3 == 0 %}text-blue{% else %}text-yellow{% endif %}
-                            para-font prompt-list-item">
+                    <tr class="{% if loop.index0 % 3 == 0 %}text-red{% elseif loop.index % 3 == 0 %}text-blue{% else %}text-yellow{% endif %} para-font prompt-list-item">
                         <td class="px-5 rounded-start-pill py-1">{{ prompt.dayNumber }}</td>
-                        <td>{{ prompt.nameFr | title}}</td>
-                        <td class="px-5 rounded-end-pill py-1">{{ prompt.nameEn | title}}</td>
+                        <td>{{ prompt.nameFr | title }}</td>
+                        <td class="px-5 rounded-end-pill py-1">{{ prompt.nameEn | title }}</td>
                     </tr>
 
                 {% endfor %}
