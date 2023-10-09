@@ -54,8 +54,8 @@ class PageController extends AbstractController
         $newPostForm = $postController->new(
             $request,
             $entityManager,
-            $userRepository,
-            $slugger
+            $slugger,
+            $owner
         );
 
         if ($newPostForm->isSubmitted() && $newPostForm->isValid() && $securityManager->userIs($owner)) {
@@ -98,8 +98,8 @@ class PageController extends AbstractController
         $newPostForm = $postController->new(
             $request,
             $entityManager,
-            $userRepository,
-            $slugger
+            $slugger,
+            $owner
         );
 
         $formViewsAndPersistedForms = $this->persistAllPosts(

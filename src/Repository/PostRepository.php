@@ -46,9 +46,13 @@ class PostRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->leftJoin('p.prompt', 'pr')
-            ->andWhere('pr.name_fr LIKE :val')
+            ->leftJoin('p.user', 'u')
+            ->innerJoin('pr.promptList', 'prl')
+            ->where('pr.name_fr LIKE :val')
             ->orWhere('pr.name_en LIKE :val')
             ->orWhere('pr.dayNumber LIKE :val')
+            ->orWhere('u.username LIKE :val')
+            ->orWhere('prl.year LIKE :val')
             ->setParameter('val', '%' . $value . '%')
             ->orderBy('pr.dayNumber', 'ASC')
             ->setMaxResults($limit)
@@ -56,13 +60,13 @@ class PostRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-//    public function findOneBySomeField($value): ?Post
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    public function findOneBySomeField($value): ?Post
+    //    {
+    //        return $this->createQueryBuilder('p')
+    //            ->andWhere('p.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }

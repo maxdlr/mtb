@@ -19,7 +19,7 @@ class Prompt
     private ?string $name_fr = null;
 
     #[ORM\ManyToMany(targetEntity: PromptList::class, inversedBy: 'prompts')]
-    private Collection $prompt_list;
+    private Collection $promptList;
 
     #[ORM\Column(length: 255)]
     private ?string $name_en = null;
@@ -32,7 +32,7 @@ class Prompt
 
     public function __construct()
     {
-        $this->prompt_list = new ArrayCollection();
+        $this->promptList = new ArrayCollection();
         $this->posts = new ArrayCollection();
     }
 
@@ -58,13 +58,13 @@ class Prompt
      */
     public function getPromptList(): Collection
     {
-        return $this->prompt_list;
+        return $this->promptList;
     }
 
     public function addPromptList(PromptList $promptList): static
     {
-        if (!$this->prompt_list->contains($promptList)) {
-            $this->prompt_list->add($promptList);
+        if (!$this->promptList->contains($promptList)) {
+            $this->promptList->add($promptList);
         }
 
         return $this;
@@ -72,7 +72,7 @@ class Prompt
 
     public function removePromptList(PromptList $promptList): static
     {
-        $this->prompt_list->removeElement($promptList);
+        $this->promptList->removeElement($promptList);
 
         return $this;
     }
