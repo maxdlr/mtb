@@ -40,6 +40,7 @@
         "symfony/twig-bundle": "6.3.*",
         "symfony/ux-autocomplete": "^2.12",
         "symfony/ux-dropzone": "^2.11",
+        "symfony/ux-live-component": "^2.12",
         "symfony/ux-turbo": "^2.11",
         "symfony/ux-twig-component": "^2.11",
         "symfony/validator": "6.3.*",
