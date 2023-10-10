@@ -11,25 +11,44 @@ use Symfony\Component\Validator\Constraints\DateTime;
 
 class UserFixtures extends Fixture
 {
-    public function __construct(private UserPasswordHasherInterface $userPasswordHasher){}
+    public const USERNAMES = [
+        'maxdlr',
+        'augusta',
+        'joachim',
+        'polygone',
+        'pepper'
+    ];
+
+    public function __construct(private readonly UserPasswordHasherInterface $userPasswordHasher)
+    {
+    }
 
     public function load(ObjectManager $manager): void
     {
-        $now = new \DateTimeImmutable();
-        $user = new User();
-        $page = new Page();
+        foreach (self::USERNAMES as $username) {
+            $now = new \DateTimeImmutable();
+            $user = new User();
+            $page = new Page();
 
-        $user->setUsername('maxdlr')
-        ->setPassword($this->userPasswordHasher->hashPassword(
-            $user,
-            'password'
-        ))
-            ->setRoles(['ROLE_ADMIN'])
-            ->setPage($page)
-            ->setRegistrationDate($now)
-        ;
+            $user->setUsername($username)
+                ->setPassword($this->userPasswordHasher->hashPassword(
+                    $user,
+                    'password'
+                ))
+                ->setPage($page)
+                ->setRegistrationDate($now);
 
-        $manager->persist($user);
+            if ($username === 'maxdlr') {
+                $user->setRoles(['ROLE_ADMIN']);
+            } else {
+                $user->setRoles(['ROLE_USER']);
+            }
+            $this->addReference('user_' . $username, $user);
+
+            $manager->persist($user);
+        }
+
+
         $manager->flush();
     }
 }
