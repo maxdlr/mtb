@@ -3,11 +3,9 @@
 namespace App\DataFixtures;
 
 use App\Entity\Prompt;
-use App\Entity\PromptList;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class PromptFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -209,23 +207,27 @@ class PromptFixtures extends Fixture implements DependentFixtureInterface
         'pull',
         'plug',
     ];
+    public array $listPrompts;
 
+    public function __construct()
+    {
+        $this->listPrompts = [
+            ['fr' => $this->twentyOneListFr, 'en' => $this->twentyOneListEn],
+            ['fr' => $this->twentyTwoListFr, 'en' => $this->twentyTwoListEn],
+            ['fr' => $this->twentyThreeListFr, 'en' => $this->twentyThreeListEn]
+        ];
+    }
 
     public function load(ObjectManager $manager): void
     {
-        $listPrompts = [
-            ['fr' => $this->twentyOneListFr, 'en' => $this->twentyOneListEn],
-            ['fr' => $this->twentyTwoListFr, 'en' => $this->twentyTwoListEn],
-            ['fr' => $this->twentyThreeListFr, 'en' => $this->twentyThreeListEn],
-        ];
-
         for ($y = 0; $y < count(PromptListFixtures::PROMPTLISTS); $y++) {
             for ($i = 0; $i <= 30; $i++) {
                 $prompt = new Prompt();
-                $prompt->setNameFr($listPrompts[$y]['fr'][$i])
-                    ->setNameEn($listPrompts[$y]['en'][$i])
+                $prompt->setNameFr($this->listPrompts[$y]['fr'][$i])
+                    ->setNameEn($this->listPrompts[$y]['en'][$i])
                     ->setDayNumber($i + 1)
                     ->addPromptList($this->getReference('promptList_' . PromptListFixtures::PROMPTLISTS[$y]));
+                $this->addReference('prompt_' . $this->listPrompts[$y]['fr'][$i], $prompt);
                 $manager->persist($prompt);
             }
         }
