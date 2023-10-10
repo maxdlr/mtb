@@ -7,7 +7,6 @@ use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 class UserFixtures extends Fixture
 {
@@ -47,7 +46,6 @@ class UserFixtures extends Fixture
 
             $manager->persist($user);
         }
-
 
         $manager->flush();
     }

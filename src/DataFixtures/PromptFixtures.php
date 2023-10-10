@@ -3,11 +3,9 @@
 namespace App\DataFixtures;
 
 use App\Entity\Prompt;
-use App\Entity\PromptList;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class PromptFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -222,12 +220,6 @@ class PromptFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-        // $listPrompts = [
-        //     ['fr' => $this->twentyOneListFr, 'en' => $this->twentyOneListEn],
-        //     ['fr' => $this->twentyTwoListFr, 'en' => $this->twentyTwoListEn],
-        //     ['fr' => $this->twentyThreeListFr, 'en' => $this->twentyThreeListEn],
-        // ];
-
         for ($y = 0; $y < count(PromptListFixtures::PROMPTLISTS); $y++) {
             for ($i = 0; $i <= 30; $i++) {
                 $prompt = new Prompt();

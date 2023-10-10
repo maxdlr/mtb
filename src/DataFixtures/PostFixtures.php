@@ -3,7 +3,6 @@
 namespace App\DataFixtures;
 
 use App\Entity\Post;
-use App\Repository\PromptRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
