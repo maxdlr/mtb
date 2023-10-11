@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Entity\User;
 use App\Form\PostType;
+use App\Repository\UserRepository;
 use App\Service\SecurityManager;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
@@ -71,17 +72,18 @@ class PostController extends AbstractController
         Request                $request,
         Post                   $post,
         EntityManagerInterface $entityManager,
-        SecurityManager        $securityManager
+        SecurityManager        $securityManager,
+        UserRepository         $userRepository,
     ): Response
     {
-        $owner = $post->getUser()->get(0);
+        $owner = $userRepository->findOneBy(['username' => $this->getUser()->getUserIdentifier()]);
 
-        if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->request->get('_token')) && $securityManager->isOwnerPost($post)) {
+        if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->request->get('_token'))) {
             $entityManager->remove($post);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_user_page', ['username' => $owner->getUsername()], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_user_page', ['username' => $owner->getUserIdentifier()], Response::HTTP_SEE_OTHER);
     }
 
 }

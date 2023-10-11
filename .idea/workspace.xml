@@ -4,7 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="345dd539-8329-4de7-a157-a91ba9050a9e" name="Changes" comment="" />
+    <list default="true" id="345dd539-8329-4de7-a157-a91ba9050a9e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/controllers/search_controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/home/_list.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/shared/post/_gallery.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/shared/post/_thumbnail.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/PostSearch.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/PostSearchByQuery.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/PageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PageController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PostController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SearchController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SearchController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/PostRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/PostRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/PromptRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/PromptRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/SecurityManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/SecurityManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/PostSearch.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/PostSearchByQuery.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/page/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/edit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/page/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/search/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/search/index.html.twig" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -182,6 +202,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/ux-autocomplete" />
       <path value="$PROJECT_DIR$/vendor/twig/intl-extra" />
       <path value="$PROJECT_DIR$/vendor/symfony/ux-live-component" />
+      <path value="$PROJECT_DIR$/vendor/fakerphp/faker" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -201,9 +222,9 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "fixtures--dummies",
+    "git-widget-placeholder": "feature--posts-from-prompt",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/maxro/Documents/mtb/src/EventListener",
+    "last_opened_file_path": "/Users/maxdlr/Documents/GitHub/mtb/assets/controllers",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -217,11 +238,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/controllers" />
       <recent name="C:\Users\maxro\Documents\mtb\src\EventListener" />
       <recent name="C:\Users\maxro\Documents\mtb\templates\shared\buttons" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/templates/admin/prompt" />
-      <recent name="C:\Users\maxro\Documents\mtb" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\maxro\Documents\mtb\templates\shared\modal" />
@@ -256,6 +277,7 @@
       <workItem from="1694772751317" duration="527000" />
       <workItem from="1695030083178" duration="10635000" />
       <workItem from="1695627353066" duration="588000" />
+      <workItem from="1696937253915" duration="34340000" />
     </task>
     <servers />
   </component>

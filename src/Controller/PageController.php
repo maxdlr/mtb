@@ -2,12 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Post;
 use App\Entity\User;
-use App\Form\AllPostsType;
 use App\Form\PostType;
-use App\Form\PromptToPostType;
-use App\Repository\PromptRepository;
+use App\Repository\PostRepository;
+use App\Repository\PromptListRepository;
 use App\Repository\UserRepository;
 use App\Service\SecurityManager;
 use DateTimeImmutable;
@@ -15,19 +13,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\UX\Turbo\TurboBundle;
 
 #[Route('/u')]
 class PageController extends AbstractController
@@ -41,10 +33,14 @@ class PageController extends AbstractController
         PostController         $postController,
         EntityManagerInterface $entityManager,
         SluggerInterface       $slugger,
-        SecurityManager        $securityManager
+        SecurityManager        $securityManager,
+        PostRepository         $postRepository,
+        PromptListRepository   $promptListRepository
     ): Response
     {
         $owner = $userRepository->findOneBy(['username' => $username]);
+        $promptLists = $promptListRepository->findAll();
+        $posts = $postRepository->findAllByUser($username);
 
         if (!$owner) {
             $this->addFlash('danger', 'Page inexistante');
@@ -65,6 +61,8 @@ class PageController extends AbstractController
         }
 
         return $this->render('page/index.html.twig', [
+            'promptLists' => $promptLists,
+            'posts' => $posts,
             'owner' => $owner,
             'newPostForm' => $newPostForm,
         ]);
@@ -136,7 +134,8 @@ class PageController extends AbstractController
                 'newPostForm' => $newPostForm
             ]);
         } else {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('danger', 'Tu ne peux pas modifier les posts qui ne sont pas à toi !');
+            return $this->redirectToRoute('app_user_page', ['username' => $owner->getUsername()]);
         }
     }
 

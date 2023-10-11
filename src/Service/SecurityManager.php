@@ -9,28 +9,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class SecurityManager extends AbstractController
 {
     public function userIs(
-        User $owner,
+        User $userToCheck,
     ): bool
     {
-        $user = $this->getUser();
-
-        if ($user && $user === $owner) {
-            return true;
-        } else {
-            throw $this->createAccessDeniedException();
-        }
+        return $this->getUser() === $userToCheck;
     }
 
-    public function isOwnerPost(
-        Post $post
+    public function ownerOf(
+        User $user,
+        Post $post,
     ): bool
     {
-        $user = $this->getUser();
-
-        if ($user && $post->getUser()->get(0) !== $user) {
-            throw $this->createAccessDeniedException();
-        } else {
-            return true;
-        }
+        return in_array($user, (array)$post->getUser());
     }
 }

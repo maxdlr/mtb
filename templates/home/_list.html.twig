@@ -1,0 +1,45 @@
+<div {{ stimulus_controller('search') }}>
+    <h2 class="text-center title-font fs-1 text-red">
+        {{ currentList }}
+    </h2>
+    <div class="line-divider my-3"></div>
+
+    {% if app.current_route_parameters is not empty %}
+        <a href="/">
+            clear
+        </a>
+    {% endif %}
+
+    <article class="">
+        <ul class="list-unstyled">
+            {% for prompt in currentPrompts %}
+                <li
+                        class="row row-cols-2 text-nowrap {% if loop.index0 % 3 == 0 %}text-red{% elseif loop.index % 3 == 0 %}text-blue{% else %}text-yellow{% endif %} para-font prompt-list-item py-1">
+                    <a
+                            href="{{ path('app_home_search_by_prompt', {promptName: prompt.nameEn}) }}"
+                            class="link-offset-2 link-underline link-underline-opacity-0"
+                    >
+
+                    <span class="">#
+                        {% if prompt.dayNumber|length < 2 %}
+                            0{{ prompt.dayNumber }}
+                        {% else %}
+                            {{ prompt.dayNumber }}
+                        {% endif %}
+                        <i class="bi bi-arrow-right-short"></i>
+                    </span>
+
+                        <span>
+                            {{ prompt.nameFr }}
+                            <i class="bi bi-slash"></i>
+                            {{ prompt.nameEn }}
+                        </span>
+                    </a>
+
+
+                </li>
+            {% endfor %}
+        </ul>
+
+    </article>
+</div>

@@ -3,41 +3,29 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-    <main class="container">
-        <header class="row">
-            <img
-                    src="{{ asset('build/images/ombrages.png') }}"
-                    alt="Logo du Motiontober"
-                    class="img-fluid col-6 mx-auto mt-3"
-            >
-        </header>
-        <section>
-            <h2 class="text-center title-font fs-1 text-red">
-                {{ currentList.year }}
-            </h2>
-            <div class="line-divider my-3"></div>
-            <table class="m-auto">
-                <thead>
-                <tr class="title-font">
-                    <th class="px-5 rounded-start-pill py-2">#</th>
-                    <th>Français</th>
-                    <th class="px-5 rounded-end-pill py-2">English</th>
-                </tr>
-                </thead>
-                <tbody>
+    <main class="container row">
+        {#        LEFT BAR ----------------------------------------- -#}
+        <section class="col">
+            {# <header class="row">
+                <img
+                        src="{{ asset('build/images/Logo_MTB.png') }}"
+                        alt="Logo du Motiontober"
+                        class="img-fluid mx-auto mt-3"
+                >
+            </header> #}
+            {% include('home/_list.html.twig') %}
+        </section>
+        {#        END LEFT BAR ------------------------------------- -#}
+        {#        CENTER BAR --------------------------------------- -#}
+        <section class="col">
 
-                {% for prompt in currentList.prompts %}
+            <div>
 
-                    <tr class="{% if loop.index0 % 3 == 0 %}text-red{% elseif loop.index % 3 == 0 %}text-blue{% else %}text-yellow{% endif %} para-font prompt-list-item">
-                        <td class="px-5 rounded-start-pill py-1">{{ prompt.dayNumber }}</td>
-                        <td>{{ prompt.nameFr | title }}</td>
-                        <td class="px-5 rounded-end-pill py-1">{{ prompt.nameEn | title }}</td>
-                    </tr>
+                {{ include('shared/post/_gallery.html.twig', { posts: currentPosts }) }}
 
-                {% endfor %}
+            </div>
 
-                </tbody>
-            </table>
+
         </section>
     </main>
 {% endblock %}
