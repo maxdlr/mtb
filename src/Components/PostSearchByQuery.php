@@ -3,14 +3,13 @@
 namespace App\Components;
 
 use App\Repository\PostRepository;
-use App\Repository\PromptRepository;
 use Doctrine\Common\Collections\Collection;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
 #[AsLiveComponent]
-class PostSearch
+class PostSearchByQuery
 {
     use DefaultActionTrait;
 
@@ -20,8 +19,7 @@ class PostSearch
     public Collection $posts;
 
     public function __construct(
-        private readonly PostRepository   $postRepository,
-        private readonly PromptRepository $promptRepository,
+        private readonly PostRepository $postRepository,
     )
     {
     }

@@ -45,6 +45,7 @@ class PostRepository extends ServiceEntityRepository
     public function findByQuery($value, $limit): array
     {
         return $this->createQueryBuilder('p')
+            ->select('pr.name_fr as promptNameFr, u.username as owner, p.fileName, p.id')
             ->leftJoin('p.prompt', 'pr')
             ->leftJoin('p.user', 'u')
             ->innerJoin('pr.promptList', 'prl')
@@ -60,13 +61,35 @@ class PostRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    //    public function findOneBySomeField($value): ?Post
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findAllBy(string $where, string $value): array
+    {
+        $now = new \DateTimeImmutable();
+
+        return $this->createQueryBuilder('post')
+            ->select('post.fileName, user.username as owner, prompt.dayNumber, prompt.name_fr as promptNameFr, promptList.year as promptListYear, post.id')
+            ->leftJoin('post.prompt', 'prompt')
+            ->leftJoin('prompt.promptList', 'promptList')
+            ->leftJoin('post.user', 'user')
+            ->where($where . ' = :val')
+            ->setParameter('val', $value)
+            ->orderBy('prompt.dayNumber')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllByUserAndYear($userUsername, $year)
+    {
+        return $this->createQueryBuilder('post')
+            ->select('post.id, post.fileName, user.username as owner, prompt.dayNumber, prompt.name_fr as promptNameFr, promptList.year as promptListYear')
+            ->leftJoin('post.prompt', 'prompt')
+            ->leftJoin('prompt.promptList', 'promptList')
+            ->leftJoin('post.user', 'user')
+            ->where('user.username = :val')
+            ->andWhere('promptList.year = :val2')
+            ->setParameter('val', $userUsername)
+            ->setParameter('val2', $year)
+            ->orderBy('prompt.dayNumber')
+            ->getQuery()
+            ->getResult();
+    }
 }

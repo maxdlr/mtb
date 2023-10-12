@@ -4,33 +4,22 @@ namespace App\Service;
 
 use App\Entity\Post;
 use App\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class SecurityManager extends AbstractController
+class SecurityManager
 {
-    public function userIs(
+    public function userIsOwner(
+        User $thisUser,
         User $owner,
     ): bool
     {
-        $user = $this->getUser();
-
-        if ($user && $user === $owner) {
-            return true;
-        } else {
-            throw $this->createAccessDeniedException();
-        }
+        return $thisUser === $owner;
     }
 
-    public function isOwnerPost(
-        Post $post
+    public function isOwnerOfPost(
+        User $user,
+        Post $post,
     ): bool
     {
-        $user = $this->getUser();
-
-        if ($user && $post->getUser()->get(0) !== $user) {
-            throw $this->createAccessDeniedException();
-        } else {
-            return true;
-        }
+        return in_array($user, (array)$post->getUser());
     }
 }

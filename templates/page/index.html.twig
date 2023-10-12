@@ -2,14 +2,12 @@
 
 {% block title %}Page de {{ owner.username |title }}{% endblock %}
 
-{# TODO: work on upload and post requests max sizes #}
-
 {% block body %}
 
     <main class="container-md">
 
         <h1>Page de {{ owner.username |title }}</h1>
-
+        {# todo: show upload progress bar #}
         {% if app.user == owner %}
             {{ include('shared/modal/_crud-modal.html.twig', {
                 modalID: 'post-upload',
@@ -18,59 +16,66 @@
                 form: newPostForm
             }) }}
 
-            {% if owner.posts|length > 0 %}
+            {% if posts|length > 0 %}
                 {{ include('shared/buttons/_editButton.html.twig', {
-                    route: 'app_user_editpage',
+                    route: 'app_user_page_edit',
                     optionValue: owner.username
                 }) }}
             {% endif %}
 
-
         {% endif %}
 
-        <section {{ stimulus_controller('modal-window') }}
-                class="row row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 ">
 
-            {% for post in owner.posts %}
+        {% for promptList in promptLists %}
 
-                <article
-                        class="card p-0 m-0"
-                        {{ stimulus_target('modal-window', 'listItem') }}
-                        id="{{ post.id }}"
-                >
-                    <div class="card-header d-flex justify-content-between">
-                        <div class="card-title">
-                            Octobre {{ post.prompt.promptList[0].year }} -- {{ post.prompt.dayNumber }}
-                            - {{ post.prompt.nameFr }}
-                        </div>
-                        {% if app.user == owner %}
-                            <div class="card-group d-flex justify-content-center">
-                                {{ include('shared/buttons/_deleteButton.html.twig', {route: 'app_post_delete', itemId: post.id}) }}
+            <section class="my-3">
 
+                <h2>{{ promptList.year }}</h2>
+                <div
+                        class="row row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 ">
 
-                            </div>
+                    {% for post in posts %}
+
+                        {% if post['promptListYear'] == promptList.year %}
+
+                            <article
+                                    class="card p-0 m-0"
+                                    id="{{ post['id'] }}"
+                            >
+                                <div class="card-header d-flex justify-content-between">
+                                    <div class="card-title">
+                                        {{ post['promptListYear'] }} -- {{ post['dayNumber'] }}
+                                        - {{ post['promptNameFr']|title }}
+                                    </div>
+
+                                    {% if app.user == owner %}
+                                        <div class="card-group d-flex justify-content-center">
+                                            {{ include('shared/buttons/_deleteButton.html.twig', {route: 'app_post_delete', itemId: post['id']}) }}
+                                        </div>
+                                    {% endif %}
+
+                                </div>
+                                <div
+                                        class="p-0 m-0 card-body gallery-card rounded-3"
+                                >
+                                    {# <img
+                                            src="{{ asset('images/posts/' ~ post['fileName']) }}"
+                                            class="post-img img-fluid p-2 m-0"
+                                            id="post-img-{{ post['id'] }}"
+                                            alt="Image animé de {{ post['owner']|title }} pour le thème {{ post['promptNameFr']|title }}"
+                                    > #}
+                                </div>
+                            </article>
+
                         {% endif %}
 
-                    </div>
-                    <div
-                            data-bs-toggle="modal"
-                            data-bs-target="#postModal"
-                            class="p-0 m-0 card-body gallery-card rounded-3"
-                            type="button"
-                    >
-                        <img
-                                src="{{ asset('images/posts/' ~ post.fileName) }}"
-                                class="post-img img-fluid p-2 m-0"
-                                id="post-img-{{ post.id }}"
-                                alt="Image animé de {{ owner.username }} pour le thème {{ post.prompt.nameFr }}"
-                        >
-                    </div>
-                </article>
+                    {% else %}
+                        <h4>Pas encore de posts</h4>
+                    {% endfor %}
+                </div>
+            </section>
+        {% endfor %}
 
-            {% else %}
-                <h4>Pas encore de posts</h4>
-            {% endfor %}
-        </section>
 
     </main>
 {% endblock %}
