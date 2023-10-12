@@ -2,20 +2,16 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Form\PostType;
 use App\Repository\PostRepository;
 use App\Repository\PromptListRepository;
 use App\Repository\UserRepository;
+use App\Service\DataManager;
+use App\Service\PostManager;
 use App\Service\SecurityManager;
-use DateTimeImmutable;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +26,7 @@ class PageController extends AbstractController
         UserRepository         $userRepository,
         string                 $username,
         Request                $request,
-        PostController         $postController,
+        PostManager            $postManager,
         EntityManagerInterface $entityManager,
         SluggerInterface       $slugger,
         SecurityManager        $securityManager,
@@ -39,6 +35,7 @@ class PageController extends AbstractController
     ): Response
     {
         $owner = $userRepository->findOneBy(['username' => $username]);
+        $user = $userRepository->findOneBy(['username' => $this->getUser()->getUserIdentifier()]);
         $promptLists = $promptListRepository->findAll();
         $posts = $postRepository->findAllByUser($username);
 
@@ -47,14 +44,14 @@ class PageController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        $newPostForm = $postController->new(
+        $newPostForm = $postManager->new(
             $request,
             $entityManager,
             $slugger,
             $owner
         );
 
-        if ($newPostForm->isSubmitted() && $newPostForm->isValid() && $securityManager->userIs($owner)) {
+        if ($newPostForm->isSubmitted() && $newPostForm->isValid() && $securityManager->userIsOwner($user, $owner)) {
             $entityManager->flush();
             $this->addFlash('success', 'posts uploadées');
             return $this->redirectToRoute('app_user_page', ['username' => $owner->getUsername()], Response::HTTP_SEE_OTHER);
@@ -71,63 +68,38 @@ class PageController extends AbstractController
     /**
      * @throws Exception
      */
-    #[Route('/{username}/edit', name: 'app_user_editpage', methods: ['GET', 'POST'])]
-    public function editPosts(
+    #[Route('/{username}/edit', name: 'app_user_page_edit', methods: ['GET', 'POST'])]
+    public function edit(
         UserRepository         $userRepository,
         string                 $username,
         SecurityManager        $securityManager,
         Request                $request,
         EntityManagerInterface $entityManager,
         FormFactoryInterface   $formFactory,
-        PostController         $postController,
+        PostManager            $postManager,
         SluggerInterface       $slugger,
+        DataManager            $dataManager
     ): Response|array
     {
+        $user = $userRepository->findOneBy(['username' => $this->getUser()->getUserIdentifier()]);
         $owner = $userRepository->findOneBy(['username' => $username]);
-        $posts = $owner->getPosts();
-        $iterator = $posts->getIterator();
-        $iterator->uasort(function ($a, $b) {
-            return ($a->getPrompt()->getDayNumber() < $b->getPrompt()->getDayNumber()) ? -1 : 1;
-        });
+        $posts = $dataManager->sortPostsByDayNumber($owner->getPosts());
 
-        $posts = new ArrayCollection(iterator_to_array($iterator));
-        $forms = [];
+        $newPostForm = $postManager->new($request, $entityManager, $slugger, $owner);
+        $editPostForms = $postManager->createEditPostsForms($posts, $request, $entityManager, $formFactory, $slugger, $owner);
+        $forms = $postManager->extractFromEditPostsForms($editPostForms, 'formViews');
+        $persistedForms = $postManager->extractFromEditPostsForms($editPostForms, 'persistedForms');
 
-        $newPostForm = $postController->new(
-            $request,
-            $entityManager,
-            $slugger,
-            $owner
-        );
-
-        $formViewsAndPersistedForms = $this->persistAllPosts(
-            $posts,
-            $request,
-            $entityManager,
-            $formFactory,
-            $slugger,
-            $owner
-        );
-
-        foreach ($formViewsAndPersistedForms['formViews'] as $form) {
-            $forms[] = $form;
-        }
-
-        foreach ($formViewsAndPersistedForms['persistedForms'] as $persistedForm) {
-
-            if ($persistedForm) {
-                $entityManager->flush();
-                return $this->redirectToRoute('app_user_editpage', ['username' => $username], Response::HTTP_SEE_OTHER);
-            }
-        }
-
-        if (count($posts) < 1) {
+        if ($posts->isEmpty()) {
             $this->addFlash('danger', 'Aucun post a modifier !');
             return $this->redirectToRoute('app_redirect_userlogger');
         }
 
+        if ($postManager->flushEditedPosts($persistedForms, $entityManager)) {
+            return $this->redirectToRoute('app_user_page_edit', ['username' => $owner->getUsername()]);
+        };
 
-        if ($securityManager->userIs($owner)) {
+        if ($securityManager->userIsOwner($user, $owner)) {
             return $this->render('page/edit.html.twig', [
                 'owner' => $owner,
                 'forms' => $forms,
@@ -137,69 +109,6 @@ class PageController extends AbstractController
             $this->addFlash('danger', 'Tu ne peux pas modifier les posts qui ne sont pas à toi !');
             return $this->redirectToRoute('app_user_page', ['username' => $owner->getUsername()]);
         }
-    }
-
-    public function persistAllPosts(
-        Collection             $posts,
-        Request                $request,
-        EntityManagerInterface $entityManager,
-        FormFactoryInterface   $formFactory,
-        SluggerInterface       $slugger,
-        User                   $owner,
-    ): array
-    {
-        $formViews = [];
-        $submittedForms = [];
-
-        foreach ($posts as $post) {
-            $form = $formFactory->createNamed('post_' . $post->getId(), PostType::class, $post);
-            $form->handleRequest($request);
-            $formViews[] = $form->createView();
-            $now = new DateTimeImmutable();
-
-            if ($form->isSubmitted() && $form->isValid()) {
-
-                // /** @var UploadedFile $imgFile */
-
-                $postFile = $form->get('post')->getData();
-
-                if ($postFile) {
-                    $originalFilename = pathinfo($postFile->getClientOriginalName(), PATHINFO_FILENAME);
-                    // this is needed to safely include the file name as part of the URL
-                    $safeFilename = $slugger->slug($originalFilename);
-                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $postFile->guessExtension();
-
-                    // Move the file to the directory where imgs are stored
-                    try {
-                        $postFile->move(
-                            $this->getParameter('posts_directory'),
-                            $newFilename
-                        );
-                    } catch (FileException $e) {
-                        // ... handle exception if something happens during file upload
-                    }
-
-                    // updates the 'imgFilename' property to store the PDF file name
-                    // instead of its contents
-                    $singlePost = $post;
-
-                    $singlePost->setUploadedOn($now);
-                    $singlePost->setPrompt($form->get('prompt')->getData());
-                    $singlePost->addUser($owner);
-                    $singlePost->setFileName($newFilename);
-                    $this->addFlash('success', 'post uploadées');
-                    $entityManager->persist($singlePost);
-                }
-
-                $entityManager->persist($post);
-                $submittedForms[] = $form;
-            }
-
-        }
-        return [
-            'formViews' => $formViews,
-            'persistedForms' => $submittedForms
-        ];
     }
 
 }

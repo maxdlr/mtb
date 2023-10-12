@@ -18,7 +18,7 @@
 
             {% if posts|length > 0 %}
                 {{ include('shared/buttons/_editButton.html.twig', {
-                    route: 'app_user_editpage',
+                    route: 'app_user_page_edit',
                     optionValue: owner.username
                 }) }}
             {% endif %}
@@ -31,7 +31,7 @@
             <section class="my-3">
 
                 <h2>{{ promptList.year }}</h2>
-                <div {{ stimulus_controller('modal-window') }}
+                <div
                         class="row row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 ">
 
                     {% for post in posts %}
@@ -40,7 +40,6 @@
 
                             <article
                                     class="card p-0 m-0"
-                                    {{ stimulus_target('modal-window', 'listItem') }}
                                     id="{{ post['id'] }}"
                             >
                                 <div class="card-header d-flex justify-content-between">

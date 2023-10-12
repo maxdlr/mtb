@@ -5,13 +5,13 @@ namespace App\Controller;
 use App\Repository\PostRepository;
 use App\Repository\PromptListRepository;
 use App\Repository\PromptRepository;
+use App\Service\DataManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-
     #[Route('/', name: 'app_home')]
     public function index(
         PostRepository       $postRepository,
@@ -22,36 +22,43 @@ class HomeController extends AbstractController
         $now = new \DateTimeImmutable();
         $currentYear = $now->format('Y');
 
-        $currentPrompts = $promptRepository->findByYear($currentYear);
-        $currentPosts = $postRepository->findAllByYear($currentYear);
-        $currentList = $promptListRepository->findOneBy(['year' => $currentYear])->getYear();
+        $prompts = $promptRepository->findByYear($currentYear);
+        $posts = $postRepository->findAllByYear($currentYear);
+        $list = $promptListRepository->findOneBy(['year' => $currentYear])->getYear();
 
         return $this->render('home/index.html.twig', [
-            'currentPosts' => $currentPosts,
-            'currentPrompts' => $currentPrompts,
-            'currentList' => $currentList,
+            'posts' => $posts,
+            'prompts' => $prompts,
+            'list' => $list,
         ]);
     }
 
-    #[Route('f/{promptName}', name: 'app_home_search_by_prompt')]
+    #[Route('/f/{promptName}', name: 'app_home_search_by_prompt')]
     public function searchByPrompt(
         PostRepository       $postRepository,
         string               $promptName,
         PromptRepository     $promptRepository,
-        PromptListRepository $promptListRepository
+        PromptListRepository $promptListRepository,
+        DataManager          $dataManager,
     ): Response
     {
         $now = new \DateTimeImmutable();
         $currentYear = $now->format('Y');
 
-        $currentPrompts = $promptRepository->findByYear($currentYear);
-        $currentPosts = $postRepository->findAllByPrompt($promptName);
-        $currentList = $promptListRepository->findOneBy(['year' => $currentYear])->getYear();
+        $prompts = $promptRepository->findByYear($currentYear);
+        $list = $promptListRepository->findOneBy(['year' => $currentYear])->getYear();
+
+        if ($dataManager->isInFilteredArray($promptName, $prompts, 'nameEn')) {
+            $posts = $postRepository->findAllByPrompt($promptName);
+        } else {
+            $this->addFlash('danger', 'Thème inconnu');
+            return $this->redirectToRoute('app_home');
+        };
 
         return $this->render('home/index.html.twig', [
-            'currentPosts' => $currentPosts,
-            'currentPrompts' => $currentPrompts,
-            'currentList' => $currentList,
+            'posts' => $posts,
+            'prompts' => $prompts,
+            'list' => $list,
         ]);
     }
 }
