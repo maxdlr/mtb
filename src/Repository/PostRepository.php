@@ -61,7 +61,7 @@ class PostRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findAllBy(string $where, string $value): array
+    public function findAllBy(string $where, string $value, string $orderBy): array
     {
         $now = new \DateTimeImmutable();
 
@@ -72,12 +72,12 @@ class PostRepository extends ServiceEntityRepository
             ->leftJoin('post.user', 'user')
             ->where($where . ' = :val')
             ->setParameter('val', $value)
-            ->orderBy('prompt.dayNumber')
+            ->orderBy($orderBy)
             ->getQuery()
             ->getResult();
     }
 
-    public function findAllByUserAndYear($userUsername, $year)
+    public function findAllByUserAndYear($userUsername, $year, $orderBy)
     {
         return $this->createQueryBuilder('post')
             ->select('post.id, post.fileName, user.username as owner, prompt.dayNumber, prompt.name_fr as promptNameFr, promptList.year as promptListYear')
@@ -88,7 +88,7 @@ class PostRepository extends ServiceEntityRepository
             ->andWhere('promptList.year = :val2')
             ->setParameter('val', $userUsername)
             ->setParameter('val2', $year)
-            ->orderBy('prompt.dayNumber')
+            ->orderBy($orderBy)
             ->getQuery()
             ->getResult();
     }

@@ -37,7 +37,7 @@ class PageController extends AbstractController
         $owner = $userRepository->findOneBy(['username' => $username]);
         $user = $userRepository->findOneBy(['username' => $this->getUser()->getUserIdentifier()]);
         $promptLists = $promptListRepository->findAll();
-        $posts = $postRepository->findAllBy('user.username', $username);
+        $posts = $postRepository->findAllBy('user.username', $username, 'prompt.dayNumber');
 
         if (!$owner) {
             $this->addFlash('danger', 'Page inexistante');
