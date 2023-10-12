@@ -61,7 +61,7 @@ class PostRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findAllByYear($year): array
+    public function findAllBy(string $where, string $value): array
     {
         $now = new \DateTimeImmutable();
 
@@ -70,8 +70,8 @@ class PostRepository extends ServiceEntityRepository
             ->leftJoin('post.prompt', 'prompt')
             ->leftJoin('prompt.promptList', 'promptList')
             ->leftJoin('post.user', 'user')
-            ->where('promptList.year = :val')
-            ->setParameter('val', $year)
+            ->where($where . ' = :val')
+            ->setParameter('val', $value)
             ->orderBy('prompt.dayNumber')
             ->getQuery()
             ->getResult();
@@ -92,42 +92,4 @@ class PostRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
-    public function findAllByUser($userUsername)
-    {
-        return $this->createQueryBuilder('post')
-            ->select('post.id, post.fileName, user.username as owner, prompt.dayNumber, prompt.name_fr as promptNameFr, promptList.year as promptListYear')
-            ->leftJoin('post.prompt', 'prompt')
-            ->leftJoin('prompt.promptList', 'promptList')
-            ->leftJoin('post.user', 'user')
-            ->where('user.username = :val')
-            ->setParameter('val', $userUsername)
-            ->orderBy('prompt.dayNumber')
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function findAllByPrompt($promptNameEn)
-    {
-        return $this->createQueryBuilder('post')
-            ->select('post.id, post.fileName, user.username as owner, prompt.dayNumber, prompt.name_fr as promptNameFr, promptList.year as promptListYear')
-            ->leftJoin('post.prompt', 'prompt')
-            ->leftJoin('prompt.promptList', 'promptList')
-            ->leftJoin('post.user', 'user')
-            ->where('prompt.name_en = :val')
-            ->setParameter('val', $promptNameEn)
-            ->orderBy('prompt.dayNumber')
-            ->getQuery()
-            ->getResult();
-    }
-
-    //    public function findOneBySomeField($value): ?Post
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }

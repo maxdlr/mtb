@@ -23,7 +23,7 @@ class HomeController extends AbstractController
         $currentYear = $now->format('Y');
 
         $prompts = $promptRepository->findByYear($currentYear);
-        $posts = $postRepository->findAllByYear($currentYear);
+        $posts = $postRepository->findAllBy('promptList.year', $currentYear);
         $list = $promptListRepository->findOneBy(['year' => $currentYear])->getYear();
 
         return $this->render('home/index.html.twig', [
@@ -49,7 +49,7 @@ class HomeController extends AbstractController
         $list = $promptListRepository->findOneBy(['year' => $currentYear])->getYear();
 
         if ($dataManager->isInFilteredArray($promptName, $prompts, 'nameEn')) {
-            $posts = $postRepository->findAllByPrompt($promptName);
+            $posts = $postRepository->findAllBy('prompt.name_en', $promptName);
         } else {
             $this->addFlash('danger', 'Thème inconnu');
             return $this->redirectToRoute('app_home');

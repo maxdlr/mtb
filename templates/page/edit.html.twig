@@ -24,12 +24,12 @@
                     <div class="col-6">
                         {% for post in owner.posts %}
                             {% if form.vars.value.id == post.id %}
-                                <img
+                                {# <img
                                         src="{{ asset('images/posts/' ~ post.fileName) }}"
                                         class="post-img img-fluid p-2 m-0"
                                         id="post-img-{{ post.id }}"
                                         alt="Image animé de {{ owner.username|title }} pour le thème {{ post.prompt.nameFr|title }}"
-                                >
+                                > #}
                             {% endif %}
                         {% endfor %}
                     </div>
