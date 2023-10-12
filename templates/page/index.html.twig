@@ -23,7 +23,43 @@
                 }) }}
             {% endif %}
 
+
         {% endif %}
+        {% if app.user != owner %}
+            <div {{ stimulus_controller('follow') }}>
+                <button
+                        class="btn btn-warning"
+                        {{ stimulus_action('follow', 'followUser') }}
+                >
+                    <i class="bi bi-person-plus"></i>
+                </button>
+                <input
+                        type="number"
+                        value="{{ app.user.id }}"
+                        hidden
+                        name="userId"
+                        {{ stimulus_target('follow', 'follower') }}
+                >
+                <input
+                        type="number"
+                        value="{{ owner.id }}"
+                        hidden
+                        name="ownerId"
+                        {{ stimulus_target('follow', 'followed') }}
+                >
+            </div>
+
+            <a href="{{ path('app_user_follow', {
+                'followerId': app.user.id,
+                'followedId': owner.id
+            }) }}"
+               class="btn btn-danger"
+            >
+                <i class="bi bi-person-plus"></i>
+            </a>
+        {% endif %}
+
+        {{ dump(app.user.id) }}
 
 
         {% for promptList in promptLists %}
