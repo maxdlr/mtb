@@ -4,12 +4,8 @@ namespace App\Service;
 
 use App\Entity\Follow;
 use App\Entity\User;
-use App\Form\FollowType;
-use Cassandra\Type\UserType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 class FollowManager
 {

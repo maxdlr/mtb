@@ -23,7 +23,6 @@ class FollowController extends AbstractController
         int                    $followedId,
         Request                $request,
         UserRepository         $userRepository,
-        FollowManager          $followManager,
         EntityManagerInterface $entityManager,
     ): JsonResponse
     {
@@ -34,11 +33,14 @@ class FollowController extends AbstractController
         $form = $this->createForm(FollowType::class, $follow);
         $form->handleRequest($request);
 
-
-        if ($followManager->follow($form, $follower, $followed, $follow, $entityManager)) {
-            return $this->json(['message' => 'Enregistrement éffectué'], 200);
-        } else {
-            return $this->json(['message' => 'Follow raté !!!!']);
-        }
+//        if ($form->isSubmitted() && $form->isValid()) {
+        $follow->setFollower($follower);
+        $follow->setFollowed($followed);
+        $entityManager->persist($follow);
+        $entityManager->flush();
+        return $this->json(['message' => 'Enregistrement éffectué'], 200);
+//        } else {
+//            return $this->json(['message' => 'Follow raté !!!!']);
     }
+//    }
 }

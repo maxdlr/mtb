@@ -21,6 +21,19 @@ class FollowRepository extends ServiceEntityRepository
         parent::__construct($registry, Follow::class);
     }
 
+    public function findFollowers(string $userUsername)
+    {
+        return $this->createQueryBuilder('follow')
+            ->select('followerUser.username as followers')
+            ->leftJoin('follow.follower', 'followerUser')
+            ->leftJoin('follow.followed', 'followedUser')
+            ->where('followedUser.username = :val')
+            ->setParameter('val', $userUsername)
+            ->orderBy('followedUser.username')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Follow[] Returns an array of Follow objects
 //     */

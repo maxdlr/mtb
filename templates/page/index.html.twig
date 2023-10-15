@@ -4,114 +4,78 @@
 
 {% block body %}
 
-    <main class="container-md">
+  <main class="container-md">
 
-        <h1>Page de {{ owner.username |title }}</h1>
-        {# todo: show upload progress bar #}
-        {% if app.user == owner %}
-            {{ include('shared/modal/_crud-modal.html.twig', {
-                modalID: 'post-upload',
-                title: 'Ajouter un post',
-                buttonLabel: 'add',
-                form: newPostForm
-            }) }}
+    <h1>Page de {{ owner.username |title }}</h1>
+    {# todo: show upload progress bar #}
+    {% if app.user == owner %}
+      {{ include('shared/modal/_crud-modal.html.twig', {
+        modalID: 'post-upload',
+        title: 'Ajouter un post',
+        buttonLabel: 'add',
+        form: newPostForm
+      }) }}
 
-            {% if posts|length > 0 %}
-                {{ include('shared/buttons/_editButton.html.twig', {
-                    route: 'app_user_page_edit',
-                    optionValue: owner.username
-                }) }}
-            {% endif %}
+      {% if posts|length > 0 %}
+        {{ include('shared/buttons/_editButton.html.twig', {
+          route: 'app_user_page_edit',
+          optionValue: owner.username
+        }) }}
+      {% endif %}
+    {% endif %}
 
+    {{ include('shared/buttons/_followButton.html.twig') }}
 
-        {% endif %}
-        {% if app.user != owner %}
-            <div {{ stimulus_controller('follow') }}>
-                <button
-                        class="btn btn-warning"
-                        {{ stimulus_action('follow', 'followUser') }}
-                >
-                    <i class="bi bi-person-plus"></i>
-                </button>
-                <input
-                        type="number"
-                        value="{{ app.user.id }}"
-                        hidden
-                        name="userId"
-                        {{ stimulus_target('follow', 'follower') }}
-                >
-                <input
-                        type="number"
-                        value="{{ owner.id }}"
-                        hidden
-                        name="ownerId"
-                        {{ stimulus_target('follow', 'followed') }}
-                >
-            </div>
+    {% for promptList in promptLists %}
 
-            <a href="{{ path('app_user_follow', {
-                'followerId': app.user.id,
-                'followedId': owner.id
-            }) }}"
-               class="btn btn-danger"
-            >
-                <i class="bi bi-person-plus"></i>
-            </a>
-        {% endif %}
+      <section class="my-3">
 
-        {{ dump(app.user.id) }}
+        <h2>{{ promptList.year }}</h2>
+        <div
+          class="row row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 ">
 
+          {% for post in posts %}
 
-        {% for promptList in promptLists %}
+            {% if post['promptListYear'] == promptList.year %}
 
-            <section class="my-3">
+              <article
+                class="card p-0 m-0"
+                id="{{ post['id'] }}"
+              >
+                <div class="card-header d-flex justify-content-between">
+                  <div class="card-title">
+                    {{ post['promptListYear'] }} -- {{ post['dayNumber'] }}
+                    - {{ post['promptNameFr']|title }}
+                  </div>
 
-                <h2>{{ promptList.year }}</h2>
+                  {% if app.user == owner %}
+                    <div class="card-group d-flex justify-content-center">
+                      {{ include('shared/buttons/_deleteButton.html.twig', {route: 'app_post_delete', itemId: post['id']}) }}
+                    </div>
+                  {% endif %}
+
+                </div>
                 <div
-                        class="row row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 ">
-
-                    {% for post in posts %}
-
-                        {% if post['promptListYear'] == promptList.year %}
-
-                            <article
-                                    class="card p-0 m-0"
-                                    id="{{ post['id'] }}"
-                            >
-                                <div class="card-header d-flex justify-content-between">
-                                    <div class="card-title">
-                                        {{ post['promptListYear'] }} -- {{ post['dayNumber'] }}
-                                        - {{ post['promptNameFr']|title }}
-                                    </div>
-
-                                    {% if app.user == owner %}
-                                        <div class="card-group d-flex justify-content-center">
-                                            {{ include('shared/buttons/_deleteButton.html.twig', {route: 'app_post_delete', itemId: post['id']}) }}
-                                        </div>
-                                    {% endif %}
-
-                                </div>
-                                <div
-                                        class="p-0 m-0 card-body gallery-card rounded-3"
-                                >
-                                    {# <img
+                  class="p-0 m-0 card-body gallery-card rounded-3"
+                >
+                  {# <img
                                             src="{{ asset('images/posts/' ~ post['fileName']) }}"
                                             class="post-img img-fluid p-2 m-0"
                                             id="post-img-{{ post['id'] }}"
                                             alt="Image animé de {{ post['owner']|title }} pour le thème {{ post['promptNameFr']|title }}"
                                     > #}
-                                </div>
-                            </article>
-
-                        {% endif %}
-
-                    {% else %}
-                        <h4>Pas encore de posts</h4>
-                    {% endfor %}
                 </div>
-            </section>
-        {% endfor %}
+              </article>
+
+            {% endif %}
+
+          {% else %}
+            <h4>Pas encore de posts</h4>
+          {% endfor %}
+        </div>
+      </section>
+    {% endfor %}
 
 
-    </main>
+  </main>
 {% endblock %}

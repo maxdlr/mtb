@@ -5,10 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="345dd539-8329-4de7-a157-a91ba9050a9e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/templates/shared/buttons/_followButton.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/controllers/follow_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/controllers/follow_controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/DeleteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DeleteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/FollowController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/FollowController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/PageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/PostRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/PostRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/FollowType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/FollowType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/FollowRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/FollowRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/FollowManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/FollowManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/page/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -207,7 +214,7 @@
     &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature--posts-from-prompt&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature--follow-user&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/maxdlr/Documents/GitHub/mtb/assets/controllers&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -263,6 +270,8 @@
       <workItem from="1695030083178" duration="10635000" />
       <workItem from="1695627353066" duration="588000" />
       <workItem from="1696937253915" duration="34340000" />
+      <workItem from="1697199292385" duration="866000" />
+      <workItem from="1697200237956" duration="5609000" />
     </task>
     <servers />
   </component>

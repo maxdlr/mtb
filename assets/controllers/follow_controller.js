@@ -1,7 +1,13 @@
 import {Controller} from '@hotwired/stimulus';
 
 export default class extends Controller {
-    static targets = ['followed', 'follower']
+    static targets = ['followed', 'follower', 'buttonIcon', 'button'];
+
+    initialize() {
+        for (const buttonIcon of this.buttonIconTargets) {
+
+        }
+    }
 
     async followUser() {
 
@@ -13,6 +19,7 @@ export default class extends Controller {
             .then(json => {
                 console.log(json.message)
             })
+            .then(console.log('je suis apres le fetch'))
     }
 
 }

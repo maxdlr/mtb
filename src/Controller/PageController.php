@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\FollowRepository;
 use App\Repository\PostRepository;
 use App\Repository\PromptListRepository;
 use App\Repository\UserRepository;
@@ -31,11 +32,15 @@ class PageController extends AbstractController
         SluggerInterface       $slugger,
         SecurityManager        $securityManager,
         PostRepository         $postRepository,
-        PromptListRepository   $promptListRepository
+        PromptListRepository   $promptListRepository,
+        FollowRepository       $followRepository
     ): Response
     {
         $owner = $userRepository->findOneBy(['username' => $username]);
-        $user = $userRepository->findOneBy(['username' => $this->getUser()->getUserIdentifier()]);
+        if ($this->getUser()) $user = $userRepository->findOneBy(['username' => $this->getUser()->getUserIdentifier()]);
+
+//        dd($followRepository->findFollowers($owner->getUsername())[0]);
+
         $promptLists = $promptListRepository->findAll();
         $posts = $postRepository->findAllBy('user.username', $username, 'prompt.dayNumber');
 
@@ -43,6 +48,7 @@ class PageController extends AbstractController
             $this->addFlash('danger', 'Page inexistante');
             return $this->redirectToRoute('app_home');
         }
+
 
         $newPostForm = $postManager->new(
             $request,

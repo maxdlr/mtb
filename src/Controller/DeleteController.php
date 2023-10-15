@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/delete')]
 class DeleteController extends AbstractController
 {
     #[Route('/{id}', name: 'app_post_delete', methods: ['POST'])]
