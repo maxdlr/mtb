@@ -10,6 +10,9 @@ use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use http\Exception\BadMessageException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormFactory;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,23 +27,25 @@ class FollowController extends AbstractController
         Request                $request,
         UserRepository         $userRepository,
         EntityManagerInterface $entityManager,
+        FollowManager          $followManager,
+        FormFactoryInterface   $formFactory,
     ): JsonResponse
     {
-        $follower = $userRepository->findOneBy(['id' => $followerId]);
-        $followed = $userRepository->findOneBy(['id' => $followedId]);
-
         $follow = new Follow();
-        $form = $this->createForm(FollowType::class, $follow);
-        $form->handleRequest($request);
+        $followerUser = $userRepository->findOneBy(['id' => $followerId]);
+        $followedUser = $userRepository->findOneBy(['id' => $followedId]);
 
-//        if ($form->isSubmitted() && $form->isValid()) {
-        $follow->setFollower($follower);
-        $follow->setFollowed($followed);
-        $entityManager->persist($follow);
-        $entityManager->flush();
-        return $this->json(['message' => 'Enregistrement éffectué'], 200);
-//        } else {
-//            return $this->json(['message' => 'Follow raté !!!!']);
+        if ($followManager->follow(
+            $followerUser,
+            $followedUser,
+            $follow,
+            $entityManager,
+            $formFactory,
+            $request
+        )) {
+            return $this->json(['message' => 'followed'], 200);
+        } else {
+            return $this->json(['message' => 'Not followed'], 200);
+        }
     }
-//    }
 }

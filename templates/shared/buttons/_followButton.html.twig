@@ -1,13 +1,31 @@
-{% if app.user and app.user != owner %}
+{% if app.user and app.user != userToFollow %}
+
   <div {{ stimulus_controller('follow') }}>
 
-    <button
-      class="btn btn-warning" {{ stimulus_action('follow', 'followUser') }} {{ stimulus_target('follow', 'button') }}>
-      <i class="bi bi-person-plus" {{ stimulus_target('follow', 'buttonIcon') }}></i>
-    </button>
+    {% if userIfFollowing == 1 %}
+      <button
+        type="submit"
+        class="btn btn-warning" {{ stimulus_action('follow', 'unFollowUser') }} {{ stimulus_target('follow', 'button') }}>
+        <i class="bi bi-person" {{ stimulus_target('follow', 'buttonIcon') }}></i>
+      </button>
+    {% else %}
+      {{ form_start(followForm) }}
 
-    <input type="number" value="{{ app.user.id }}" hidden {{ stimulus_target('follow', 'follower') }}>
-    <input type="number" value="{{ owner.id }}" hidden {{ stimulus_target('follow', 'followed') }}>
-    <input type="checkbox" value="{{ does follow }}" hidden {{ stimulus_target('follow', 'following') }}>
+      {{ form_row(followForm.follower, {
+        'attr': {
+          'value': app.user.id
+        }
+      }) }}
+      {{ form_row(followForm.followed, {
+        'attr': {
+          'value': userToFollow.id
+        }
+      }) }}
+      {{ form_row(followForm.submit, {'label': 'follow'}) }}
+
+      {#        <i class="bi bi-person-plus"></i> #}
+
+      {{ form_end(followForm) }}
+    {% endif %}
   </div>
 {% endif %}

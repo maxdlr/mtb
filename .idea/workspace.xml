@@ -5,17 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="345dd539-8329-4de7-a157-a91ba9050a9e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/shared/buttons/_followButton.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/controllers/follow_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/controllers/follow_controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/DeleteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DeleteController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/FollowController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/FollowController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/PageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PageController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Form/FollowType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/FollowType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repository/FollowRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/FollowRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/FollowManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/FollowManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/PostManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/PostManager.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/page/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/shared/buttons/_followButton.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/shared/buttons/_followButton.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,7 +222,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;database.data.views&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.phpOptions&quot;,
     &quot;settings.editor.splitter.proportion&quot;: &quot;0.2545825&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -242,11 +241,34 @@
       <recent name="C:\Users\maxro\Documents\mtb\templates\admin" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="PHPUnit.Main">
     <configuration name="Main" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner configuration_file="$PROJECT_DIR$/phpunit.xml.dist" scope="XML" use_alternative_configuration_file="true" />
       <method v="2" />
     </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml" />
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yml.database: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="envFilePath" value="" />
+          <option name="services">
+            <list>
+              <option value="database" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.docker-compose.yml.database: Compose Deployment" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -271,7 +293,8 @@
       <workItem from="1695627353066" duration="588000" />
       <workItem from="1696937253915" duration="34340000" />
       <workItem from="1697199292385" duration="866000" />
-      <workItem from="1697200237956" duration="5609000" />
+      <workItem from="1697200237956" duration="10240000" />
+      <workItem from="1697448214401" duration="17934000" />
     </task>
     <servers />
   </component>

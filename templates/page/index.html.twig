@@ -24,7 +24,7 @@
       {% endif %}
     {% endif %}
 
-    {{ include('shared/buttons/_followButton.html.twig') }}
+    {{ include('shared/buttons/_followButton.html.twig', {userToFollow: owner}) }}
 
     {% for promptList in promptLists %}
 

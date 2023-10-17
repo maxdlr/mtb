@@ -21,15 +21,14 @@ class FollowRepository extends ServiceEntityRepository
         parent::__construct($registry, Follow::class);
     }
 
-    public function findFollowers(string $userUsername)
+    public function findFollowersOf(string $userId)
     {
         return $this->createQueryBuilder('follow')
-            ->select('followerUser.username as followers')
+            ->select('followerUser.id')
             ->leftJoin('follow.follower', 'followerUser')
             ->leftJoin('follow.followed', 'followedUser')
-            ->where('followedUser.username = :val')
-            ->setParameter('val', $userUsername)
-            ->orderBy('followedUser.username')
+            ->where('followedUser.id = :val')
+            ->setParameter('val', $userId)
             ->getQuery()
             ->getResult();
     }
