@@ -2,12 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Follow;
+use App\Repository\FollowRepository;
 use App\Repository\PostRepository;
 use App\Repository\PromptListRepository;
 use App\Repository\UserRepository;
 use App\Service\DataManager;
+use App\Service\FollowManager;
 use App\Service\PostManager;
 use App\Service\SecurityManager;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,11 +35,28 @@ class PageController extends AbstractController
         SluggerInterface       $slugger,
         SecurityManager        $securityManager,
         PostRepository         $postRepository,
-        PromptListRepository   $promptListRepository
+        PromptListRepository   $promptListRepository,
+        FollowRepository       $followRepository,
+        FormFactoryInterface   $formFactory,
+        FollowManager          $followManager,
     ): Response
     {
         $owner = $userRepository->findOneBy(['username' => $username]);
-        $user = $userRepository->findOneBy(['username' => $this->getUser()->getUserIdentifier()]);
+        $user = null;
+        $userIfFollowing = null;
+        if ($this->getUser()) {
+            $user = $userRepository->findOneBy(['username' => $this->getUser()->getUserIdentifier()]);
+            $userIfFollowing = $followManager->IsFollowing($user, $owner, $followRepository, $userRepository);
+        }
+
+
+        $follow = new Follow();
+        $followForm = $followManager->createFollowForm(
+            $formFactory,
+            $owner,
+            $follow
+        )->createView();
+
         $promptLists = $promptListRepository->findAll();
         $posts = $postRepository->findAllBy('user.username', $username, 'prompt.dayNumber');
 
@@ -62,6 +83,8 @@ class PageController extends AbstractController
             'posts' => $posts,
             'owner' => $owner,
             'newPostForm' => $newPostForm,
+            'followForm' => $followForm,
+            'userIfFollowing' => $userIfFollowing,
         ]);
     }
 

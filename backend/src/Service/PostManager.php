@@ -55,7 +55,9 @@ class PostManager extends AbstractController
 
                 $post->addUser($owner);
                 $post->setUploadedOn($now);
+
                 $post->setPrompt($form->get('prompt')->getData());
+
                 $post->setFileName($newFilename);
 
                 $entityManager->persist($post);
