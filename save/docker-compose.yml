@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+
+  database:
+    image: bitnami/mysql:latest
+    # command: --default-authentication-plugin=mysql_native_password
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_USER=root
+      - MYSQL_DATABASE=mtb
+    ports:
+      - "3306:3306"
+    networks:
+      - mtb-network
+    volumes:
+      - mtb-data
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - SYMFONY_DATABASE_HOST=mysql
+      - SYMFONY_DATABASE_PORT_NUMBER=3306
+      - SYMFONY_DATABASE_USER=root
+      - SYMFONY_DATABASE_NAME=mtb
+    networks:
+      - mtb-network
+    depends_on:
+      - database
+    volumes:
+      - mtb-data
+    env_file:
+      # inside this file, are the shared database secrets such as username/password
+      - backend/.env.local
+
+volumes:
+  mtb-data:
+
+networks:
+  mtb-network:

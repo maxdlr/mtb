@@ -1,38 +1,66 @@
-version: '3'
-
+version: '3.9'
 services:
-
-  database:
-    container_name: database
-    image: mysql:5.7
-    command: --default-authentication-plugin=mysql_native_password
+  react:
+    stdin_open: true
+    container_name: react
+    build: ./frontend
+    volumes:
+     - ./workDir/frontend:/var/www/frontend/:cached
+    ports:
+      - 3000:3000
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: mtb
-      MYSQL_USER: root
-    ports:
-      - "3306:3306"
+      - CHOKIDAR_USEPOLLING=true
     networks:
-      - mtb-network
-    volumes:
-      - ./mysql:/var/lib/mysql
+      - network_infrastructure
+#    command: npm start
 
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+  MySQLDB:
+    image: mysql:latest
+    container_name: mysql_database
+    command: [ --default-authentication-plugin=mysql_native_password ]
     ports:
-      - "3000:3000"
-    networks:
-      - mtb-network
-    depends_on:
-      - database
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: p
+      MYSQL_DATABASE: mysqlDb
+      MYSQL_USER: mysqlDbUser
+      MYSQL_PASSWORD: p
     volumes:
-      - ./app
+      - /var/lib/mysql/
+    networks:
+      - network_infrastructure
 
-volumes:
-  mtb-data:
+  symfony:
+    build: ./backend
+    container_name: symfony
+    ports:
+      - 9001:9001
+    volumes:
+      - ./workDir/backend/:/var/www/symfony:cached
+      - ./workDir/backend/logs:/var/www/symfony/logs:cached
+    links:
+#      - MongoDB
+      - MySQLDB
+#    extra_hosts:
+#      - docker-host.localhost:127.0.0.1
+    networks:
+      - network_infrastructure
 
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    ports:
+      - 80:80
+    links:
+      - symfony
+      - react
+    volumes:
+      - ./workDir/backend/:/var/www/symfony:cached
+      - ./workDir/frontend/:/var/www/frontend:cached
+      - ./workDir/logs/:/var/log/nginx:cached
+    networks:
+      - network_infrastructure
 
 networks:
-  mtb-network:
+  network_infrastructure:
+    name: network_infrastructure
