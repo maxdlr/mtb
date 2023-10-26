@@ -17,16 +17,22 @@ services:
   MySQLDB:
     image: mysql:latest
     container_name: mysql_database
-    command: [ --default-authentication-plugin=mysql_native_password ]
+    command: [ --default-authentication-plugin=caching_sha2_password ]
     ports:
       - 3306:3306
     environment:
-      MYSQL_ROOT_PASSWORD: p
-      MYSQL_DATABASE: mysqlDb
-      MYSQL_USER: mysqlDbUser
-      MYSQL_PASSWORD: p
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mtb
+      MYSQL_ALLOW_EMPTY_PASSWORD:
+#      MYSQL_USER: root
+      MYSQL_PASSWORD: root
     volumes:
       - /var/lib/mysql/
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost", "-u", "root", "--password=${MYSQL_ROOT_PASSWORD}" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     networks:
       - network_infrastructure
 

@@ -1,0 +1,8 @@
+2023/10/23 18:23:23 [emerg] 1#1: host not found in upstream "symfony:9001" in /etc/nginx/conf.d/php-upstream.conf:2
+2023/10/23 18:31:50 [emerg] 1#1: host not found in upstream "symfony:9001" in /etc/nginx/conf.d/php-upstream.conf:2
+2023/10/23 18:38:49 [emerg] 1#1: host not found in upstream "symfony:9001" in /etc/nginx/conf.d/php-upstream.conf:2
+2023/10/23 22:56:01 [emerg] 1#1: host not found in upstream "symfony:9001" in /etc/nginx/conf.d/php-upstream.conf:2
+2023/10/24 10:03:57 [emerg] 1#1: host not found in upstream "symfony:9001" in /etc/nginx/conf.d/php-upstream.conf:2
+2023/10/24 10:07:32 [emerg] 1#1: host not found in upstream "symfony:9001" in /etc/nginx/conf.d/php-upstream.conf:2
+2023/10/26 14:39:56 [emerg] 1#1: host not found in upstream "symfony:9001" in /etc/nginx/conf.d/php-upstream.conf:2
+2023/10/26 14:44:53 [emerg] 1#1: host not found in upstream "symfony:9001" in /etc/nginx/conf.d/php-upstream.conf:2
