@@ -27,18 +27,13 @@ RUN if [[ "$PHP_XDEBUG_MODE" != "" ]]; then \
     fi
 RUN rm -f /etc/php8/conf.d/xdebug.ini.template
 
-# RUN curl -sS https://getcomposer.org/installer | tee composer-setup.php \
-#     && php8 composer-setup.php && rm composer-setup.php* \
-#     && chmod +x composer.phar && mv composer.phar /usr/bin/composer \
-#     && ln -s /usr/bin/php8 /usr/local/bin/php
-
 RUN aptitude install -y \
     nodejs \
     npm
     
 RUN npm install --global yarn
 
-RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh'
+RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash
 RUN apt-get install -y symfony-cli
 
 COPY symfony.ini /etc/php8/conf.d/
@@ -46,13 +41,15 @@ COPY symfony.ini /etc/php8/cli/conf.d/
 
 COPY symfony.pool.conf /etc/php8/php-fpm.d/
 
+RUN curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
+RUN php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
+RUN docker-php-ext-install pdo_mysql
 RUN composer install
 
 RUN symfony console c:c
-RUN symfony console d:d:c
-RUN symfony console d:m:m
-RUN symfony console d:f:l
 
-CMD ["symfony", "server:start"]
+RUN yarn install
+RUN yarn build
 
 EXPOSE 9001
+
