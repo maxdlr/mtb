@@ -16,15 +16,15 @@
         form: newPostForm
       }) }}
 
-      {% if posts|length > 0 %}
-        {{ include('shared/buttons/_editButton.html.twig', {
-          route: 'app_user_page_edit',
-          optionValue: owner.username
-        }) }}
-      {% endif %}
-    {% endif %}
+            {% if posts|length > 0 %}
+                {{ include('shared/buttons/_editButton.html.twig', {
+                    route: 'app_user_page_edit',
+                    optionValue: owner.username
+                }) }}
+            {% endif %}
 
-    {{ include('shared/buttons/_followButton.html.twig', {userToFollow: owner}) }}
+        {% endif %}
+
 
     {% for promptList in promptLists %}
 
