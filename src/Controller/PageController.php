@@ -141,7 +141,9 @@ class PageController extends AbstractController
 
             if ($postFile) {
                 $newFilename = $this->fileUploadManager->upload($postFile);
-                $this->postManager->setPost($post, $owner, $form, $newFilename);
+                $originalFilename = pathinfo($postFile->getClientOriginalName(), PATHINFO_FILENAME);
+
+                $this->postManager->setPost($post, $owner, $newFilename, $originalFilename);
                 $this->entityManager->persist($post);
             }
         }
@@ -168,7 +170,8 @@ class PageController extends AbstractController
 
                 if ($postFile) {
                     $newFilename = $this->fileUploadManager->upload($postFile);
-                    $this->postManager->setPost($post, $owner, $form, $newFilename);
+                    $originalFilename = pathinfo($postFile->getClientOriginalName(), PATHINFO_FILENAME);
+                    $this->postManager->setPost($post, $owner, $newFilename, $originalFilename);
                     $this->entityManager->persist($post);
                 }
                 $this->entityManager->persist($post);

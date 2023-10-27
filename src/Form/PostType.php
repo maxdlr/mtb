@@ -43,9 +43,9 @@ class PostType extends AbstractType
                     ])
                 ],
             ])
-            ->add('prompt', PromptAutocompleteField::class, [
-                'label' => false,
-            ])
+            // ->add('prompt', PromptAutocompleteField::class, [
+            //     'label' => false,
+            // ])
             ->add('submit', SubmitType::class);
     }
 

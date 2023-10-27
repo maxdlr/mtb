@@ -16,7 +16,7 @@ class Post
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'posts')]
-    private Prompt $prompt;
+    private ?Prompt $prompt = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $uploadedOn = null;
@@ -37,12 +37,12 @@ class Post
         return $this->id;
     }
 
-    public function getPrompt(): Prompt
+    public function getPrompt(): ?Prompt
     {
         return $this->prompt;
     }
 
-    public function setPrompt(Prompt $prompt): static
+    public function setPrompt(?Prompt $prompt): static
     {
         $this->prompt = $prompt;
 
