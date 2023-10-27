@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/redirect', name: 'app_redirect_')]
 class RedirectController extends AbstractController
 {
-    #[Route('/userlogger', name: 'userlogger')]
+    #[Route('/userFallBack', name: 'user_fallback')]
     public function verifyUserCredentials(): RedirectResponse
     {
         if ($this->getUser()) {
