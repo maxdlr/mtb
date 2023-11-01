@@ -21,6 +21,7 @@ class FileUploadManager
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFilename = $this->slugger->slug($originalFilename);
         $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+        //todo: validate: postfile size, owner is user, postfile extension
 
         try {
             $file->move(
@@ -28,6 +29,7 @@ class FileUploadManager
                 $newFilename
             );
         } catch (FileException $e) {
+            //todo: throw errors into toasts
             dump($e);
         }
 

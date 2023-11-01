@@ -39,8 +39,6 @@ class PageController extends AbstractController
         private readonly EntityManagerInterface $entityManager,
         private readonly FormFactoryInterface   $formFactory,
         private readonly PostManager            $postManager,
-        private readonly UserRepository         $userRepository,
-        private readonly SecurityManager        $securityManager
     )
     {
         $this->now = new \DateTimeImmutable();
@@ -70,7 +68,7 @@ class PageController extends AbstractController
         // --------------------------------------------------------------------------------------
 
         $newPostForm = $this->newPost($request, $owner);
-        
+
         if ($newPostForm instanceof FormInterface)
             $newPostForm->createView();
 
@@ -79,7 +77,7 @@ class PageController extends AbstractController
             return $this->redirectToRoute('app_user_page', ['username' => $username], Response::HTTP_SEE_OTHER);
         }
         // --------------------------------------------------------------------------------------
-
+        //todo: simplify promptless posts management
         $addPromptToPostFormViewsAndPersisted = $this->addPromptToOrphanPostForm($orphanPosts, $request);
         $addPromptToPostFormViews = $this->postManager->extractForms($addPromptToPostFormViewsAndPersisted, 'formViews');
         $addPromptToPostPersistedForms = $this->postManager->extractForms($addPromptToPostFormViewsAndPersisted, 'persistedForms');
@@ -87,7 +85,6 @@ class PageController extends AbstractController
         if ($addPromptToPostPersistedForms) {
             try {
                 $this->postManager->flushPosts($addPromptToPostPersistedForms);
-                dump($addPromptToPostPersistedForms);
                 $this->addFlash('success', 'Thème ajouté');
                 return $this->redirectToRoute('app_user_page_edit', ['username' => $owner->getUsername()]);
             } catch (\Exception $e) {
@@ -172,8 +169,8 @@ class PageController extends AbstractController
             $postFiles = $request->files->get('post')['posts'];
 
             foreach ($postFiles as $postFile) {
+                //todo: move multiple upload algorythm into fileUploadManager->upload()
                 $singlePost = null;
-
                 if ($postFile) {
                     $newFilename = $this->fileUploadManager->upload($postFile);
                     $originalFilename = pathinfo($postFile->getClientOriginalName(), PATHINFO_FILENAME);
@@ -184,6 +181,7 @@ class PageController extends AbstractController
                 }
                 $this->entityManager->persist($singlePost);
             }
+            //todo: research way to async uploads to avoid sending everything in single POST
             $this->entityManager->flush();
             return true;
         }
