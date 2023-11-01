@@ -1,0 +1,29 @@
+{% extends 'modal-base.html.twig' %}
+
+{% block modalID %}{{ modalID }}{% endblock %}
+{% block buttonLabel %}
+    Posts sans thème
+{% endblock %}
+
+{% block modalTitle %}
+    {{ title }}
+{% endblock %}
+
+{% block modalBody %}
+
+    {% for form in forms %}
+
+        <div class="row">
+            <img
+                    src="{{ asset('images/posts/' ~ form.vars.data.filename) }}"
+                    class="post-img img-fluid p-2 m-0 col-2"
+                    id="add-prompt-to-post-img-{{ form.vars.data.id }}"
+                    alt="Image {{ form.vars.data.filename }} de {{ owner.username|title }}"
+            >
+            <div class="col-10">
+                {{ form_widget(form) }}
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

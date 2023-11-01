@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Entity\User;
+use App\Form\AddPromptToOrphanPostType;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use App\Repository\PromptListRepository;
@@ -12,16 +13,21 @@ use App\Service\DataManager;
 use App\Service\FileUploadManager;
 use App\Service\PostManager;
 use App\Service\SecurityManager;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use function PHPUnit\Framework\isEmpty;
 
 #[Route('/u')]
 class PageController extends AbstractController
@@ -32,7 +38,9 @@ class PageController extends AbstractController
         private readonly FileUploadManager      $fileUploadManager,
         private readonly EntityManagerInterface $entityManager,
         private readonly FormFactoryInterface   $formFactory,
-        private readonly PostManager            $postManager
+        private readonly PostManager            $postManager,
+        private readonly UserRepository         $userRepository,
+        private readonly SecurityManager        $securityManager
     )
     {
         $this->now = new \DateTimeImmutable();
@@ -42,16 +50,12 @@ class PageController extends AbstractController
     public function index(
         UserRepository       $userRepository,
         string               $username,
-        SecurityManager      $securityManager,
         PostRepository       $postRepository,
         PromptListRepository $promptListRepository,
-        Request              $request
+        Request              $request,
     ): Response
     {
         $owner = $userRepository->findOneBy(['username' => $username]);
-        $promptLists = $promptListRepository->findAll();
-        $posts = $postRepository->findAllBy('user.username', $username, 'prompt.dayNumber');
-        $newPostForm = $this->newPost($owner, $request);
         $user = $userRepository->findOneBy(['username' => $this->getUser()?->getUserIdentifier()]);
 
         if (!$owner) {
@@ -59,17 +63,46 @@ class PageController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        if ($newPostForm->isSubmitted() && $newPostForm->isValid() && $securityManager->userIsOwner($user, $owner)) {
-            $this->entityManager->flush();
-            $this->addFlash('success', 'posts uploadées');
-            return $this->redirectToRoute('app_user_page', ['username' => $user->getUsername()], Response::HTTP_SEE_OTHER);
+        $promptLists = $promptListRepository->findAll();
+        $posts = $postRepository->findAllBy('user.username', $username, 'prompt.dayNumber');
+        $orphanPosts = $this->postManager->getOrphanPosts($owner->getPosts());
+
+        // --------------------------------------------------------------------------------------
+
+        $newPostForm = $this->newPost($request, $owner);
+        
+        if ($newPostForm instanceof FormInterface)
+            $newPostForm->createView();
+
+        if ($newPostForm === true) {
+            $this->addFlash('success', 'Posts Uploadés !');
+            return $this->redirectToRoute('app_user_page', ['username' => $username], Response::HTTP_SEE_OTHER);
+        }
+        // --------------------------------------------------------------------------------------
+
+        $addPromptToPostFormViewsAndPersisted = $this->addPromptToOrphanPostForm($orphanPosts, $request);
+        $addPromptToPostFormViews = $this->postManager->extractForms($addPromptToPostFormViewsAndPersisted, 'formViews');
+        $addPromptToPostPersistedForms = $this->postManager->extractForms($addPromptToPostFormViewsAndPersisted, 'persistedForms');
+
+        if ($addPromptToPostPersistedForms) {
+            try {
+                $this->postManager->flushPosts($addPromptToPostPersistedForms);
+                dump($addPromptToPostPersistedForms);
+                $this->addFlash('success', 'Thème ajouté');
+                return $this->redirectToRoute('app_user_page_edit', ['username' => $owner->getUsername()]);
+            } catch (\Exception $e) {
+                dump($e);
+                $this->addFlash('danger', 'Aucun thème ajouté');
+            }
         }
 
         return $this->render('page/index.html.twig', [
             'promptLists' => $promptLists,
             'posts' => $posts,
             'owner' => $owner,
-            'newPostForm' => $newPostForm,
+            'orphanPosts' => $orphanPosts,
+            'addPromptToPostFormViews' => $addPromptToPostFormViews,
+            'newPostForm' => $newPostForm
         ]);
     }
 
@@ -82,18 +115,17 @@ class PageController extends AbstractController
         string          $username,
         SecurityManager $securityManager,
         PostManager     $postManager,
-        DataManager     $dataManager,
         Request         $request
     ): Response|array
     {
         $user = $userRepository->findOneBy(['username' => $this->getUser()?->getUserIdentifier()]);
         $owner = $userRepository->findOneBy(['username' => $username]);
-        $posts = $dataManager->sortPostsByDayNumber($owner->getPosts());
+        $posts = $postManager->sortPostsByDayNumber($owner->getPosts());
+        $orphanPosts = $postManager->getOrphanPosts($posts);
 
-        $newPostForm = $this->newPost($owner, $request);
         $editPostForms = $this->createEditPostsForms($posts, $owner, $request);
-        $forms = $postManager->extractFromEditPostsForms($editPostForms, 'formViews');
-        $persistedForms = $postManager->extractFromEditPostsForms($editPostForms, 'persistedForms');
+        $forms = $postManager->extractForms($editPostForms, 'formViews');
+        $persistedForms = $postManager->extractForms($editPostForms, 'persistedForms');
 
         if ($posts->isEmpty()) {
             $this->addFlash('danger', 'Aucun post a modifier !');
@@ -115,7 +147,7 @@ class PageController extends AbstractController
             return $this->render('page/edit.html.twig', [
                 'owner' => $owner,
                 'forms' => $forms,
-                'newPostForm' => $newPostForm
+                'orphanPosts' => $orphanPosts
             ]);
         } else {
             $this->addFlash('danger', 'Tu ne peux pas modifier les posts qui ne sont pas à toi !');
@@ -125,10 +157,10 @@ class PageController extends AbstractController
 
     // -------------------------------------------------------------
 
-    private function newPost(
-        User    $owner,
-        Request $request
-    ): FormInterface
+    public function newPost(
+        Request $request,
+        User    $owner
+    ): FormInterface|bool
     {
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
@@ -137,18 +169,28 @@ class PageController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UploadedFile $postFile */
 
-            $postFile = $form->get('post')->getData();
+            $postFiles = $request->files->get('post')['posts'];
 
-            if ($postFile) {
-                $newFilename = $this->fileUploadManager->upload($postFile);
-                $originalFilename = pathinfo($postFile->getClientOriginalName(), PATHINFO_FILENAME);
+            foreach ($postFiles as $postFile) {
+                $singlePost = null;
 
-                $this->postManager->setPost($post, $owner, $newFilename, $originalFilename);
-                $this->entityManager->persist($post);
+                if ($postFile) {
+                    $newFilename = $this->fileUploadManager->upload($postFile);
+                    $originalFilename = pathinfo($postFile->getClientOriginalName(), PATHINFO_FILENAME);
+
+                    $singlePost = new Post();
+
+                    $this->postManager->setPost($singlePost, $owner, $newFilename, $originalFilename);
+                }
+                $this->entityManager->persist($singlePost);
             }
+            $this->entityManager->flush();
+            return true;
         }
         return $form;
     }
+
+    // -------------------------------------------------------------
 
     public function createEditPostsForms(
         Collection $posts,
@@ -157,7 +199,7 @@ class PageController extends AbstractController
     ): array
     {
         $formViews = [];
-        $submittedForms = [];
+        $persistedForms = [];
 
         foreach ($posts as $post) {
             $form = $this->formFactory->createNamed('post_' . $post->getId(), PostType::class, $post);
@@ -175,13 +217,64 @@ class PageController extends AbstractController
                     $this->entityManager->persist($post);
                 }
                 $this->entityManager->persist($post);
-                $submittedForms[] = $form;
+                $persistedForms[] = $form;
             }
         }
         return [
             'formViews' => $formViews,
-            'persistedForms' => $submittedForms
+            'persistedForms' => $persistedForms
         ];
+    }
+
+    public function addPromptToOrphanPostForm(
+        Collection $orphanPosts,
+        Request    $request,
+    ): array
+    {
+        $formsAndPosts = $this->createPostFormArray(
+            'addPromptToPost',
+            $orphanPosts,
+            AddPromptToOrphanPostType::class,
+            $request
+        );
+
+        $formViews = [];
+        $persistedForms = [];
+
+        foreach ($formsAndPosts as $formAndPost) {
+            $formViews[] = $formAndPost['form']->createView();
+
+            if ($formAndPost['form']->isSubmitted() && $formAndPost['form']->isValid()) {
+                $formAndPost['post']->setPrompt($formAndPost['form']->getData()['prompt']);
+                $this->entityManager->persist($formAndPost['post']);
+                $persistedForms[] = $formAndPost['form'];
+            }
+        }
+        return [
+            'formViews' => $formViews,
+            'persistedForms' => $persistedForms
+        ];
+    }
+
+    public function createPostFormArray(
+        string     $prefix,
+        Collection $posts,
+        string     $formTypeClass,
+        Request    $request
+    ): array
+    {
+        $formsAndPosts = [];
+
+        foreach ($posts as $post) {
+            $form = $this->formFactory->createNamed($prefix . '_' . $post->getId(), $formTypeClass, $post);
+            $form->handleRequest($request);
+            $formsAndPosts[] = [
+                'form' => $form,
+                'post' => $post
+            ];
+
+        }
+        return $formsAndPosts;
     }
 
 }

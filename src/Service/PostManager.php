@@ -6,9 +6,9 @@ use App\Entity\Post;
 use App\Entity\Prompt;
 use App\Entity\User;
 use App\Repository\PromptRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\FormInterface;
-use function PHPUnit\Framework\isNull;
 
 class PostManager
 {
@@ -19,7 +19,7 @@ class PostManager
     {
     }
 
-    public function extractFromEditPostsForms(
+    public function extractForms(
         array  $createdForms,
         string $key
     ): array
@@ -54,11 +54,7 @@ class PostManager
 
         $foundPrompt = $this->autoPromptSelect($originalFilename);
 
-        if (!isNull($foundPrompt)) {
-            $post->setPrompt($foundPrompt);
-        } else {
-            $post->setPrompt(null);
-        }
+        $post->setPrompt($foundPrompt ?? null);
 
         // $post->setPrompt($form->get('prompt')->getData());
         $post->setFileName($newFilename);
@@ -69,7 +65,7 @@ class PostManager
     ): Prompt|null
     {
         foreach ($this->getAllPromptNames() as $prompt) {
-            if (str_contains($prompt, $originalFilename)) {
+            if (str_contains($originalFilename, $prompt)) {
                 return $this->promptRepository->findOneBy(['name_fr' => $prompt]) ?? $this->promptRepository->findOneBy(['name_en' => $prompt]);
             }
         }
@@ -86,5 +82,31 @@ class PostManager
             $promptNames[] = $prompt->getNameFr();
         }
         return $promptNames;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function sortPostsByDayNumber(
+        Collection $postCollection,
+    ): Collection
+    {
+        $iterator = $postCollection->getIterator();
+        $iterator->uasort(function ($a, $b) {
+            return ($a->getPrompt()?->getDayNumber() < $b->getPrompt()?->getDayNumber()) ? -1 : 1;
+        });
+
+        return new ArrayCollection(iterator_to_array($iterator));
+    }
+
+    public function getOrphanPosts(
+        Collection $postCollection,
+    ): Collection
+    {
+        $orphanPosts = [];
+        foreach ($postCollection as $post) {
+                $post->getPrompt() ?? $orphanPosts[] = $post;
+        }
+        return new ArrayCollection($orphanPosts);
     }
 }

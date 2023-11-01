@@ -9,12 +9,10 @@
         <h1>Page de {{ owner.username |title }}</h1>
         {# todo: show upload progress bar #}
         {% if app.user == owner %}
-            {{ include('shared/modal/_crud-modal.html.twig', {
-                modalID: 'post-upload',
-                title: 'Ajouter un post',
-                buttonLabel: 'add',
-                form: newPostForm
-            }) }}
+
+            {{ form_start(newPostForm) }}
+            {{ form_widget(newPostForm) }}
+            {{ form_end(newPostForm) }}
 
             {% if posts|length > 0 %}
                 {{ include('shared/buttons/_editButton.html.twig', {
@@ -23,8 +21,17 @@
                 }) }}
             {% endif %}
 
-        {% endif %}
+            {% if addPromptToPostFormViews %}
 
+                {{ include('shared/modal/_addPromptToPosts-modal.html.twig', {
+                    modalID: 'addPromptToPost',
+                    title: 'Ajouter des thèmes aux posts',
+                    forms: addPromptToPostFormViews
+                }) }}
+
+            {% endif %}
+
+        {% endif %}
 
         {% for promptList in promptLists %}
 
@@ -58,12 +65,12 @@
                                 <div
                                         class="p-0 m-0 card-body gallery-card rounded-3"
                                 >
-                                    <img
+                                    {# <img
                                             src="{{ asset('images/posts/' ~ post['fileName']) }}"
                                             class="post-img img-fluid p-2 m-0"
                                             id="post-img-{{ post['id'] }}"
                                             alt="Image animé de {{ post['owner']|title }} pour le thème {{ post['promptNameFr']|title }}"
-                                    >
+                                    > #}
                                 </div>
                             </article>
 

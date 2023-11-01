@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Prompt;
-use App\Repository\PromptRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
@@ -26,9 +25,9 @@ class PromptAutocompleteField extends AbstractType
             'multiple' => false,
             'row_attr' => ['class' => 'py-0 px-2 m-0'],
 
-//            'query_builder' => function (PromptRepository $promptRepository) {
-//                return $promptRepository->createQueryBuilder('prompt');
-//            },
+            //            'query_builder' => function (PromptRepository $promptRepository) {
+            //                return $promptRepository->createQueryBuilder('prompt');
+            //            },
             //'security' => 'ROLE_SOMETHING',
         ]);
     }

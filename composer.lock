@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "600c53eaa4d3ab60e5979357b2872770",
+    "content-hash": "278dae7b24132832faae0d68bccdcdbd",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -6994,85 +6994,6 @@
             "time": "2023-09-13T14:01:24+00:00"
         },
         {
-            "name": "symfony/ux-dropzone",
-            "version": "v2.11.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/ux-dropzone.git",
-                "reference": "3b8e5cf6c54081b0bc2c850cbcaa537acb14b7bd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ux-dropzone/zipball/3b8e5cf6c54081b0bc2c850cbcaa537acb14b7bd",
-                "reference": "3b8e5cf6c54081b0bc2c850cbcaa537acb14b7bd",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.1",
-                "symfony/config": "^5.4|^6.0",
-                "symfony/dependency-injection": "^5.4|^6.0",
-                "symfony/form": "^5.4|^6.0",
-                "symfony/http-kernel": "^5.4|^6.0",
-                "symfony/options-resolver": "^5.4|^6.0"
-            },
-            "require-dev": {
-                "symfony/framework-bundle": "^5.4|^6.0",
-                "symfony/phpunit-bridge": "^5.4|^6.0",
-                "symfony/twig-bundle": "^5.4|^6.0",
-                "symfony/var-dumper": "^5.4|^6.0",
-                "twig/twig": "^2.14.7|^3.0.4"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "thanks": {
-                    "name": "symfony/ux",
-                    "url": "https://github.com/symfony/ux"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\UX\\Dropzone\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Titouan Galopin",
-                    "email": "galopintitouan@gmail.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "File input dropzones for Symfony Forms",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "symfony-ux"
-            ],
-            "support": {
-                "source": "https://github.com/symfony/ux-dropzone/tree/v2.11.1"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2023-06-19T13:59:38+00:00"
-        },
-        {
             "name": "symfony/ux-live-component",
             "version": "v2.12.0",
             "source": {
@@ -7261,16 +7182,16 @@
         },
         {
             "name": "symfony/ux-twig-component",
-            "version": "v2.11.2",
+            "version": "v2.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ux-twig-component.git",
-                "reference": "1d6f7656a788e1fe6075a3bf364d8bb6be663456"
+                "reference": "adafcd7b561a7e6bf4c8e7d05af99c8fe0dd35f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ux-twig-component/zipball/1d6f7656a788e1fe6075a3bf364d8bb6be663456",
-                "reference": "1d6f7656a788e1fe6075a3bf364d8bb6be663456",
+                "url": "https://api.github.com/repos/symfony/ux-twig-component/zipball/adafcd7b561a7e6bf4c8e7d05af99c8fe0dd35f7",
+                "reference": "adafcd7b561a7e6bf4c8e7d05af99c8fe0dd35f7",
                 "shasum": ""
             },
             "require": {
@@ -7285,6 +7206,7 @@
                 "symfony/config": "<5.4.0"
             },
             "require-dev": {
+                "symfony/console": "^5.4|^6.0",
                 "symfony/css-selector": "^5.4|^6.0",
                 "symfony/dom-crawler": "^5.4|^6.0",
                 "symfony/framework-bundle": "^5.4|^6.0",
@@ -7323,7 +7245,7 @@
                 "twig"
             ],
             "support": {
-                "source": "https://github.com/symfony/ux-twig-component/tree/v2.11.2"
+                "source": "https://github.com/symfony/ux-twig-component/tree/v2.12.0"
             },
             "funding": [
                 {
@@ -7339,7 +7261,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-09-07T14:51:36+00:00"
+            "time": "2023-09-22T13:26:20+00:00"
         },
         {
             "name": "symfony/validator",

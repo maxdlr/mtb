@@ -277,9 +277,6 @@
             "./config/routes/ux_autocomplete.yaml"
         ]
     },
-    "symfony/ux-dropzone": {
-        "version": "v2.11.1"
-    },
     "symfony/ux-live-component": {
         "version": "2.12",
         "recipe": {
