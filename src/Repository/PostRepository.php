@@ -42,20 +42,28 @@ class PostRepository extends ServiceEntityRepository
     /**
      * @return Post[] Returns an array of Post objects
      */
-    public function findByQuery($value, $limit): array
+    public function findByQuery($query, $limit, $orderBy, string $ascDesc = 'ASC'): array
     {
-        return $this->createQueryBuilder('p')
-            ->select('pr.name_fr as promptNameFr, u.username as owner, p.fileName, p.id')
-            ->leftJoin('p.prompt', 'pr')
-            ->leftJoin('p.user', 'u')
-            ->innerJoin('pr.promptList', 'prl')
-            ->where('pr.name_fr LIKE :val')
-            ->orWhere('pr.name_en LIKE :val')
-            ->orWhere('pr.dayNumber LIKE :val')
-            ->orWhere('u.username LIKE :val')
-            ->orWhere('prl.year LIKE :val')
-            ->setParameter('val', '%' . $value . '%')
-            ->orderBy('pr.dayNumber', 'ASC')
+        return $this->createQueryBuilder('post')
+            ->select(
+                'post.fileName, 
+                user.username as owner, 
+                prompt.dayNumber, 
+                prompt.name_fr as promptNameFr, 
+                promptList.year as promptListYear, 
+                post.id,
+                post.uploadedOn as date'
+            )
+            ->leftJoin('post.prompt', 'prompt')
+            ->leftJoin('post.user', 'user')
+            ->innerJoin('prompt.promptList', 'promptList')
+            ->where('prompt.name_fr LIKE :query')
+            ->orWhere('prompt.name_en LIKE :query')
+            ->orWhere('prompt.dayNumber LIKE :query')
+            ->orWhere('user.username LIKE :query')
+            ->orWhere('promptList.year LIKE :query')
+            ->setParameter('query', '%' . $query . '%')
+            ->orderBy($orderBy, $ascDesc)
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
@@ -66,7 +74,15 @@ class PostRepository extends ServiceEntityRepository
         $now = new \DateTimeImmutable();
 
         return $this->createQueryBuilder('post')
-            ->select('post.fileName, user.username as owner, prompt.dayNumber, prompt.name_fr as promptNameFr, promptList.year as promptListYear, post.id')
+            ->select(
+                'post.fileName, 
+                user.username as owner, 
+                prompt.dayNumber, 
+                prompt.name_fr as promptNameFr, 
+                promptList.year as promptListYear, 
+                post.id,
+                post.uploadedOn as date'
+            )
             ->leftJoin('post.prompt', 'prompt')
             ->leftJoin('prompt.promptList', 'promptList')
             ->leftJoin('post.user', 'user')
@@ -80,7 +96,15 @@ class PostRepository extends ServiceEntityRepository
     public function findAllByUserAndYear($userUsername, $year, $orderBy)
     {
         return $this->createQueryBuilder('post')
-            ->select('post.id, post.fileName, user.username as owner, prompt.dayNumber, prompt.name_fr as promptNameFr, promptList.year as promptListYear')
+            ->select(
+                'post.id, 
+                post.fileName, 
+                user.username as owner, 
+                prompt.dayNumber, 
+                prompt.name_fr as promptNameFr, 
+                promptList.year as promptListYear,
+                post.uploadedOn as date'
+            )
             ->leftJoin('post.prompt', 'prompt')
             ->leftJoin('prompt.promptList', 'promptList')
             ->leftJoin('post.user', 'user')

@@ -15,8 +15,9 @@ class PostSearchByQuery
 
     #[LiveProp(writable: true)]
     public ?string $query = null;
-
     public Collection $posts;
+    public string $orderBy = 'prompt.dayNumber';
+    public string $ascDesc = 'ASC';
 
     public function __construct(
         private readonly PostRepository $postRepository,
@@ -26,6 +27,11 @@ class PostSearchByQuery
 
     public function getPosts(): array
     {
-        return $this->postRepository->findByQuery($this->query, 100);
+        return $this->postRepository->findByQuery(
+            $this->query,
+            100,
+            $this->orderBy,
+            $this->ascDesc
+        );
     }
 }

@@ -3,29 +3,46 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-    <main class="container row">
-        {#        LEFT BAR ----------------------------------------- -#}
-        <section class="col">
-            {# <header class="row">
-                <img
-                        src="{{ asset('build/images/Logo_MTB.png') }}"
-                        alt="Logo du Motiontober"
-                        class="img-fluid mx-auto mt-3"
-                >
-            </header> #}
-            {% include('home/_list.html.twig') %}
-        </section>
-        {#        END LEFT BAR ------------------------------------- -#}
-        {#        CENTER BAR --------------------------------------- -#}
-        <section class="col">
+    <main class="container">
+        <div class="row">
 
-            <div>
+            {#        LEFT BAR ----------------------------------------- -#}
 
-                {{ include('shared/post/_gallery.html.twig', { posts: posts }) }}
+            <section class="col-3">
+                <header class="row">
+                    <img
+                            src="{{ asset('build/images/Logo_MTB.png') }}"
+                            alt="Logo du Motiontober"
+                            class="img-fluid mx-auto mt-3 w-50"
+                    >
+                </header>
+                {% include('home/_list.html.twig') %}
+            </section>
 
-            </div>
+            {#        END LEFT BAR ------------------------------------- -#}
+            {#        CENTER BAR --------------------------------------- -#}
 
+            <section class="col-6">
+                {{ component('PostSearchByQuery', {orderBy: 'date', ascDesc: 'DESC'}) }}
+            </section>
 
-        </section>
+            {#        END CENTER BAR ----------------------------------- -#}
+            {#        RIGHT BAR ---------------------------------------- -#}
+
+            <section class="col-3">
+                {% if not app.user %}
+                    <turbo-frame id="login" src="{{ path('app_login') }}">
+                        loading...
+                    </turbo-frame>
+                {% else %}
+                    <a href="{{ path('app_user_page', {'username': app.user.username}) }}">{{ app.user.username|title }}</a>
+                    -
+                    <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                    {{ include('shared/post/_thumbnail.html.twig', {post: latestUserPost, rich: false}) }}
+                {% endif %}
+
+            </section>
+            {#        END RIGHT BAR ------------------------------------ -#}
+        </div>
     </main>
 {% endblock %}

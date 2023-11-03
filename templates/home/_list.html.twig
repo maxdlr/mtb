@@ -1,4 +1,4 @@
-<div {{ stimulus_controller('search') }}>
+<div>
     <h2 class="text-center title-font fs-1 text-red">
         {{ list }}
     </h2>
@@ -10,17 +10,19 @@
         </a>
     {% endif %}
 
-    <article class="">
+    <article {{ stimulus_controller('postsearch') }}>
         <ul class="list-unstyled">
             {% for prompt in prompts %}
                 <li
                         class="row row-cols-2 text-nowrap {% if loop.index0 % 3 == 0 %}text-red{% elseif loop.index % 3 == 0 %}text-blue{% else %}text-yellow{% endif %} para-font prompt-list-item py-1">
                     <a
-                            href="{{ path('app_home_search_by_prompt', {promptName: prompt.nameEn}) }}"
-                            class="link-offset-2 link-underline link-underline-opacity-0"
+                            {#                            href="{{ path('app_home_search_by_prompt', {promptName: prompt.nameEn}) }}" #}
+                            {#                            class="link-underline link-underline-opacity-0" #}
+                            {{ stimulus_action('postsearch', 'filter', 'click') }}
+                            data-postsearch-promptname-param="{{ prompt.nameEn }}"
                     >
 
-                    <span class="">#
+                    <span>#
                         {% if prompt.dayNumber|length < 2 %}
                             0{{ prompt.dayNumber }}
                         {% else %}

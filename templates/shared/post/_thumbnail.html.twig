@@ -1,17 +1,24 @@
 <div>
 
-    <p class="text-center m-0">
-        {{ post['promptNameFr']|title }} de
-        <a href="{{ path('app_user_page', {'username': post['owner']}) }}">
-            {{ post['owner']|title }}
-        </a>
-    </p>
-
-    {#    TODO: posts might have more than one author
-    <img
+    {% if rich %}
+        <p class="text-center m-0">
+            {{ post['promptNameFr']|title }} de
+            <a href="{{ path('app_user_page', {'username': post['owner']}) }}">
+                {{ post['owner']|title }}
+            </a>
+        </p>
+    {% else %}
+        <p class="text-center m-0">
+            {{ post['promptNameFr']|title }}
+        </p>
+        {#            TODO: posts might have more than one author #}
+    {% endif %}
+    {# <img
             src="{{ asset('images/posts/' ~ post['fileName']) }}"
             class="post-img img-fluid p-2 m-0"
             id="post-img-{{ post['id'] }}"
             alt="Gif animé - {{ post['promptNameFr']|title }} de {{ post['owner']|title }}"
     > #}
+
+
 </div>

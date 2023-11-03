@@ -88,7 +88,7 @@ class PageController extends AbstractController
     {
         $user = $userRepository->findOneBy(['username' => $this->getUser()?->getUserIdentifier()]);
         $owner = $userRepository->findOneBy(['username' => $username]);
-        $posts = $dataManager->sortPostsByDayNumber($owner->getPosts());
+        $posts = $postManager->sortPostsByDayNumber($owner->getPosts());
 
         $newPostForm = $this->newPost($owner, $request);
         $editPostForms = $this->createEditPostsForms($posts, $owner, $request);
