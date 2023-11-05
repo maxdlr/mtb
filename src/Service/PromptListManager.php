@@ -22,10 +22,10 @@ class PromptListManager
         foreach ($posts as $post) {
             $promptList = $this->promptListRepository->findOneBy(['year' => $post['promptListYear']]);
 
-            if (!$promptLists->contains($promptList))
+            if (!$promptLists->contains($promptList) && !is_null($promptList))
                 $promptLists->add($promptList);
-        }
 
+        }
         return $promptLists;
     }
 }

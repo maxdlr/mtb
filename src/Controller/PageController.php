@@ -79,28 +79,12 @@ class PageController extends AbstractController
             return $this->redirectToRoute('app_user_page', ['username' => $username], Response::HTTP_SEE_OTHER);
         }
         // --------------------------------------------------------------------------------------
-        //todo: simplify promptless posts management
-        $addPromptToPostFormViewsAndPersisted = $this->addPromptToOrphanPostForm($orphanPosts, $request);
-        $addPromptToPostFormViews = $this->postManager->extractForms($addPromptToPostFormViewsAndPersisted, 'formViews');
-        $addPromptToPostPersistedForms = $this->postManager->extractForms($addPromptToPostFormViewsAndPersisted, 'persistedForms');
-
-        if ($addPromptToPostPersistedForms) {
-            try {
-                $this->postManager->flushPosts($addPromptToPostPersistedForms);
-                $this->addFlash('success', 'Thème ajouté');
-                return $this->redirectToRoute('app_user_page_edit', ['username' => $owner->getUsername()]);
-            } catch (\Exception $e) {
-                dump($e);
-                $this->addFlash('danger', 'Aucun thème ajouté');
-            }
-        }
 
         return $this->render('page/index.html.twig', [
             'promptLists' => $promptLists,
             'posts' => $posts,
             'owner' => $owner,
             'orphanPosts' => $orphanPosts,
-            'addPromptToPostFormViews' => $addPromptToPostFormViews,
             'newPostForm' => $newPostForm
         ]);
     }
@@ -224,57 +208,6 @@ class PageController extends AbstractController
             'formViews' => $formViews,
             'persistedForms' => $persistedForms
         ];
-    }
-
-    public function addPromptToOrphanPostForm(
-        Collection $orphanPosts,
-        Request    $request,
-    ): array
-    {
-        $formsAndPosts = $this->createPostFormArray(
-            'addPromptToPost',
-            $orphanPosts,
-            AddPromptToOrphanPostType::class,
-            $request
-        );
-
-        $formViews = [];
-        $persistedForms = [];
-
-        foreach ($formsAndPosts as $formAndPost) {
-            $formViews[] = $formAndPost['form']->createView();
-
-            if ($formAndPost['form']->isSubmitted() && $formAndPost['form']->isValid()) {
-                $formAndPost['post']->setPrompt($formAndPost['form']->getData()['prompt']);
-                $this->entityManager->persist($formAndPost['post']);
-                $persistedForms[] = $formAndPost['form'];
-            }
-        }
-        return [
-            'formViews' => $formViews,
-            'persistedForms' => $persistedForms
-        ];
-    }
-
-    public function createPostFormArray(
-        string     $prefix,
-        Collection $posts,
-        string     $formTypeClass,
-        Request    $request
-    ): array
-    {
-        $formsAndPosts = [];
-
-        foreach ($posts as $post) {
-            $form = $this->formFactory->createNamed($prefix . '_' . $post->getId(), $formTypeClass, $post);
-            $form->handleRequest($request);
-            $formsAndPosts[] = [
-                'form' => $form,
-                'post' => $post
-            ];
-
-        }
-        return $formsAndPosts;
     }
 
 }

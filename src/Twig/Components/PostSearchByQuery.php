@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Components;
+namespace App\Twig\Components;
 
 use App\Repository\PostRepository;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;

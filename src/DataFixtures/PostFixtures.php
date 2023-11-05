@@ -40,6 +40,22 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         '27_slide_sd.gif',
         '29_swing_sd.gif',
         '31_plug_sd.gif',
+        'bejvrktnvjre.gif',
+        'bejvrktnvjre.gif',
+        'bejvrktnvjre.gif',
+        'bejvrktnvjre.gif',
+        'bejvrktnvjre.gif',
+        'bejvrktnvjre.gif',
+        'bejvrktnvjre.gif',
+        'bejvrktnvjre.gif',
+        'bejvrktnvjre.gif',
+        'bejvrktnvjre.gif',
+        'bejvrktnvjre.gif',
+        'bejvrktnvjre.gif',
+        'bejvrktnvjre.gif',
+        'bejvrktnvjre.gif',
+        'bejvrktnvjre.gif',
+        'bejvrktnvjre.gif',
     ];
 
     public function __construct(

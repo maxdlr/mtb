@@ -20,15 +20,15 @@
                         type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseList"
                         aria-expanded="false" aria-controls="collapseList">
-                    Liste {{ list }}
+                    Liste {{ currentYear }}
                 </button>
                 <div class="collapse" id="collapseList">
                     <div class="d-block d-md-none">
-                        {% include('home/_list.html.twig') %}
+                        {{ component('ListComponent') }}
                     </div>
                 </div>
                 <div class="d-md-block d-none">
-                    {% include('home/_list.html.twig') %}
+                    {{ component('ListComponent') }}
                 </div>
             </section>
 

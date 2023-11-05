@@ -36,15 +36,12 @@ class HomeController extends AbstractController
         $latestUserPost = $this->postManager
             ->PostToArray($this->postManager->getLatestPost($user?->getPosts()));
 
-        $prompts = $this->promptRepository->findByYear($currentYear);
         $posts = $this->postRepository->findAllBy('promptList.year', $currentYear, 'post.uploadedOn');
-        $list = $this->promptListRepository->findOneBy(['year' => $currentYear])->getYear();
 
         return $this->render('home/index.html.twig', [
             'posts' => $posts,
-            'prompts' => $prompts,
-            'list' => $list,
             'latestUserPost' => $latestUserPost,
+            'currentYear' => $currentYear,
         ]);
     }
 

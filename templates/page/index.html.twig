@@ -4,68 +4,89 @@
 
 {% block body %}
 
-    <main class="container-md">
+    <main class="container-fluid mt-4">
+        <div class="row">
 
-        <h1>Page de {{ owner.username |title }}</h1>
-        {# todo: show upload progress bar #}
-        {% if app.user == owner %}
+            {#        LEFT BAR ----------------------------------------- -#}
+            <section class="col-lg-3 col-md-5">
+                {{ component('ListComponent') }}
+            </section>
 
-            {{ form_start(newPostForm) }}
-            {{ form_widget(newPostForm) }}
-            {{ form_end(newPostForm) }}
+            {#        END LEFT BAR ------------------------------------- -#}
+            {#        CENTER BAR --------------------------------------- -#}
 
-            {% if posts|length > 0 %}
-                {{ include('shared/buttons/_editButton.html.twig', {
-                    route: 'app_user_page_edit',
-                    optionValue: owner.username
-                }) }}
-            {% endif %}
+            <section class="col-lg-6 col-md-7">
 
-            {% if addPromptToPostFormViews %}
 
-                {{ include('shared/modal/_addPromptToPosts-modal.html.twig', {
-                    modalID: 'addPromptToPost',
-                    title: 'Ajouter des thèmes aux posts',
-                    forms: addPromptToPostFormViews
-                }) }}
+                <h1>Page de {{ owner.username |title }}</h1>
+                {# todo: show upload progress bar #}
+                {% if app.user == owner %}
 
-            {% endif %}
+                    {{ form_start(newPostForm) }}
+                    {{ form_widget(newPostForm) }}
+                    {{ form_end(newPostForm) }}
 
-        {% endif %}
+                    {% if posts|length > 0 %}
+                        {{ include('shared/buttons/_editButton.html.twig', {
+                            route: 'app_user_page_edit',
+                            optionValue: owner.username
+                        }) }}
+                    {% endif %}
 
-        {% for promptList in promptLists %}
+                {% endif %}
 
-            <section class="my-3">
-                <h2>{{ promptList.year }}</h2>
-                <div
-                        class="row row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 ">
+                {% for promptList in promptLists %}
 
-                    {% for post in posts %}
+                    <section class="my-3">
+                        <h2>{{ promptList.year }}</h2>
+                        <div
+                                class="row row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 ">
 
-                        {% if post['promptListYear'] == promptList.year %}
+                            {% for post in posts %}
 
-                            <article class="p-0 m-0" id="{{ post['id'] }}">
+                                {% if post['promptListYear'] == promptList.year %}
 
-                                {% if app.user == owner %}
-                                    <div class="d-flex justify-content-center">
-                                        {{ include('shared/buttons/_deleteButton.html.twig', {route: 'app_post_delete', itemId: post['id']}) }}
-                                    </div>
+                                    <article class="p-0 m-0" id="{{ post['id'] }}">
+
+                                        {% if app.user == owner %}
+                                            <div class="d-flex justify-content-center">
+                                                {{ include('shared/buttons/_deleteButton.html.twig', {route: 'app_post_delete', itemId: post['id']}) }}
+                                            </div>
+                                        {% endif %}
+
+                                        <div class="p-0 m-0 rounded-3">
+                                            {{ include('shared/post/_thumbnail.html.twig', {rich: false}) }}
+                                        </div>
+                                    </article>
+
                                 {% endif %}
 
-                                <div class="p-0 m-0 rounded-3">
-                                    {{ include('shared/post/_thumbnail.html.twig', {rich: false}) }}
-                                </div>
-                            </article>
+                            {% else %}
+                                <h4>Pas encore de posts</h4>
+                            {% endfor %}
+                        </div>
+                    </section>
+                {% endfor %}
 
-                        {% endif %}
-
-                    {% else %}
-                        <h4>Pas encore de posts</h4>
-                    {% endfor %}
-                </div>
             </section>
-        {% endfor %}
+            <section class="col-3 d-none d-lg-block">
 
+                {% if not app.user %}
+                    <turbo-frame id="login" src="{{ path('app_login') }}">
+                        loading...
+                    </turbo-frame>
+                {% else %}
+                    <a href="{{ path('app_user_page', {'username': app.user.username}) }}">{{ app.user.username|title }}</a>
+                    -
+                    <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                {% endif %}
 
+                {% if orphanPosts %}
+                    {% for post in orphanPosts %}
+                        {{ component('ResolvePromptlessPostsComponent', {post: post}) }}
+                    {% endfor %}
+                {% endif %}
+            </section>
+        </div>
     </main>
 {% endblock %}
