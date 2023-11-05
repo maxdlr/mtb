@@ -1,0 +1,16 @@
+{% extends 'modal-base.html.twig' %}
+
+{% block modalID %}{{ modalID }}{% endblock %}
+{% block buttonLabel %}
+    {{ buttonLabel|raw }}
+{% endblock %}
+
+{% block modalTitle %}
+    {{ title|raw }}
+{% endblock %}
+
+{% block modalBody %}
+
+    {{ content|raw }}
+
+{% endblock %}

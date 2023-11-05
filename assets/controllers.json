@@ -10,15 +10,6 @@
                 }
             }
         },
-        "@symfony/ux-dropzone": {
-            "dropzone": {
-                "enabled": true,
-                "fetch": "eager",
-                "autoimport": {
-                    "@symfony/ux-dropzone/dist/style.min.css": true
-                }
-            }
-        },
         "@symfony/ux-live-component": {
             "live": {
                 "enabled": true,

@@ -1,11 +1,16 @@
 <div {{ attributes }}>
-    <div class="text-center w-100">
+    <div class="d-flex align-items-center mb-4 position-relative">
+        <button
+                class="btn btn-danger btn-close align-middle p-3 rounded-pill ms-2 position-absolute end-0 d-none"
+                {{ stimulus_action('postsearch', 'clear', 'click') }}
+                id="close-search"
+        ></button>
         <input
                 type="search"
                 data-model="query"
                 data-value=""
                 placeholder="Cherche n'importe quoi..."
-                class="w-100"
+                class="w-100 rounded-pill text-center border-0 bg-yellow py-3"
                 id="live-post-search"
                 {{ stimulus_action('postsearch', 'type', 'input') }}
         >
@@ -14,11 +19,11 @@
     {% if computed.posts|length > 0 %}
         <div
                 data-loading="addClass(opacity-50)"
-                class="row row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 "
+                class="row row-cols-xxl-3 row-cols-lg-2 row-cols-md-1 "
         >
             {{ include('shared/post/_gallery.html.twig', {posts: computed.posts, rich: true}) }}
         </div>
     {% else %}
-        <div class="pt-3">Ah! No packages found matching "{{ query }}"</div>
+        <div class="pt-3">Ah! Rien ne correspond à "{{ query }}" !!</div>
     {% endif %}
 </div>

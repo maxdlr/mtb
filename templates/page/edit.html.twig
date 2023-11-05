@@ -9,21 +9,30 @@
             <h1>Page de {{ owner.username |title }}</h1>
         </a>
 
-        {{ include('shared/modal/_crud-modal.html.twig', {
-            modalID: 'post-upload',
-            title: 'Ajouter un post',
-            buttonLabel: 'add',
-            form: newPostForm
-        }) }}
+        <section class="d-flex justify-content-start align-content-center">
+            {% for post in orphanPosts %}
+                {{ include('shared/buttons/_deleteButton.html.twig', {route: 'app_post_delete', itemId: post.id}) }}
+                <img
+                        src="{{ asset('images/posts/' ~ post.fileName) }}"
+                        class="post-img img-fluid p-2 m-0 w-25"
+                        id="post-img-{{ post.id }}"
+                        alt="Image animé de {{ owner.username|title }}"
+                >
+            {% endfor %}
+        </section>
+
+
         <section>
 
             {% for form in forms %}
                 {{ include('shared/buttons/_deleteButton.html.twig', {route: 'app_post_delete', itemId: form.vars.value.id}) }}
                 {{ form_start(form, {}) }}
+
                 <article class="row">
                     <div class="col-6">
                         {% for post in owner.posts %}
                             {% if form.vars.value.id == post.id %}
+                                <p>{{ post.fileName }}</p>
                                 {# <img
                                         src="{{ asset('images/posts/' ~ post.fileName) }}"
                                         class="post-img img-fluid p-2 m-0"
@@ -36,10 +45,10 @@
 
                     <div class="col-6">
                         {{ form_row(form.post) }}
-                        <div class="border border-2 px-3 py-2 m-2 bg-secondary text-light rounded-3 text-center">
-                            {{ form.vars.value.prompt.nameFr }}
-                        </div>
-                        {{ form_row(form.prompt) }}
+                        {#                        <div class="border border-2 px-3 py-2 m-2 bg-secondary text-light rounded-3 text-center"> #}
+                        {#                            {{ form.vars.value.prompt.nameFr }} #}
+                        {#                        </div> #}
+                        {#                        {{ form_row(form.prompt) }} #}
                     </div>
                 </article>
                 {{ form_end(form) }}

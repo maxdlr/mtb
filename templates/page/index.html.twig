@@ -4,78 +4,93 @@
 
 {% block body %}
 
-  <main class="container-md">
+    <main class="container-fluid mt-4">
+        <div class="row">
 
-    <h1>Page de {{ owner.username |title }}</h1>
-    {# todo: show upload progress bar #}
-    {% if app.user == owner %}
-      {{ include('shared/modal/_crud-modal.html.twig', {
-        modalID: 'post-upload',
-        title: 'Ajouter un post',
-        buttonLabel: 'add',
-        form: newPostForm
-      }) }}
+            {#        LEFT BAR ----------------------------------------- -#}
+            <section class="col-lg-3 col-md-5">
+                {{ component('ListComponent') }}
+            </section>
 
-            {% if posts|length > 0 %}
-                {{ include('shared/buttons/_editButton.html.twig', {
-                    route: 'app_user_page_edit',
-                    optionValue: owner.username
-                }) }}
-            {% endif %}
+            {#        END LEFT BAR ------------------------------------- -#}
+            {#        CENTER BAR --------------------------------------- -#}
 
-        {% endif %}
+            <section class="col-lg-6 col-md-7">
 
 
-    {% for promptList in promptLists %}
+                <h1>Page de {{ owner.username |title }}</h1>
+                {# todo: show upload progress bar #}
+                {% if app.user == owner %}
 
-      <section class="my-3">
+                    {{ form_start(newPostForm) }}
+                    {{ form_widget(newPostForm) }}
+                    {{ form_end(newPostForm) }}
 
-        <h2>{{ promptList.year }}</h2>
-        <div
-          class="row row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 ">
+                    {% if posts|length > 0 %}
+                        {{ include('shared/buttons/_editButton.html.twig', {
+                            route: 'app_user_page_edit',
+                            optionValue: owner.username
+                        }) }}
+                    {% endif %}
 
-          {% for post in posts %}
+                {% endif %}
 
-            {% if post['promptListYear'] == promptList.year %}
+                {% for promptList in promptLists %}
 
-              <article
-                class="card p-0 m-0"
-                id="{{ post['id'] }}"
-              >
-                <div class="card-header d-flex justify-content-between">
-                  <div class="card-title">
-                    {{ post['promptListYear'] }} -- {{ post['dayNumber'] }}
-                    - {{ post['promptNameFr']|title }}
-                  </div>
+                    <section class="my-3">
+                        <h2>{{ promptList.year }}</h2>
+                        <div
+                                class="row row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 ">
 
-                  {% if app.user == owner %}
-                    <div class="card-group d-flex justify-content-center">
-                      {{ include('shared/buttons/_deleteButton.html.twig', {route: 'app_post_delete', itemId: post['id']}) }}
-                    </div>
-                  {% endif %}
+                            {% for post in posts %}
 
-                </div>
-                <div
-                  class="p-0 m-0 card-body gallery-card rounded-3"
-                >
-                  {# <img
-                                            src="{{ asset('images/posts/' ~ post['fileName']) }}"
-                                            class="post-img img-fluid p-2 m-0"
-                                            id="post-img-{{ post['id'] }}"
-                                            alt="Image animé de {{ post['owner']|title }} pour le thème {{ post['promptNameFr']|title }}"
-                                    > #}
-                </div>
-              </article>
+                                {% if post['promptListYear'] == promptList.year %}
 
-            {% endif %}
+                                    <article class="p-0 m-0" id="{{ post['id'] }}">
 
-          {% else %}
-            <h4>Pas encore de posts</h4>
-          {% endfor %}
+                                        {% if app.user == owner %}
+                                            <div class="d-flex justify-content-center">
+                                                {{ include('shared/buttons/_deleteButton.html.twig', {route: 'app_post_delete', itemId: post['id']}) }}
+                                            </div>
+                                        {% endif %}
+
+                                        <div class="p-0 m-0 rounded-3">
+                                            {{ include('shared/post/_thumbnail.html.twig', {rich: false}) }}
+                                        </div>
+                                    </article>
+
+                                {% endif %}
+
+                            {% else %}
+                                <h4>Pas encore de posts</h4>
+                            {% endfor %}
+                        </div>
+                    </section>
+                {% endfor %}
+
+            </section>
+            <section class="col-3 d-none d-lg-block">
+
+                {% if not app.user %}
+                    <turbo-frame id="login" src="{{ path('app_login') }}">
+                        loading...
+                    </turbo-frame>
+                {% else %}
+                    <a href="{{ path('app_user_page', {'username': app.user.username}) }}">{{ app.user.username|title }}</a>
+                    -
+                    <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                {% endif %}
+
+                {% if app.user == owner %}
+                    {% if orphanPosts %}
+                        {% for post in orphanPosts %}
+                            {{ component('ResolvePromptlessPostsComponent', {post: post}) }}
+                        {% endfor %}
+                    {% endif %}
+
+                {% endif %}
+
+            </section>
         </div>
-      </section>
-    {% endfor %}
-
-
-  </main>
+    </main>
 {% endblock %}

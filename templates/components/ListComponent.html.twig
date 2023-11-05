@@ -1,0 +1,38 @@
+<div{{ attributes }}>
+    <div>
+        <h2 class="text-center title-font fs-1 text-red d-md-block d-none">
+            {{ listYear }}
+        </h2>
+        <div class="line-divider my-3"></div>
+
+        <article {{ stimulus_controller('postsearch') }}>
+            <ul class="list-unstyled">
+
+                {% for prompt in prompts %}
+                    <li
+                            class="row btn btn-group w-100 rounded-pill hand text-white-hover {% if loop.index0 % 3 == 0 %}text-red bg-red-hover{% elseif loop.index % 3 == 0 %}text-blue bg-blue-hover{% else %}text-yellow bg-yellow-hover{% endif %} para-font prompt-list-item py-1" {{ stimulus_action('postsearch', 'filter', 'click') }}
+                            role="group" aria-label="promptlist"
+                            data-postsearch-promptname-param="{{ prompt.nameFr }}">
+
+                        <div class="col-2 text-nowrap p-0 m-0 align-middle">#
+                            {% if prompt.dayNumber|length < 2 %}
+                                0{{ prompt.dayNumber }}
+                            {% else %}
+                                {{ prompt.dayNumber }}
+                            {% endif %}
+                        </div>
+
+                        <div class="col-5 p-0 m-0 align-middle text-nowrap">
+                            {{ prompt.nameFr }}
+                        </div>
+
+                        <div class="col-5 p-0 m-0 align-middle text-nowrap">
+                            {{ prompt.nameEn }}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </article>
+    </div>
+</div>

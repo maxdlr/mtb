@@ -13,12 +13,10 @@
         </p>
         {#            TODO: posts might have more than one author #}
     {% endif %}
-    {# <img
+    <img
             src="{{ asset('images/posts/' ~ post['fileName']) }}"
             class="post-img img-fluid p-2 m-0"
             id="post-img-{{ post['id'] }}"
             alt="Gif animé - {{ post['promptNameFr']|title }} de {{ post['owner']|title }}"
-    > #}
-
-
+    >
 </div>

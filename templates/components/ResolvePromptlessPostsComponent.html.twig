@@ -1,0 +1,22 @@
+<div{{ attributes }}>
+
+    <section class="row">
+        <img
+                class="post-img img-fluid p-2 m-0 col"
+                src="{{ asset('images/posts/' ~ post.filename) }}"
+                id="post-img-{{ post.id }}"
+                alt="Gif animé"
+        />
+        <div class="col-9">
+            {{ form_start(form, {
+                attr: {
+                    'data-action': 'live#action',
+                    'data-action-name': 'prevent|save'
+                }
+            }) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+
+    </section>
+</div>
