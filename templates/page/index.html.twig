@@ -36,7 +36,6 @@
         {% for promptList in promptLists %}
 
             <section class="my-3">
-
                 <h2>{{ promptList.year }}</h2>
                 <div
                         class="row row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 ">
@@ -45,32 +44,16 @@
 
                         {% if post['promptListYear'] == promptList.year %}
 
-                            <article
-                                    class="card p-0 m-0"
-                                    id="{{ post['id'] }}"
-                            >
-                                <div class="card-header d-flex justify-content-between">
-                                    <div class="card-title">
-                                        {{ post['promptListYear'] }} -- {{ post['dayNumber'] }}
-                                        - {{ post['promptNameFr']|title }}
+                            <article class="p-0 m-0" id="{{ post['id'] }}">
+
+                                {% if app.user == owner %}
+                                    <div class="d-flex justify-content-center">
+                                        {{ include('shared/buttons/_deleteButton.html.twig', {route: 'app_post_delete', itemId: post['id']}) }}
                                     </div>
+                                {% endif %}
 
-                                    {% if app.user == owner %}
-                                        <div class="card-group d-flex justify-content-center">
-                                            {{ include('shared/buttons/_deleteButton.html.twig', {route: 'app_post_delete', itemId: post['id']}) }}
-                                        </div>
-                                    {% endif %}
-
-                                </div>
-                                <div
-                                        class="p-0 m-0 card-body gallery-card rounded-3"
-                                >
-                                    {# <img
-                                            src="{{ asset('images/posts/' ~ post['fileName']) }}"
-                                            class="post-img img-fluid p-2 m-0"
-                                            id="post-img-{{ post['id'] }}"
-                                            alt="Image animé de {{ post['owner']|title }} pour le thème {{ post['promptNameFr']|title }}"
-                                    > #}
+                                <div class="p-0 m-0 rounded-3">
+                                    {{ include('shared/post/_thumbnail.html.twig', {rich: false}) }}
                                 </div>
                             </article>
 

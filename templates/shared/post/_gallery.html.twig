@@ -1,3 +1,3 @@
 {% for post in posts %}
-    {{ include('shared/post/_thumbnail.html.twig') }}
+    {{ include('shared/post/_thumbnail.html.twig', {rich: rich}) }}
 {% endfor %}

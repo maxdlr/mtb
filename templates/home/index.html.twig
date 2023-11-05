@@ -3,29 +3,59 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-    <main class="container row">
-        {#        LEFT BAR ----------------------------------------- -#}
-        <section class="col">
-            {# <header class="row">
-                <img
-                        src="{{ asset('build/images/Logo_MTB.png') }}"
-                        alt="Logo du Motiontober"
-                        class="img-fluid mx-auto mt-3"
-                >
-            </header> #}
-            {% include('home/_list.html.twig') %}
-        </section>
-        {#        END LEFT BAR ------------------------------------- -#}
-        {#        CENTER BAR --------------------------------------- -#}
-        <section class="col">
+    <main class="container-fluid mt-4">
+        <div class="row">
 
-            <div>
+            {#        LEFT BAR ----------------------------------------- -#}
 
-                {{ include('shared/post/_gallery.html.twig', { posts: posts }) }}
+            <section class="col-lg-3 col-md-5">
+                <header class="row">
+                    <img
+                            src="{{ asset('build/images/Logo_MTB.png') }}"
+                            alt="Logo du Motiontober"
+                            class="img-fluid mx-auto mt-3 w-50"
+                    >
+                </header>
+                <button class="btn btn-primary d-md-none d-block w-100 rounded-pill text-center border-0 py-3 mb-3"
+                        type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseList"
+                        aria-expanded="false" aria-controls="collapseList">
+                    Liste {{ list }}
+                </button>
+                <div class="collapse" id="collapseList">
+                    <div class="d-block d-md-none">
+                        {% include('home/_list.html.twig') %}
+                    </div>
+                </div>
+                <div class="d-md-block d-none">
+                    {% include('home/_list.html.twig') %}
+                </div>
+            </section>
 
-            </div>
+            {#        END LEFT BAR ------------------------------------- -#}
+            {#        CENTER BAR --------------------------------------- -#}
 
+            <section class="col-lg-6 col-md-7" {{ stimulus_controller('postsearch') }}>
+                {{ component('PostSearchByQuery', {orderBy: 'date', ascDesc: 'DESC'}) }}
+            </section>
 
-        </section>
+            {#        END CENTER BAR ----------------------------------- -#}
+            {#        RIGHT BAR ---------------------------------------- -#}
+
+            <section class="col-3 d-none d-lg-block">
+                {% if not app.user %}
+                    <turbo-frame id="login" src="{{ path('app_login') }}">
+                        loading...
+                    </turbo-frame>
+                {% else %}
+                    <a href="{{ path('app_user_page', {'username': app.user.username}) }}">{{ app.user.username|title }}</a>
+                    -
+                    <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                    {{ include('shared/post/_thumbnail.html.twig', {post: latestUserPost, rich: false}) }}
+                {% endif %}
+
+            </section>
+            {#        END RIGHT BAR ------------------------------------ -#}
+        </div>
     </main>
 {% endblock %}

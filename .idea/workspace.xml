@@ -5,16 +5,61 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="345dd539-8329-4de7-a157-a91ba9050a9e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/controllers/postsearch_controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/01_bounce_sd.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/02_stretch_sd.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/03_roll_sd.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/04_shot_SD.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/05_flip_sd.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/06_speed_sd.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/07_jump_SD.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/08_bump_sd.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/09_curve_SD.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/10_stick_sd.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/11_fly_SD.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/12_slice_sd.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/13_twin_sd.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/15_gravity_sd.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/16_volume.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/17_evolve_sd.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/18_attract_sd.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/19_revolve_sd.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/20_trick_sd.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/21_walk_sd.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/22_start_sd.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/23_blow_sd.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/24_space_LOW.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/25_ride_sd.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/27_slide_sd.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/29_swing_sd.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/posts/31_plug_sd.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/PromptListManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/controllers/follow_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/controllers/follow_controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/FollowController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/FollowController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/controllers/hello_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/controllers/hello_controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/PostSearchByQuery.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/PostSearchByQuery.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/LoginController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/PageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/FollowType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/FollowType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/FollowRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/FollowRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/FollowManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/FollowManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/RedirectController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RedirectController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/RegistrationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RegistrationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/PostFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/PostFixtures.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/PostRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/PostRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/PostManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/PostManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/SecurityManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/SecurityManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/PostSearchByQuery.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/PostSearchByQuery.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home/_list.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home/_list.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login/index.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/page/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/shared/buttons/_followButton.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/shared/buttons/_followButton.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration/register.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/register.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/shared/post/_gallery.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/shared/post/_gallery.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/shared/post/_thumbnail.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/shared/post/_thumbnail.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,9 +258,9 @@
     &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature--follow-user&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Merging feature--auto-prompt-select&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/maxdlr/Documents/GitHub/mtb/assets/controllers&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/maxdlr/Documents/mtb/public/images/posts&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -229,25 +274,28 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/images/posts" />
       <recent name="$PROJECT_DIR$/assets/controllers" />
       <recent name="C:\Users\maxro\Documents\mtb\src\EventListener" />
       <recent name="C:\Users\maxro\Documents\mtb\templates\shared\buttons" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/templates/admin/prompt" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Service" />
       <recent name="C:\Users\maxro\Documents\mtb\templates\shared\modal" />
       <recent name="$PROJECT_DIR$/templates/admin" />
       <recent name="C:\Users\maxro\Documents\mtb\templates\admin" />
     </key>
   </component>
-  <component name="RunManager" selected="PHPUnit.Main">
+  <component name="RunManager" selected="Docker.docker-compose.yml.database: Compose Deployment">
     <configuration name="Main" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner configuration_file="$PROJECT_DIR$/phpunit.xml.dist" scope="XML" use_alternative_configuration_file="true" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
-      <deployment type="docker-compose.yml" />
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
       <method v="2" />
     </configuration>
     <configuration name="docker-compose.yml.database: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
@@ -264,11 +312,6 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Docker.docker-compose.yml.database: Compose Deployment" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

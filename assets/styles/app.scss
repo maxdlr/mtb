@@ -10,8 +10,47 @@ $yellow-color: #ffaa01;
   font-family: 'Geomanist', serif;
 }
 
+.bg-red {
+  background-color: $red-color;
+}
+
+.bg-blue {
+  background-color: $blue-color;
+}
+
+.bg-yellow {
+  background-color: $yellow-color;
+}
+
 .para-font {
   font-family: 'Geomanist Book', serif;
+}
+
+.bg-red-hover {
+  &:hover {
+    background-color: $red-color;
+
+  }
+}
+
+.bg-blue-hover {
+  &:hover {
+    background-color: $blue-color;
+
+  }
+}
+
+.bg-yellow-hover {
+  &:hover {
+    background-color: $yellow-color;
+
+  }
+}
+
+.text-white-hover {
+  &:hover {
+    color: white;
+  }
 }
 
 .text-red {
@@ -32,22 +71,4 @@ $yellow-color: #ffaa01;
   width: 100%;
   height: 1px;
   background-color: $yellow-color;
-}
-
-.prompt-list-item {
-  &.text-red:hover {
-    background-color: $red-color;
-  }
-
-  &.text-blue:hover {
-    background-color: $blue-color;
-  }
-
-  &.text-yellow:hover {
-    background-color: $yellow-color;
-  }
-
-  &:hover {
-    color: white;
-  }
 }

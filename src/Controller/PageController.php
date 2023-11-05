@@ -12,6 +12,7 @@ use App\Repository\UserRepository;
 use App\Service\DataManager;
 use App\Service\FileUploadManager;
 use App\Service\PostManager;
+use App\Service\PromptListManager;
 use App\Service\SecurityManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -39,6 +40,7 @@ class PageController extends AbstractController
         private readonly EntityManagerInterface $entityManager,
         private readonly FormFactoryInterface   $formFactory,
         private readonly PostManager            $postManager,
+        private readonly PromptListManager      $promptListManager
     )
     {
         $this->now = new \DateTimeImmutable();
@@ -61,8 +63,8 @@ class PageController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        $promptLists = $promptListRepository->findAll();
         $posts = $postRepository->findAllBy('user.username', $username, 'prompt.dayNumber');
+        $promptLists = $this->promptListManager->getPostsPromptLists($posts);
         $orphanPosts = $this->postManager->getOrphanPosts($owner->getPosts());
 
         // --------------------------------------------------------------------------------------
