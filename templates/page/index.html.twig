@@ -81,11 +81,15 @@
                     <a href="{{ path('app_logout') }}">Se déconnecter</a>
                 {% endif %}
 
-                {% if orphanPosts %}
-                    {% for post in orphanPosts %}
-                        {{ component('ResolvePromptlessPostsComponent', {post: post}) }}
-                    {% endfor %}
+                {% if app.user == owner %}
+                    {% if orphanPosts %}
+                        {% for post in orphanPosts %}
+                            {{ component('ResolvePromptlessPostsComponent', {post: post}) }}
+                        {% endfor %}
+                    {% endif %}
+
                 {% endif %}
+
             </section>
         </div>
     </main>
