@@ -4,6 +4,7 @@ namespace App\Components;
 
 use App\Repository\PostRepository;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
@@ -14,7 +15,7 @@ class PostSearchByQuery
     use DefaultActionTrait;
 
     #[LiveProp(writable: true)]
-    public ?string $query = null;
+    public ?string $query = '';
     public Collection $posts;
     public string $orderBy = 'prompt.dayNumber';
     public string $ascDesc = 'ASC';

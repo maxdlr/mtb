@@ -22,7 +22,7 @@
             {#        END LEFT BAR ------------------------------------- -#}
             {#        CENTER BAR --------------------------------------- -#}
 
-            <section class="col-6">
+            <section class="col-6" {{ stimulus_controller('postsearch') }}>
                 {{ component('PostSearchByQuery', {orderBy: 'date', ascDesc: 'DESC'}) }}
             </section>
 

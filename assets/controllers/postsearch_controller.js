@@ -9,7 +9,16 @@ export default class extends Controller {
     }
 
     filter(event) {
-        this.input.value = event.params.promptname;
-        window.location
+        this.input.setAttribute('data-value', event.params.promptname);
+        this.reload(this.input);
+    }
+
+    type() {
+        this.input.setAttribute('data-value', this.input.value);
+        this.reload(this.input);
+    }
+
+    reload(e) {
+        e.dispatchEvent(new Event('change', {bubbles: true}))
     }
 }

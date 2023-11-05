@@ -3,9 +3,11 @@
         <input
                 type="search"
                 data-model="query"
+                data-value=""
                 placeholder="Cherche n'importe quoi..."
                 class="w-100"
                 id="live-post-search"
+                {{ stimulus_action('postsearch', 'type', 'input') }}
         >
     </div>
 
