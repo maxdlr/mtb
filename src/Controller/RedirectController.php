@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/redirect', name: 'app_redirect_')]
@@ -21,5 +22,11 @@ class RedirectController extends AbstractController
         }
 
         return $this->redirectToRoute('app_home');
+    }
+
+    #[Route('/referer', name: 'referer')]
+    public function referer(Request $request)
+    {
+        return $this->redirect($request->headers->get('referer'));
     }
 }

@@ -19,7 +19,8 @@ security:
             form_login:
                 login_path: app_login
                 check_path: app_login
-                default_target_path: app_redirect_user_fallback
+                default_target_path: app_login_confirm
+            #                use_referer: true
             json_login:
                 check_path: api_login
             logout:
