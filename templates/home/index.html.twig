@@ -45,7 +45,7 @@
             <section class="col-3 d-none d-lg-block">
                 {% if not app.user %}
                     <turbo-frame id="login" src="{{ path('app_login') }}">
-                        loading...
+                        {{ include('shared/loaders/_spinner.html.twig') }}
                     </turbo-frame>
                 {% else %}
                     <a href="{{ path('app_user_page', {'username': app.user.username}) }}">{{ app.user.username|title }}</a>
