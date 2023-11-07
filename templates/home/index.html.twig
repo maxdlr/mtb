@@ -9,27 +9,25 @@
             {#        LEFT BAR ----------------------------------------- -#}
 
             <section class="col-lg-3 col-md-5">
-                <header class="row">
-                    <img
-                            src="{{ asset('build/images/Logo_MTB.png') }}"
-                            alt="Logo du Motiontober"
-                            class="img-fluid mx-auto mt-3 w-50"
-                    >
-                </header>
+                {{ include('shared/assets/mtb_logo.html.twig') }}
+
                 <button class="btn btn-primary d-md-none d-block w-100 rounded-pill text-center border-0 py-3 mb-3"
                         type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseList"
                         aria-expanded="false" aria-controls="collapseList">
                     Liste {{ currentYear }}
                 </button>
+
                 <div class="collapse" id="collapseList">
                     <div class="d-block d-md-none">
                         {{ component('ListComponent') }}
                     </div>
                 </div>
+
                 <div class="d-md-block d-none">
                     {{ component('ListComponent') }}
                 </div>
+
             </section>
 
             {#        END LEFT BAR ------------------------------------- -#}
@@ -44,9 +42,7 @@
 
             <section class="col-3 d-none d-lg-block">
                 {% if not app.user %}
-                    <turbo-frame id="login" src="{{ path('app_login') }}">
-                        loading...
-                    </turbo-frame>
+                    {{ include('auth/component.html.twig') }}
                 {% else %}
                     <a href="{{ path('app_user_page', {'username': app.user.username}) }}">{{ app.user.username|title }}</a>
                     -
