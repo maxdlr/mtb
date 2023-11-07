@@ -72,9 +72,7 @@
             <section class="col-3 d-none d-lg-block">
 
                 {% if not app.user %}
-                    <turbo-frame id="login" src="{{ path('app_login') }}">
-                        loading...
-                    </turbo-frame>
+                    {{ include('auth/component.html.twig') }}
                 {% else %}
                     <a href="{{ path('app_user_page', {'username': app.user.username}) }}">{{ app.user.username|title }}</a>
                     -

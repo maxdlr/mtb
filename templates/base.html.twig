@@ -19,7 +19,7 @@
 {% set deleteBtn = "<i class='bi bi-trash'></i>" %}
 {% set addBtn = "<i class='bi bi-plus-lg'></i>" %}
 
-<body>
+<body class="{% block bodyClasses %}{% endblock %}">
 {% for type, messages in app.flashes %}
     {% for message in messages %}
         <div class="text-{{ type }} fixed-top">{{ message }}</div>

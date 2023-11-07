@@ -1,7 +1,9 @@
-<div class="d-flex justify-content-center align-items-center">
-    <img
-            src="{{ asset('build/images/Logo_MTB.png') }}"
-            alt="Logo du Motiontober"
-            class="img-fluid mx-auto mt-3 w-50"
-    >
+<div class="d-flex justify-content-center align-items-center row row-cols-xl-4 row-cols-md-3 row-cols-2">
+    <a href="/">
+        <img
+                src="{{ asset('build/images/Logo_MTB.png') }}"
+                alt="Logo du Motiontober"
+                class="img-fluid mx-auto {{ imgClass|default('') }}"
+        >
+    </a>
 </div>

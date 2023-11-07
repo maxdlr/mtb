@@ -19,8 +19,19 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('username', TextType::class)
+            ->add('username', TextType::class, [
+                'label' => false,
+                'attr' => [
+                    'autocomplete' => 'autocomplete'
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Nom d\'utilisateur obligatoire (ça parait logique)'
+                    ]),
+                ]
+            ])
             ->add('plainPassword', PasswordType::class, [
+                'label' => false,
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
@@ -36,9 +47,8 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ])
-            ->add('OK', SubmitType::class)
-        ;
+            ]);
+        // ->add('OK', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
