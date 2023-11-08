@@ -72,3 +72,18 @@ $yellow-color: #ffaa01;
   height: 1px;
   background-color: $yellow-color;
 }
+
+// --- search input ----
+
+#live-post-search {
+  &:focus {
+    background-color: $yellow-color;
+    box-shadow: inset $blue-color 0px 0px 0px 3px;
+  }
+
+  &::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+  }
+}
+
+// ---------------------

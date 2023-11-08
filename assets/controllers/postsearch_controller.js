@@ -42,10 +42,14 @@ export default class extends Controller {
     showElement(e) {
         if (e.classList.contains('d-none'))
             e.classList.remove('d-none')
+        if (this.input.classList.contains('rounded-end-pill'))
+            this.input.classList.remove('rounded-end-pill');
     }
 
     hideElement(e) {
         if (!e.classList.contains('d-none'))
             e.classList.add('d-none')
+        if (!this.input.classList.contains('rounded-end-pill'))
+            this.input.classList.add('rounded-end-pill');
     }
 }
