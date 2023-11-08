@@ -42,7 +42,7 @@
 
             <section class="col-3 d-none d-lg-block">
                 {% if not app.user %}
-                    {{ include('auth/component.html.twig') }}
+                    {{ include('auth/_component.html.twig') }}
                 {% else %}
                     <a href="{{ path('app_user_page', {'username': app.user.username}) }}">{{ app.user.username|title }}</a>
                     -

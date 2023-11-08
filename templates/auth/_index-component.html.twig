@@ -1,0 +1,15 @@
+<main class="mt-4 text-center">
+
+    {{ include('shared/assets/mtb_logo.html.twig') }}
+
+    <h1 class="title-font my-4 text-blue">{{ title|raw }}</h1>
+
+    <section class="row row-cols-lg-2 row-cols-xl-3 mx-3 d-flex justify-content-center align-items-center my-auto">
+        <div class="bg-yellow py-4 px-3 rounded-5">
+            {{ content|raw }}
+        </div>
+    </section>
+    <a
+            class="btn btn-sm btn-info mt-3 rounded-pill px-3"
+            href="{{ path('app_home') }}">{{ visitorLinkText|raw }}</a>
+</main>
