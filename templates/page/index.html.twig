@@ -15,7 +15,8 @@
             {#        END LEFT BAR ------------------------------------- -#}
             {#        CENTER BAR --------------------------------------- -#}
 
-            <section class="col-lg-6 col-md-7">
+
+            <section class="col-lg-6 col-md-7" {{ stimulus_controller('postsearch') }}>
 
 
                 <h1>Page de {{ owner.username |title }}</h1>
@@ -34,6 +35,8 @@
                     {% endif %}
 
                 {% endif %}
+
+                {{ component('PostSearchByQuery', {orderBy: 'date', ascDesc: 'DESC', owner: owner}) }}
 
                 {% for promptList in promptLists %}
 
