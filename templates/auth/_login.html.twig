@@ -1,0 +1,61 @@
+{% if error %}
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+
+<turbo-frame id="login">
+
+    <div class="text-center title-font text-blue">
+
+        <h3 class="{{ title is not defined ? '':'d-none' }}">Connecte-toi fréro</h3>
+
+        <form action="{{ path('app_login') }}" method="post">
+
+            <div class="row">
+
+                <div class="{{ formRowClass|default('my-1') }}">
+
+                    <input
+                            type="text"
+                            id="username"
+                            name="_username"
+                            value="{{ last_username }}"
+                            placeholder="Nom d'utilisateur"
+                            class="rounded-pill px-5 form-control">
+                </div>
+
+                <div class="{{ formRowClass|default('my-1') }}">
+
+                    <input
+                            type="password"
+                            id="password"
+                            name="_password"
+                            placeholder="Mot de passe"
+                            class="rounded-pill px-5 form-control">
+
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                </div>
+            </div>
+
+            {{ include('shared/buttons/_button.html.twig', {
+                color: 'success',
+                type: 'submit',
+                label: 'Connexion',
+                icon: 'check-lg',
+                class: 'w-100 rounded-pill',
+                dataTurboFrame: '_top'
+            }) }}
+
+            {{ include('shared/buttons/_button.html.twig', {
+                route: 'app_register',
+                color: 'outline-secondary',
+                label: 'Pas encore membre ?',
+                icon: 'box-arrow-right',
+                class: 'w-100 mt-1 rounded-pill',
+                dataTurboFrame: '_top'
+            }) }}
+
+        </form>
+    </div>
+
+</turbo-frame>

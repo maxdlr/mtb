@@ -25,7 +25,7 @@ security:
                 check_path: api_login
             logout:
                 path: app_logout
-                target: app_home
+                target: app_logout_confirm
         secured_area:
             form_login:
                 enable_csrf: true

@@ -1,0 +1,30 @@
+<!-- Modal -->
+<div class="modal fade" id="{{ id|raw }}" tabindex="-1"
+     aria-labelledby="{{ id|raw }}Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+
+            {% if title|default(false) %}
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="{{ id }}Label">
+                        {{ title|raw }}
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            {% endif %}
+
+            {% if content|default(false) %}
+                <div class="modal-body container-fluid">
+                    {{ content|raw }}
+                </div>
+            {% endif %}
+
+            {% if footer|default(false) %}
+                <div class="modalFooter">
+                    {{ footer|raw }}
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>

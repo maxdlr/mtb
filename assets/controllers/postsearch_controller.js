@@ -11,6 +11,7 @@ export default class extends Controller {
     }
 
     filter(event) {
+        event.preventDefault();
         this.input.setAttribute('data-value', event.params.promptname);
         this.showElement(this.closeBtn);
         this.reload(this.input);
@@ -19,6 +20,11 @@ export default class extends Controller {
     type() {
         this.input.setAttribute('data-value', this.input.value);
         this.showElement(this.closeBtn);
+
+        if (this.input.value === '' || this.input.getAttribute('data-value') === '') {
+            this.hideElement(this.closeBtn);
+        }
+
         this.reload(this.input);
     }
 

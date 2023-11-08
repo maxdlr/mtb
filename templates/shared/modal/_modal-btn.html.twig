@@ -2,14 +2,6 @@
 <button type="button"
         class="btn btn-primary"
         data-bs-toggle="modal"
-        data-bs-target="#{% block modalID %}{{ modalID }}{% endblock %}">
-  {% block buttonLabel %}
-
-    {% if buttonLabel == 'add' %}
-      {{ addBtn|raw }}
-    {% else %}
-      {{ buttonLabel }}
-    {% endif %}
-
-  {% endblock %}
+        data-bs-target="#{{ id }}">
+    {{ label }}
 </button>

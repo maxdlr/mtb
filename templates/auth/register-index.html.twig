@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    {{ include('auth/_index-component.html.twig', {
+        title: 'Entre dans la danse fréro',
+        content: include('auth/_register.html.twig'),
+        visitorLinkText: 'Créer un compte plus tard'
+    }) }}
+
+{% endblock %}

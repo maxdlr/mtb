@@ -10,8 +10,11 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
-    #[Route('/login', name: 'app_login')]
-    public function index(AuthenticationUtils $authenticationUtils): Response
+    #[Route('/login/{index?}', name: 'app_login')]
+    public function index(
+        AuthenticationUtils $authenticationUtils,
+                            $index = null
+    ): Response
     {
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -19,7 +22,13 @@ class LoginController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('login/index.html.twig', [
+        if (!is_null($index))
+            return $this->render('auth/login-index.html.twig', [
+                'last_username' => $lastUsername,
+                'error' => $error,
+            ]);
+
+        return $this->render('auth/_login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
         ]);
@@ -29,6 +38,13 @@ class LoginController extends AbstractController
     public function loginConfirm(): RedirectResponse
     {
         $this->addFlash('success', 'Connexion établie');
+        return $this->redirectToRoute('app_redirect_referer');
+    }
+
+    #[Route('/logout-confirm', name: 'app_logout_confirm')]
+    public function logoutConfirm(): RedirectResponse
+    {
+        $this->addFlash('success', 'Déconnexion réussie, à plus dans le bus.');
         return $this->redirectToRoute('app_redirect_referer');
     }
 
