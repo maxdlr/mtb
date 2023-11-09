@@ -69,15 +69,15 @@ class PageController extends AbstractController
 
         // --------------------------------------------------------------------------------------
 
-        $newPostForm = $this->newPost($request, $owner);
-
-        if ($newPostForm instanceof FormInterface)
-            $newPostForm->createView();
-
-        if ($newPostForm === true) {
-            $this->addFlash('success', 'Posts Uploadés !');
-            return $this->redirectToRoute('app_user_page', ['username' => $username], Response::HTTP_SEE_OTHER);
-        }
+        // $newPostForm = $this->newPost($request, $owner);
+        //
+        // if ($newPostForm instanceof FormInterface)
+        //     $newPostForm->createView();
+        //
+        // if ($newPostForm === true) {
+        //     $this->addFlash('success', 'Posts Uploadés !');
+        //     return $this->redirectToRoute('app_user_page', ['username' => $username], Response::HTTP_SEE_OTHER);
+        // }
         // --------------------------------------------------------------------------------------
 
         return $this->render('page/index.html.twig', [
@@ -85,7 +85,7 @@ class PageController extends AbstractController
             'posts' => $posts,
             'owner' => $owner,
             'orphanPosts' => $orphanPosts,
-            'newPostForm' => $newPostForm
+            // 'newPostForm' => $newPostForm
         ]);
     }
 

@@ -1,0 +1,11 @@
+<div{{ attributes }}>
+    {{ form_start(form, {
+        attr: {
+            'data-action': 'live#action',
+            'data-action-name': 'files|save'
+        }
+    }) }}
+
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+</div>

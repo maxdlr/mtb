@@ -40,8 +40,6 @@ final class ResolvePromptlessPostsComponent extends AbstractController
     #[LiveAction]
     public function save(EntityManagerInterface $entityManager)
     {
-        // Submit the form! If validation fails, an exception is thrown
-        // and the component is automatically re-rendered with the errors
         $this->submitForm();
 
         /** @var Post $post */

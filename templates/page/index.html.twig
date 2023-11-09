@@ -22,10 +22,6 @@
                 {# todo: show upload progress bar #}
                 {% if app.user == owner %}
 
-                    {{ form_start(newPostForm) }}
-                    {{ form_widget(newPostForm) }}
-                    {{ form_end(newPostForm) }}
-
                     {% if posts|length > 0 %}
                         {{ include('shared/buttons/_button.html.twig', {
                             route: path('app_user_page_edit', {'username': owner.username}),
@@ -50,6 +46,9 @@
                 {% endif %}
 
                 {% if app.user == owner %}
+
+                    {{ component('UploadPostsComponent', {owner: owner}) }}
+
                     {% if orphanPosts %}
                         {% for post in orphanPosts %}
                             {{ component('ResolvePromptlessPostsComponent', {post: post}) }}
