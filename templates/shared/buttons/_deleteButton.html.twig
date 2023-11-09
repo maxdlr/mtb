@@ -2,10 +2,9 @@
         method="post"
         action="{{ path(route, {'id': itemId}) }}"
         onsubmit="return confirm('Sur de chez sur ?');"
-        class="col-auto"
 >
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ itemId) }}">
-    <button class="btn btn-sm btn-danger">
-        <i class="bi bi-trash"></i>
+    <button class="btn btn-danger {{ btnClass|default('') }}">
+        <i class="bi bi-{{ icon|default('trash') }}"></i>
     </button>
 </form>

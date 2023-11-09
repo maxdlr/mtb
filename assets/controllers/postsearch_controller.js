@@ -8,6 +8,10 @@ export default class extends Controller {
         super.initialize();
         this.input = document.getElementById('live-post-search');
         this.closeBtn = document.getElementById('close-search');
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') this.clear();
+        })
     }
 
     filter(event) {

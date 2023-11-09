@@ -1,8 +1,5 @@
 <div {{ attributes }}>
 
-    {{ dump(owner) }}
-    {{ dump(app.user) }}
-
     <div class="flex-nowrap input-group w-100 border border-0 rounded-pill bg-yellow mb-4">
         <input
                 type="search"
@@ -27,7 +24,11 @@
                 data-loading="addClass(opacity-50)"
                 class="row row-cols-xxl-3 row-cols-lg-2 row-cols-md-1 "
         >
-            {{ include('shared/post/_gallery.html.twig', {posts: computed.posts, rich: true}) }}
+            {% for post in computed.posts %}
+                {{ include('shared/post/_thumbnail.html.twig', {
+                    rich: owner is not null ? false : true
+                }) }}
+            {% endfor %}
         </div>
     {% else %}
         <div class="pt-3">Ah! Rien ne correspond à "{{ query }}" !!</div>
