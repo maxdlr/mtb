@@ -22,6 +22,6 @@ class SecurityManager
         Post $post,
     ): bool
     {
-        return in_array($user, (array)$post->getUser());
+        return $post->getUser()->contains($user);
     }
 }

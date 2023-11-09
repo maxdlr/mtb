@@ -8,6 +8,10 @@ export default class extends Controller {
         super.initialize();
         this.input = document.getElementById('live-post-search');
         this.closeBtn = document.getElementById('close-search');
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') this.clear();
+        })
     }
 
     filter(event) {
@@ -42,10 +46,14 @@ export default class extends Controller {
     showElement(e) {
         if (e.classList.contains('d-none'))
             e.classList.remove('d-none')
+        if (this.input.classList.contains('rounded-end-pill'))
+            this.input.classList.remove('rounded-end-pill');
     }
 
     hideElement(e) {
         if (!e.classList.contains('d-none'))
             e.classList.add('d-none')
+        if (!this.input.classList.contains('rounded-end-pill'))
+            this.input.classList.add('rounded-end-pill');
     }
 }

@@ -1,21 +1,42 @@
-<div>
+<div class="position-relative p-2">
 
-    {% if rich %}
-        <p class="text-center m-0">
-            {{ post['promptNameFr']|title }} de
-            <a href="{{ path('app_user_page', {'username': post['owner']}) }}">
-                {{ post['owner']|title }}
-            </a>
-        </p>
-    {% else %}
-        <p class="text-center m-0">
-            {{ post['promptNameFr']|title }}
-        </p>
-        {#            TODO: posts might have more than one author #}
-    {% endif %}
+    <div class="title-font position-absolute start-0 bottom-0 py-3 px-4 d-flex justify-content-between align-items-center w-100">
+        {% if rich %}
+            <div>
+                <a class="btn btn-sm btn-primary rounded-pill"
+                   href="{{ path('app_user_page', {'username': post['owner']}) }}">
+                    {{ post['owner']|title }}
+                </a>
+                <i class="bi bi-arrow-right-short text-light"></i>
+                <button class="btn btn-sm btn-outline-light rounded-pill"
+                        {{ stimulus_action('postsearch', 'filter', 'click') }}
+                        data-postsearch-promptname-param="{{ post['promptNameFr'] }}"
+                >
+                    {{ post['promptNameFr']|title }}
+                </button>
+            </div>
+        {% else %}
+            <button class="btn btn-sm btn-outline-light rounded-pill"
+                    {{ stimulus_action('postsearch', 'filter', 'click') }}
+                    data-postsearch-promptname-param="{{ post['promptNameFr'] }}"
+            >
+                {{ post['promptNameFr']|title }}
+            </button>
+            {#            TODO: posts might have more than one author #}
+        {% endif %}
+
+        {% if app.user and owner is defined and app.user is same as owner %}
+            {{ include('shared/buttons/_deleteButton.html.twig',{
+                route: 'app_post_delete',
+                itemId: post['id'],
+                btnClass: 'btn-sm rounded-pill'
+            }) }}
+        {% endif %}
+
+    </div>
     <img
             src="{{ asset('images/posts/' ~ post['fileName']) }}"
-            class="post-img img-fluid p-2 m-0"
+            class="post-img img-fluid m-0 p-0 rounded-4"
             id="post-img-{{ post['id'] }}"
             alt="Gif animé - {{ post['promptNameFr']|title }} de {{ post['owner']|title }}"
     >

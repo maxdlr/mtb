@@ -1,7 +1,7 @@
 {% if route|default(false) %}
 
     <a
-            href="{{ path(route|raw, options|default({})) }}"
+            href="{{ route }}"
             class="btn btn-{{ color|raw }} {{ class|default('') }}"
             data-turbo-frame="{{ dataTurboFrame|default() }}"
 

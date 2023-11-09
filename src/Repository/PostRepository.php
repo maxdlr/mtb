@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Post;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -63,6 +64,37 @@ class PostRepository extends ServiceEntityRepository
             ->orWhere('user.username LIKE :query')
             ->orWhere('promptList.year LIKE :query')
             ->setParameter('query', '%' . $query . '%')
+            ->orderBy($orderBy, $ascDesc)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Post[] Returns an array of Post objects
+     */
+    public function findByQueryByUser(string $query, User $owner, int $limit, string $orderBy, string $ascDesc = 'ASC'): array
+    {
+        return $this->createQueryBuilder('post')
+            ->select(
+                'post.fileName, 
+                user.username as owner, 
+                prompt.dayNumber, 
+                prompt.name_fr as promptNameFr, 
+                promptList.year as promptListYear, 
+                post.id,
+                post.uploadedOn as date'
+            )
+            ->leftJoin('post.prompt', 'prompt')
+            ->leftJoin('post.user', 'user')
+            ->innerJoin('prompt.promptList', 'promptList')
+            ->where('prompt.name_fr LIKE :query')
+            ->orWhere('prompt.name_en LIKE :query')
+            ->orWhere('prompt.dayNumber LIKE :query')
+            ->orWhere('promptList.year LIKE :query')
+            ->andWhere('user.username = :thisOwner')
+            ->setParameter('query', '%' . $query . '%')
+            ->setParameter('thisOwner', $owner->getUsername())
             ->orderBy($orderBy, $ascDesc)
             ->setMaxResults($limit)
             ->getQuery()
