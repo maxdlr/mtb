@@ -38,7 +38,7 @@
     {{ form_end(registrationForm) }}
 
     {{ include('shared/buttons/_button.html.twig', {
-        route: 'app_login',
+        route: path('app_login', {index: true}),
         options: {index: 'index'},
         color: 'outline-primary',
         label: 'Déjà membre ?',
