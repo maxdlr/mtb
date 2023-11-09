@@ -47,8 +47,8 @@
 
                 {% if app.user == owner %}
 
-                    {{ component('UploadPostsComponent', {owner: owner}) }}
-
+                    {#                    {{ component('UploadPostsComponent', {owner: owner}) }} #}
+                    {{ include('post/_newPost.html.twig', { form: form }) }}
                     {% if orphanPosts %}
                         {% for post in orphanPosts %}
                             {{ component('ResolvePromptlessPostsComponent', {post: post}) }}

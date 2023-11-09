@@ -1,0 +1,19 @@
+<div {{ stimulus_controller('post') }}>
+
+    {{ form_start(form, {
+        'attr': {
+            'data-post-target': 'form'
+        },
+        'method': 'POST'
+    }) }}
+    {{ form_row(form.posts) }}
+
+    {{ form_row(form.submit, {
+        'attr' : {
+            'data-action': "click->post#submit",
+            'data-post-username-param': app.user.userIdentifier
+        }}) }}
+
+    {{ form_end(form) }}
+
+</div>

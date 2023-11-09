@@ -67,6 +67,8 @@ class PageController extends AbstractController
         $promptLists = $this->promptListManager->getPostsPromptLists($posts);
         $orphanPosts = $this->postManager->getOrphanPosts($owner->getPosts());
 
+        $form = $this->createForm(PostType::class);
+
         // --------------------------------------------------------------------------------------
 
         // $newPostForm = $this->newPost($request, $owner);
@@ -85,7 +87,7 @@ class PageController extends AbstractController
             'posts' => $posts,
             'owner' => $owner,
             'orphanPosts' => $orphanPosts,
-            // 'newPostForm' => $newPostForm
+            'form' => $form
         ]);
     }
 
