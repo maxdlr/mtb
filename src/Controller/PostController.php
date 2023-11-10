@@ -40,9 +40,7 @@ class PostController extends AbstractController
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
-//        if ($form->isSubmitted() && $form->isValid()) {
-
-        if (isset($postFile)) {
+        if ($postFile) {
             $newFilename = $this->fileUploadManager->upload($postFile);
             $originalFilename = pathinfo($postFile->getClientOriginalName(), PATHINFO_FILENAME);
             $this->postManager->setPost($post, $owner, $newFilename, $originalFilename);
@@ -51,7 +49,6 @@ class PostController extends AbstractController
             $this->entityManager->flush();
             return $this->json(['message' => $originalFilename . 'uploadé !']);
         }
-//        }
         return $this->json(['message' => 'Fichier non conforme !']);
     }
 }

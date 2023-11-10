@@ -6,13 +6,23 @@
         },
         'method': 'POST'
     }) }}
-    {{ form_row(form.posts) }}
+    {{ form_row(form.posts, {
+        'attr': {
+            'data-post-target': 'files'
+        }
+    }) }}
 
     {{ form_row(form.submit, {
         'attr' : {
             'data-action': "click->post#submit",
             'data-post-username-param': app.user.userIdentifier
         }}) }}
+
+    {{ form_row(form._token, {
+        'attr': {
+            'data-post-target': 'token'
+        }
+    }) }}
 
     {{ form_end(form) }}
 
