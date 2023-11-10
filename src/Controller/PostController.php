@@ -33,7 +33,7 @@ class PostController extends AbstractController
 //        UploadedFile $postFile
     ): JsonResponse
     {
-        $postFile = $request->request;
+        $postFile = $request->files->get('post')['posts'][0];
         dump($postFile);
         $owner = $this->userRepository->findOneByUsername($username);
         $post = new Post();

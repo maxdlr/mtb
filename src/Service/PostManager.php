@@ -114,10 +114,10 @@ class PostManager
     {
         return [
             'fileName' => $post?->getFileName(),
-            'owner' => $post?->getUser()[0]->getUsername(),
-            'dayNumber' => $post?->getPrompt()->getDayNumber(),
-            'promptNameFr' => $post?->getPrompt()->getNameFr(),
-            'promptListYear' => $post?->getPrompt()->getPromptList(), //array
+            'owner' => $post?->getUser()[0]?->getUsername(),
+            'dayNumber' => $post?->getPrompt()?->getDayNumber(),
+            'promptNameFr' => $post?->getPrompt()?->getNameFr(),
+            'promptListYear' => $post?->getPrompt()?->getPromptList(), //array
             'date' => $post?->getUploadedOn(),
             'id' => $post?->getId(),
         ];

@@ -8,6 +8,7 @@ export default class extends Controller {
         event.preventDefault();
 
         const formData = new FormData(this.formTarget);
+        console.log(formData);
 
         await fetch(`/post/upload/${event.params.username}`, {
             method: 'POST',
