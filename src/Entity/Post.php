@@ -27,6 +27,9 @@ class Post
     #[ORM\Column(type: 'string')]
     private string $fileName;
 
+    #[ORM\Column]
+    private ?float $fileSize = null;
+
     public function __construct()
     {
         $this->user = new ArrayCollection();
@@ -93,6 +96,18 @@ class Post
     public function setFileName(string $fileName): self
     {
         $this->fileName = $fileName;
+
+        return $this;
+    }
+
+    public function getFileSize(): ?float
+    {
+        return $this->fileSize;
+    }
+
+    public function setFileSize(float $fileSize): static
+    {
+        $this->fileSize = $fileSize;
 
         return $this;
     }

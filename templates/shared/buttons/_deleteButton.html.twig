@@ -5,6 +5,7 @@
 >
     <input type="hidden" name="_token" value="{{ token }}">
     <button class="btn btn-danger {{ btnClass|default('') }}">
+        {{ label|default('') }}
         <i class="bi bi-{{ icon|default('trash') }}"></i>
     </button>
 </form>

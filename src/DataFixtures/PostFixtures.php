@@ -78,6 +78,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
             $post = new Post();
             $post->setPrompt($this->postManager->autoPromptSelect($postGif))
                 ->setFileName($postGif)
+                ->setFileSize(10)
                 ->setUploadedOn($now)
                 ->addUser($this->getReference('user_' . $users[rand(0, count($users) - 1)]));
 

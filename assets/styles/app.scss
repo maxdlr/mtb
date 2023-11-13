@@ -2,9 +2,22 @@ $red-color: #e01f20;
 $blue-color: #2a00ff;
 $yellow-color: #ffaa01;
 
+.toastify.warning {
+  background: linear-gradient(135deg, $yellow-color, $red-color);
+}
+
+.toastify.success {
+  background: linear-gradient(135deg, $blue-color, $yellow-color);
+}
+
+.toastify.danger {
+  background: linear-gradient(135deg, $red-color, $blue-color);
+}
+
 @import "~bootstrap/scss/bootstrap";
 @import "~bootstrap-icons/font/bootstrap-icons";
 @import "font/fonts.css";
+@import "toastify-js/src/toastify.css";
 
 .title-font {
   font-family: 'Geomanist', serif;

@@ -59,9 +59,8 @@ class DeleteController extends AbstractController
             } else {
                 $this->addFlash('danger', 'T\'est pas propriétaire du post fréro');
             }
-            $this->addFlash('success', 'Post supprimé !');
+            $this->addFlash('success', 'Posts supprimés !');
         }
-
         return $this->redirectToRoute('app_redirect_referer');
     }
 }

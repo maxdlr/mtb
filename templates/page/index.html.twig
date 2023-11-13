@@ -35,7 +35,8 @@
                         {{ include('shared/buttons/_deleteButton.html.twig',{
                             route: path('app_post_delete_all'),
                             token: csrf_token('deleteAllPosts'),
-                            btnClass: 'btn-sm rounded-pill'
+                            btnClass: 'btn-sm rounded-pill',
+                            label: 'Tout supprimer'
                         }) }}
                     {% endif %}
 
@@ -59,8 +60,8 @@
 
                     {#                    {{ component('UploadPostsComponent', {owner: owner}) }} #}
                     {{ include('post/_newPost.html.twig', { form: form }) }}
-                    {% if orphanPosts %}
-                        {% for post in orphanPosts %}
+                    {% if promptlessPosts %}
+                        {% for post in promptlessPosts %}
                             {{ component('ResolvePromptlessPostsComponent', {post: post}) }}
                         {% endfor %}
                     {% endif %}

@@ -65,7 +65,7 @@ class PageController extends AbstractController
 
         $posts = $postRepository->findAllBy('user.username', $username, 'prompt.dayNumber');
         $promptLists = $this->promptListManager->getPostsPromptLists($posts);
-        $orphanPosts = $this->postManager->getOrphanPosts($owner->getPosts());
+        $promptlessPosts = $this->postManager->getPromptlessPosts($owner->getPosts());
 
         $form = $this->createForm(PostType::class);
 
@@ -86,7 +86,7 @@ class PageController extends AbstractController
             'promptLists' => $promptLists,
             'posts' => $posts,
             'owner' => $owner,
-            'orphanPosts' => $orphanPosts,
+            'promptlessPosts' => $promptlessPosts,
             'form' => $form
         ]);
     }
@@ -106,7 +106,7 @@ class PageController extends AbstractController
         $user = $userRepository->findOneBy(['username' => $this->getUser()?->getUserIdentifier()]);
         $owner = $userRepository->findOneBy(['username' => $username]);
         $posts = $postManager->sortPostsByDayNumber($owner->getPosts());
-        $orphanPosts = $postManager->getOrphanPosts($posts);
+        $promptlessPosts = $postManager->getPromptlessPosts($posts);
 
         $editPostForms = $this->createEditPostsForms($posts, $owner, $request);
         $forms = $postManager->extractForms($editPostForms, 'formViews');
@@ -132,7 +132,7 @@ class PageController extends AbstractController
             return $this->render('page/edit.html.twig', [
                 'owner' => $owner,
                 'forms' => $forms,
-                'orphanPosts' => $orphanPosts
+                'promptlessPosts' => $promptlessPosts
             ]);
         } else {
             $this->addFlash('danger', 'Tu ne peux pas modifier les posts qui ne sont pas à toi !');
