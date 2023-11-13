@@ -21,13 +21,14 @@
     <button class="btn btn-{{ color|raw }} {{ class|default('') }}"
             type="{{ type|default('') }}"
             data-turbo-frame="{{ dataTurboFrame|default() }}"
+    {{ attribute|default('') }}="{{ attributeValue|default('') }}"
     >
 
-        {{ label|default('') }}
+    {{ label|default('') }}
 
-        {% if icon|default(false) %}
-            <i class="bi bi-{{ icon|raw }} p-0 m-0"></i>
-        {% endif %}
+    {% if icon|default(false) %}
+        <i class="bi bi-{{ icon|raw }} p-0 m-0"></i>
+    {% endif %}
     </button>
 
 {% endif %}

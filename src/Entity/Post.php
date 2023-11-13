@@ -28,7 +28,7 @@ class Post
     private string $fileName;
 
     #[ORM\Column]
-    private ?float $fileSize = null;
+    private ?int $fileSize = null;
 
     public function __construct()
     {
@@ -100,12 +100,12 @@ class Post
         return $this;
     }
 
-    public function getFileSize(): ?float
+    public function getFileSize(): ?int
     {
         return $this->fileSize;
     }
 
-    public function setFileSize(float $fileSize): static
+    public function setFileSize(int $fileSize): static
     {
         $this->fileSize = $fileSize;
 

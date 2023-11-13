@@ -4,7 +4,7 @@ import {getComponent} from '@symfony/ux-live-component';
 
 export default class extends Controller {
 
-    static targets = ['form', 'files', 'token']
+    static targets = ['form', 'files', 'token', 'newPostButton']
     input;
     searchPostByQuery;
 
@@ -13,6 +13,9 @@ export default class extends Controller {
         this.input = document.getElementById('live-post-search');
         this.searchPostByQuery = document.getElementById('post-search-by-query-component');
         this.component = await getComponent(this.searchPostByQuery);
+        this.newPostButtonTarget.addEventListener('click', () => {
+            this.filesTarget.click()
+        })
     }
 
     async submit(event) {

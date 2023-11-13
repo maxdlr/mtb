@@ -48,11 +48,9 @@ class PageController extends AbstractController
 
     #[Route('/{username}', name: 'app_user_page', methods: ['GET', 'POST'])]
     public function index(
-        UserRepository       $userRepository,
-        string               $username,
-        PostRepository       $postRepository,
-        PromptListRepository $promptListRepository,
-        Request              $request,
+        UserRepository $userRepository,
+        string         $username,
+        PostRepository $postRepository,
     ): Response
     {
         $owner = $userRepository->findOneBy(['username' => $username]);
@@ -68,19 +66,6 @@ class PageController extends AbstractController
         $promptlessPosts = $this->postManager->getPromptlessPosts($owner->getPosts());
 
         $form = $this->createForm(PostType::class);
-
-        // --------------------------------------------------------------------------------------
-
-        // $newPostForm = $this->newPost($request, $owner);
-        //
-        // if ($newPostForm instanceof FormInterface)
-        //     $newPostForm->createView();
-        //
-        // if ($newPostForm === true) {
-        //     $this->addFlash('success', 'Posts Uploadés !');
-        //     return $this->redirectToRoute('app_user_page', ['username' => $username], Response::HTTP_SEE_OTHER);
-        // }
-        // --------------------------------------------------------------------------------------
 
         return $this->render('page/index.html.twig', [
             'promptLists' => $promptLists,
@@ -138,42 +123,6 @@ class PageController extends AbstractController
             $this->addFlash('danger', 'Tu ne peux pas modifier les posts qui ne sont pas à toi !');
             return $this->redirectToRoute('app_redirect_user_fallback');
         }
-    }
-
-    // -------------------------------------------------------------
-
-    public function newPost(
-        Request $request,
-        User    $owner
-    ): FormInterface|bool
-    {
-        $post = new Post();
-        $form = $this->createForm(PostType::class, $post);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            /** @var UploadedFile $postFile */
-
-            $postFiles = $request->files->get('post')['posts'];
-
-            foreach ($postFiles as $postFile) {
-                //todo: move multiple upload algorythm into fileUploadManager->upload()
-                $singlePost = null;
-                if ($postFile) {
-                    $newFilename = $this->fileUploadManager->upload($postFile);
-                    $originalFilename = pathinfo($postFile->getClientOriginalName(), PATHINFO_FILENAME);
-
-                    $singlePost = new Post();
-
-                    $this->postManager->setPost($singlePost, $owner, $newFilename, $originalFilename);
-                }
-                $this->entityManager->persist($singlePost);
-            }
-            //todo: research way to async uploads to avoid sending everything in single POST
-            $this->entityManager->flush();
-            return true;
-        }
-        return $form;
     }
 
     // -------------------------------------------------------------
