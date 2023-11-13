@@ -1,0 +1,35 @@
+<div {{ stimulus_controller('post') }}>
+
+    {{ include('shared/buttons/_button.html.twig', {
+        icon: 'plus-lg',
+        color: 'primary',
+        attribute: 'data-post-target',
+        attributeValue: 'newPostButton',
+        label: 'Ajouter des posts'
+    }) }}
+
+    {{ form_start(form, {
+        'attr': {
+            'data-post-target': 'form'
+        },
+        'method': 'POST'
+    }) }}
+
+    {{ form_row(form.posts, {
+        'attr': {
+            'data-post-target': 'files',
+            'data-action': "change->post#submit",
+            'data-post-username-param': app.user.userIdentifier,
+            'hidden': true
+        }
+    }) }}
+
+    {{ form_row(form._token, {
+        'attr': {
+            'data-post-target': 'token'
+        }
+    }) }}
+
+    {{ form_end(form) }}
+
+</div>

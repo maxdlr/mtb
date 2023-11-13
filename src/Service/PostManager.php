@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class PostManager
 {
@@ -46,20 +47,18 @@ class PostManager
         Post   $post,
         User   $postOwner,
         string $newFilename,
-        string $originalFilename
+        string $originalFilename,
+        float  $fileSize
     ): void
     {
         $now = new \DateTimeImmutable();
+        $foundPrompt = $this->autoPromptSelect($originalFilename);
 
         $post->addUser($postOwner);
         $post->setUploadedOn($now);
-
-        $foundPrompt = $this->autoPromptSelect($originalFilename);
-
         $post->setPrompt($foundPrompt ?? null);
-
-        // $post->setPrompt($form->get('prompt')->getData());
         $post->setFileName($newFilename);
+        $post->setFileSize($fileSize);
     }
 
     public function autoPromptSelect(
@@ -114,23 +113,25 @@ class PostManager
     {
         return [
             'fileName' => $post?->getFileName(),
-            'owner' => $post?->getUser()[0]->getUsername(),
-            'dayNumber' => $post?->getPrompt()->getDayNumber(),
-            'promptNameFr' => $post?->getPrompt()->getNameFr(),
-            'promptListYear' => $post?->getPrompt()->getPromptList(), //array
+            'owner' => $post?->getUser()[0]?->getUsername(),
+            'dayNumber' => $post?->getPrompt()?->getDayNumber(),
+            'promptNameFr' => $post?->getPrompt()?->getNameFr(),
+            'promptListYear' => $post?->getPrompt()?->getPromptList(), //array
             'date' => $post?->getUploadedOn(),
             'id' => $post?->getId(),
         ];
     }
 
-    public function getOrphanPosts(
+    public function getPromptlessPosts(
         Collection $postCollection,
     ): Collection
     {
-        $orphanPosts = [];
+        $promptlessPosts = [];
         foreach ($postCollection as $post) {
-                $post->getPrompt() ?? $orphanPosts[] = $post;
+                $post->getPrompt() ?? $promptlessPosts[] = $post;
         }
-        return new ArrayCollection($orphanPosts);
+        return new ArrayCollection($promptlessPosts);
     }
+
+
 }

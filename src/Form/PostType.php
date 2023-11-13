@@ -19,11 +19,7 @@ class PostType extends AbstractType
     {
         $builder
             ->add('posts', FileType::class, [
-                'label' => "40mo max 😭",
-                'attr' => [
-                    'placeholder' => 'Drop it likes it\'s hot'
-                ],
-
+                'label' => false,
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
 
@@ -45,8 +41,7 @@ class PostType extends AbstractType
                         ])
                     ]),
                 ],
-            ])
-            ->add('submit', SubmitType::class);
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

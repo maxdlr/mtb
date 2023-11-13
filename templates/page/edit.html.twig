@@ -10,7 +10,7 @@
         </a>
 
         <section class="d-flex justify-content-start align-content-center">
-            {% for post in orphanPosts %}
+            {% for post in promptlessPosts %}
                 {{ include('shared/buttons/_deleteButton.html.twig', {route: 'app_post_delete', itemId: post.id}) }}
                 <img
                         src="{{ asset('images/posts/' ~ post.fileName) }}"

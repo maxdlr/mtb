@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Repository\PostRepository;
 use Doctrine\Common\Collections\Collection;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
+use Symfony\UX\LiveComponent\Attribute\LiveListener;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
@@ -29,6 +30,7 @@ class PostSearchByQuery
     {
     }
 
+    #[LiveListener('postAdded')]
     public function getPosts(): array
     {
         if ($this->getOwner())
