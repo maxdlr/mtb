@@ -30,11 +30,10 @@ class PostController extends AbstractController
     public function uploadPost(
         string  $username,
         Request $request,
-//        UploadedFile $postFile
     ): JsonResponse
     {
-        $postFile = $request->files->get('post')['posts'][0];
-        dump($postFile);
+        $postFile = $request->files->all()['post']['posts'][0];
+
         $owner = $this->userRepository->findOneByUsername($username);
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
@@ -47,8 +46,33 @@ class PostController extends AbstractController
             $this->entityManager->persist($post);
 
             $this->entityManager->flush();
-            return $this->json(['message' => $originalFilename . 'uploadé !']);
+            return $this->json(['message' => $originalFilename . ' uploadé !'], 200);
         }
-        return $this->json(['message' => 'Fichier non conforme !']);
+        return $this->json(['message' => 'Fichier non conforme !'], 500);
+    }
+
+    #[Route('/upload/{username}/confirm/{number}', name: 'upload_confirm', methods: ['GET', 'POST'])]
+    public function uploadConfirmAll(
+        string $username,
+        int    $number
+    ): JsonResponse
+    {
+        $owner = $this->userRepository->findOneByUsername($username);
+        $promptLessPosts = $this->postManager->getOrphanPosts($owner->getPosts())->count();
+
+
+        if ($number < 1) {
+            $message = "Ton post est bien mis en ligne ! Mais tu as encore $promptLessPosts posts sans thème.";
+        } else {
+            $message = "$number posts ont bien été mis en ligne ! Mais tu as encore $promptLessPosts posts sans thème.";
+        }
+
+        $this->addFlash('success', $message);
+
+        return $this->json([
+            'message' => $message
+        ], 500);
+
+
     }
 }

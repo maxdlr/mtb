@@ -7,6 +7,7 @@
     <main class="container-fluid mt-4">
         <div class="row">
 
+
             {#        LEFT BAR ----------------------------------------- -#}
             <section class="col-lg-3 col-md-5">
                 {{ include('shared/assets/mtb_logo.html.twig') }}
@@ -29,6 +30,15 @@
                             color: 'outline-warning'
                         }) }}
                     {% endif %}
+
+                    {% if owner.posts.count > 0 %}
+                        {{ include('shared/buttons/_deleteButton.html.twig',{
+                            route: path('app_post_delete_all'),
+                            token: csrf_token('deleteAllPosts'),
+                            btnClass: 'btn-sm rounded-pill'
+                        }) }}
+                    {% endif %}
+
 
                 {% endif %}
 
