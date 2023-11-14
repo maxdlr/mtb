@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    <main class="container-fluid mt-4">
+    <main class="container-fluid mt-4" {{ stimulus_controller('post') }}>
         <div class="row">
 
 
@@ -33,10 +33,12 @@
 
                     {% if owner.posts.count > 0 %}
                         {{ include('shared/buttons/_deleteButton.html.twig',{
-                            route: path('app_post_delete_all'),
                             token: csrf_token('deleteAllPosts'),
                             btnClass: 'btn-sm rounded-pill',
-                            label: 'Tout supprimer'
+                            label: 'Tout supprimer',
+                            username: owner.username,
+                            controller: 'post',
+                            action: 'deleteAllPosts'
                         }) }}
                     {% endif %}
 
@@ -58,7 +60,6 @@
 
                 {% if app.user == owner %}
 
-                    {#                    {{ component('UploadPostsComponent', {owner: owner}) }} #}
                     {{ include('post/_newPost.html.twig', { form: form }) }}
                     {% if promptlessPosts %}
                         {% for post in promptlessPosts %}

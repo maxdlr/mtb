@@ -5,8 +5,11 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Repository\UserRepository;
 use App\Service\SecurityManager;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,53 +17,72 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/delete')]
 class DeleteController extends AbstractController
 {
-    #[Route('/post/{id}', name: 'app_post_delete', methods: ['POST'])]
+    private ?Collection $messages;
+
+    public function __construct()
+    {
+        $this->messages = new ArrayCollection();
+    }
+
+    #[Route('/post/{id}/{username}/{token}', name: 'app_post_delete', methods: ['POST'])]
     public function delete(
-        Request                $request,
         Post                   $post,
         EntityManagerInterface $entityManager,
         UserRepository         $userRepository,
-        SecurityManager        $securityManager
-    ): Response
+        SecurityManager        $securityManager,
+        string                 $username,
+        string                 $token
+    ): JsonResponse
     {
-        $owner = $userRepository->findOneBy(['username' => $this->getUser()->getUserIdentifier()]);
+        $owner = $userRepository->findOneByUsername($username);
+        $postPromptName = ucfirst($post->getPrompt()->getNameFr());
 
         if ($securityManager->isOwnerOfPost($owner, $post)) {
-            if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->request->get('_token'))) {
+            if ($this->isCsrfTokenValid('delete' . $post->getId(), $token)) {
                 $entityManager->remove($post);
                 $entityManager->flush();
-                $this->addFlash('success', 'Post supprimé !');
+
+                $this->messages->add(['type' => 'success', 'message' => "Post du thème $postPromptName supprimé !"]);
             }
         } else {
-            $this->addFlash('danger', 'T\'est pas propriétaire du post fréro');
+            $this->messages->add(['type' => 'danger', 'message' => 'T\'est pas propriétaire du post fréro']);
         }
-
-        return $this->redirectToRoute('app_redirect_referer');
+        return $this->json($this->getMessages());
     }
 
-    #[Route('/posts', name: 'app_post_delete_all', methods: ['POST'])]
+    #[Route('/posts/{username}/{token}', name: 'app_post_delete_all', methods: ['POST'])]
     public function deleteAll(
-        Request                $request,
         EntityManagerInterface $entityManager,
         UserRepository         $userRepository,
-        SecurityManager        $securityManager
+        SecurityManager        $securityManager,
+        string                 $username,
+        string                 $token
     ): Response
     {
-        $owner = $userRepository->findOneBy(['username' => $this->getUser()->getUserIdentifier()]);
-
+        $owner = $userRepository->findOneByUsername($username);
         $ownerPosts = $owner->getPosts();
+        $deletedPostCount = 0;
 
         foreach ($ownerPosts as $post) {
+            $postPromptName = ucfirst($post?->getPrompt()?->getNameFr());
+
             if ($securityManager->isOwnerOfPost($owner, $post)) {
-                if ($this->isCsrfTokenValid('deleteAllPosts', $request->request->get('_token'))) {
+                if ($this->isCsrfTokenValid('deleteAllPosts', $token)) {
                     $entityManager->remove($post);
                     $entityManager->flush();
+                    $deletedPostCount++;
                 }
             } else {
-                $this->addFlash('danger', 'T\'est pas propriétaire du post fréro');
+                $this->messages->add(['type' => 'danger', 'message' => "Le post du thème $postPromptName n'a pas été supprimé, tu n'es pas le propiétaire fréro !"]);
             }
-            $this->addFlash('success', 'Posts supprimés !');
         }
-        return $this->redirectToRoute('app_redirect_referer');
+        $this->messages->add(['type' => 'success', 'message' => "$deletedPostCount posts supprimés !"]);
+
+        return $this->json($this->getMessages());
+    }
+
+    public function getMessages(): ?Collection
+    {
+        return $this->messages;
     }
 }

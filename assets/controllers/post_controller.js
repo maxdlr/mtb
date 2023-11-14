@@ -7,6 +7,7 @@ export default class extends Controller {
     static targets = ['form', 'files', 'token', 'newPostButton']
     input;
     searchPostByQuery;
+    uploaded;
 
     async initialize() {
         super.initialize();
@@ -22,6 +23,7 @@ export default class extends Controller {
         event.preventDefault();
         const files = this.filesTarget;
         const token = this.tokenTarget;
+        this.uploaded = 0;
 
         try {
             for (const file of files.files) {
@@ -34,8 +36,8 @@ export default class extends Controller {
                     console.error(`Error uploading file ${file.name}:`, error);
                 }
             }
-            this.component.emit('postAdded');
-            await this.confirm(event.params.username, files.files);
+            this.component.emit('updatePosts');
+            await this.confirm(event.params.username, this.uploaded);
         } catch (error) {
             console.error(`can't get the files:`, error);
         }
@@ -46,17 +48,56 @@ export default class extends Controller {
         await fetch(`/post/upload/${username}`, {
             method: 'POST',
             body: data,
+        }).then(response => {
+            if (response.status === 403) {
+                response.json().then(success =>
+                        this.showToast(success),
+                    this.uploaded += 0
+                )
+            } else if (response.status === 200) {
+                response.json().then(success =>
+                        this.showToast(success),
+                    this.uploaded += 1
+                )
+            }
+        })
+            .catch(error => this.showToast(error));
+    }
+
+    async confirm(username, uploaded) {
+        await fetch(`/post/upload/${username}/confirm/${uploaded}`, {
+            method: 'GET',
         }).then(response => response.json())
             .then(success => this.showToast(success))
             .catch(error => this.showToast(error));
     }
 
-    async confirm(username, files) {
-        await fetch(`/post/upload/${username}/confirm/${files.length}`, {
-            method: 'GET',
-        }).then(response => response.json())
+    async deleteOnePost(event) {
+        console.log(event.params.token)
+        event.preventDefault();
+
+        fetch(`/delete/post/${event.params.id}/${event.params.username}/${event.params.token}`, {
+            method: 'POST',
+            body: event.params.token
+        }).then(response => response.json()
             .then(success => this.showToast(success))
+        )
             .catch(error => this.showToast(error));
+        this.component.emit('updatePosts');
+    }
+
+    async deleteAllPosts(event) {
+        console.log(event.params.token)
+        event.preventDefault();
+
+        fetch(`/delete/posts/${event.params.username}/${event.params.token}`, {
+            method: 'POST',
+            body: event.params.token
+        }).then(response => response.json()
+            .then(success => this.showToast(success))
+        )
+            .catch(error => this.showToast(error));
+        this.component.emit('updatePosts');
     }
 
     showToast(response) {
