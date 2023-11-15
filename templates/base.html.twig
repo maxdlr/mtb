@@ -20,11 +20,22 @@
 {% set addBtn = "<i class='bi bi-plus-lg'></i>" %}
 
 <body class="{% block bodyClasses %}{% endblock %}">
-{% for type, messages in app.flashes %}
-    {% for message in messages %}
-        <div class="text-{{ type }} fixed-top">{{ message }}</div>
+
+<div {{ stimulus_controller('flash') }}>
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+
+            <div
+                    class="toastifyFlash"
+                    data-type="{{ type }}"
+                    data-message="{{ message }}"
+                    hidden
+            >{{ message }}</div>
+
+        {% endfor %}
     {% endfor %}
-{% endfor %}
+</div>
+
 {% block body %}{% endblock %}
 </body>
 </html>
