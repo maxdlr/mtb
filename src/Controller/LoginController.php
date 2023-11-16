@@ -35,9 +35,11 @@ class LoginController extends AbstractController
     }
 
     #[Route('/login-confirm', name: 'app_login_confirm')]
-    public function loginConfirm(): RedirectResponse
+    public function loginConfirm(
+        AuthenticationUtils $authenticationUtils
+    ): RedirectResponse
     {
-        $this->addFlash('success', 'Connexion établie');
+        $this->addFlash('success', 'Hello ' . ucfirst($authenticationUtils->getLastUsername()));
         return $this->redirectToRoute('app_redirect_referer');
     }
 

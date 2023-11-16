@@ -27,9 +27,12 @@
 
         {% if app.user and owner is defined and app.user is same as owner %}
             {{ include('shared/buttons/_deleteButton.html.twig',{
-                route: path('app_post_delete', {'id': post['id']}),
                 token: csrf_token('delete' ~ post['id']),
-                btnClass: 'btn-sm rounded-pill'
+                btnClass: 'btn-sm rounded-pill',
+                id: post['id'],
+                username: post['owner'],
+                controller: 'post',
+                action: 'deleteOnePost'
             }) }}
         {% endif %}
 

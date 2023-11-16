@@ -30,7 +30,7 @@ class PostSearchByQuery
     {
     }
 
-    #[LiveListener('postAdded')]
+    #[LiveListener('updatePosts')]
     public function getPosts(): array
     {
         if ($this->getOwner())

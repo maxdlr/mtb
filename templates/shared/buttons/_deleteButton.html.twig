@@ -1,11 +1,31 @@
-<form
-        method="post"
-        action="{{ route }}"
-        onsubmit="return confirm('Sur de chez sur ?');"
->
-    <input type="hidden" name="_token" value="{{ token }}">
-    <button class="btn btn-danger {{ btnClass|default('') }}">
+{% if route is defined %}
+    <form
+            method="post"
+            action="{{ route }}"
+            onsubmit="return confirm('Sur de chez sur ?');"
+    >
+        <input type="hidden" name="_token" value="{{ token }}">
+        <button class="btn btn-danger {{ btnClass|default('') }}"
+                data-post-token-param="{{ token }}"
+                data-post-id-param="{{ id|default('') }}"
+                data-post-username-param="{{ username }}"
+                {{ stimulus_action(controller, action) }}
+        >
+            {{ label|default('') }}
+            <i class="bi bi-{{ icon|default('trash') }}"></i>
+        </button>
+    </form>
+
+{% else %}
+
+    <button class="btn btn-danger {{ btnClass|default('') }}"
+            data-post-token-param="{{ token }}"
+            data-post-id-param="{{ id|default('') }}"
+            data-post-username-param="{{ username }}"
+            {{ stimulus_action(controller, action) }}
+    >
         {{ label|default('') }}
         <i class="bi bi-{{ icon|default('trash') }}"></i>
     </button>
-</form>
+
+{% endif %}
