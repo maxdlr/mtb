@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
+use Symfony\UX\LiveComponent\Attribute\LiveListener;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\ComponentWithFormTrait;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
@@ -28,6 +29,7 @@ final class ResolvePromptlessPostsComponent extends AbstractController
     {
     }
 
+    #[LiveListener('updatePosts')]
     protected function instantiateForm(): FormInterface
     {
         return $this->formFactory->createNamed(
@@ -47,7 +49,7 @@ final class ResolvePromptlessPostsComponent extends AbstractController
         $entityManager->persist($post);
         $entityManager->flush();
 
-        $this->addFlash('success', 'Post saved!');
+        $this->addFlash('success', '"' . ucfirst($post->getPrompt()->getNameFr()) . '" enregistré sur le post !');
 
         return $this->redirectToRoute('app_redirect_referer');
     }

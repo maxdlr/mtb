@@ -1,4 +1,4 @@
-<div{{ attributes }}>
+<div{{ attributes }} id="resolve-promptless-posts-component">
 
     <section class="row">
         <img
@@ -10,7 +10,7 @@
         <div class="col-9">
             {{ form_start(form, {
                 attr: {
-                    'data-action': 'live#action',
+                    'data-action': 'change->live#action',
                     'data-action-name': 'prevent|save'
                 }
             }) }}
