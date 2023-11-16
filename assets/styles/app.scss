@@ -2,6 +2,8 @@ $red-color: #e01f20;
 $blue-color: #2a00ff;
 $yellow-color: #ffaa01;
 
+// --- toastify ----
+
 .toastify.warning {
   background: linear-gradient(135deg, $yellow-color, $red-color);
 }
@@ -13,6 +15,21 @@ $yellow-color: #ffaa01;
 .toastify.danger {
   background: linear-gradient(135deg, $red-color, $blue-color);
 }
+
+// --- tom select ----
+
+.ts-wrapper {
+  background: linear-gradient(135deg, $yellow-color, $red-color) !important;
+  border-radius: 10px !important;
+  height: 100% !important;
+
+  input {
+    color: white;
+    opacity: 100%;
+  }
+}
+
+// ---------------------
 
 @import "~bootstrap/scss/bootstrap";
 @import "~bootstrap-icons/font/bootstrap-icons";
@@ -100,3 +117,5 @@ $yellow-color: #ffaa01;
 }
 
 // ---------------------
+
+
