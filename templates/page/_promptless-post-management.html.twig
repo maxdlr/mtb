@@ -1,0 +1,9 @@
+{% if promptlessPosts %}
+    <div class="w-100 mx-auto my-2 border border-1 border-dark-subtle py-3 px-3 rounded-5">
+
+        {% for post in promptlessPosts %}
+            {{ component('ResolvePromptlessPostsComponent', {post: post}) }}
+        {% endfor %}
+
+    </div>
+{% endif %}

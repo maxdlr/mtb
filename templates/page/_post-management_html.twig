@@ -1,0 +1,27 @@
+<div class="row w-100 mx-auto my-2 border border-1 border-warning-subtle py-3 px-3 rounded-5">
+    <h6 class="fs-6 title-font text-center text-primary">Mes posts</h6>
+    <div class="col-md-4 p-0 m-0">
+        {{ include('post/_newPost.html.twig', { form: form }) }}
+    </div>
+    <div class="col-md-4 p-0 m-0">
+        {% if posts|length > 0 %}
+            {{ include('shared/buttons/_button.html.twig', {
+                route: path('app_user_page_edit', {'username': owner.username}),
+                icon: 'pencil',
+                color: 'outline-warning',
+                class: 'rounded-pill w-100'
+            }) }}
+        {% endif %}
+    </div>
+    <div class="col-md-4 p-0 m-0">
+        {% if owner.posts.count > 0 %}
+            {{ include('shared/buttons/_deleteButton.html.twig',{
+                token: csrf_token('deleteAllPosts'),
+                btnClass: 'rounded-pill w-100',
+                username: owner.username,
+                controller: 'post',
+                action: 'deleteAllPosts'
+            }) }}
+        {% endif %}
+    </div>
+</div>
