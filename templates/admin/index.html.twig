@@ -1,11 +1,19 @@
 {% extends 'base-admin.html.twig' %}
 
-{% block title %}Motiontober Admin Dashboard{% endblock %}
-
 {% block sidebar %}
-    side bar
+    <ul>
+        {% for entityName in names %}
+            <li class="list-unstyled">
+                <a class="btn btn-primary" href="/admin/{{ entityName }}">
+                    {{ entityName|title }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
 
 {% block body %}
-    body
+    {% if forms is defined %}
+        {{ include('/admin/_admin-crud.html.twig') }}
+    {% endif %}
 {% endblock %}

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\autocomplete;
 
 use App\Entity\Prompt;
 use Symfony\Component\Form\AbstractType;

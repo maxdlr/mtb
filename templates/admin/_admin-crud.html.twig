@@ -1,0 +1,19 @@
+{% for form in forms %}
+    {{ form_start(form) }}
+
+    <div class="row">
+
+        {% if app.current_route_parameters['entity'] == 'posts' %}
+            <img class="col-1 img-fluid" src="{{ asset('/images/posts/' ~ form.vars.data.fileName) }}"
+                 alt="admin post crud">
+        {% endif %}
+
+        {% for key, formView in form.children %}
+            <div class="col">
+                {{ form_row(formView) }}
+            </div>
+        {% endfor %}
+    </div>
+
+    {{ form_end(form) }}
+{% endfor %}
