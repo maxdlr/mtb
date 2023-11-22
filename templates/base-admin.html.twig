@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    {% block meta %}{% endblock %}
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+
+<body class="row">
+
+<div {{ stimulus_controller('flash') }}>
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+
+            <div
+                    class="toastifyFlash"
+                    data-type="{{ type }}"
+                    data-message="{{ message }}"
+                    hidden
+            >{{ message }}</div>
+
+        {% endfor %}
+    {% endfor %}
+</div>
+
+<nav class="col-2">
+    {% block sidebar %}{% endblock %}
+</nav>
+
+<main class="col-10">
+    {% block body %}{% endblock %}
+</main>
+
+</body>
+</html>
