@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Form\admin\AdminPostType;
 use App\Form\admin\AdminUserType;
+use App\Form\AdminPromptType;
 use App\Repository\PostRepository;
+use App\Repository\PromptRepository;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,7 +24,7 @@ class AdminController extends AbstractController
         private readonly FormFactoryInterface   $formFactory,
         private readonly EntityManagerInterface $entityManager,
         private readonly UserRepository         $userRepository,
-        private readonly RedirectController     $redirectController
+        private readonly PromptRepository       $promptRepository
     )
     {
     }
@@ -43,6 +45,11 @@ class AdminController extends AbstractController
                 'name' => 'users',
                 'collection' => $this->userRepository->findAll(),
                 'formType' => AdminUserType::class
+            ]),
+            'prompts' => new ArrayCollection([
+                'name' => 'prompts',
+                'collection' => $this->promptRepository->findAll(),
+                'formType' => AdminPromptType::class
             ]),
         ]);
 

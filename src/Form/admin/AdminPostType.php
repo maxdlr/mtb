@@ -18,6 +18,7 @@ class AdminPostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            //todo: add post edit feat when click on picture
             ->add('id', IntegerType::class, [
                 'label' => false,
                 'disabled' => true
