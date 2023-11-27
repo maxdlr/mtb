@@ -16,19 +16,6 @@ $yellow-color: #ffaa01;
   background: linear-gradient(135deg, $red-color, $blue-color);
 }
 
-// --- tom select ----
-
-.ts-wrapper {
-  background: linear-gradient(135deg, $yellow-color, $red-color) !important;
-  border-radius: 10px !important;
-  height: 100% !important;
-
-  input {
-    color: white;
-    opacity: 100%;
-  }
-}
-
 // ---------------------
 
 @import "~bootstrap/scss/bootstrap";
