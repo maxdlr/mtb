@@ -1,19 +1,48 @@
-{% for form in forms %}
-    {{ form_start(form) }}
-
-    <div class="row">
-
+<table class="table table-responsive">
+    <thead>
+    <tr>
         {% if app.current_route_parameters['entity'] == 'posts' %}
-            <img class="col-1 img-fluid" src="{{ asset('/images/posts/' ~ form.vars.data.fileName) }}"
-                 alt="admin post crud">
+            <th>
+                Gif
+            </th>
         {% endif %}
-
-        {% for key, formView in form.children %}
-            <div class="col">
-                {{ form_row(formView) }}
-            </div>
+        {% for key, fieldInput in forms[0].children %}
+            {% if fieldInput.vars.name is not same as '_token' %}
+                <th>
+                    {{ fieldInput.vars.name|title }}
+                </th>
+            {% endif %}
         {% endfor %}
-    </div>
+    </tr>
+    </thead>
+    <tbody>
 
-    {{ form_end(form) }}
-{% endfor %}
+    {% for form in forms %}
+        {{ form_start(form) }}
+
+        <tr>
+            {% if app.current_route_parameters['entity'] == 'posts' %}
+                <td>
+                    <img class="admin-post-thumbnail"
+                         src="{{ asset('/images/posts/' ~ form.vars.data.fileName) }}"
+                         alt="admin post crud">
+                </td>
+            {% endif %}
+
+            {% for key, fieldInput in form.children %}
+                <td>
+                    {% if fieldInput.vars.name is not same as '_token' %}
+                        <div>
+                            {{ form_row(fieldInput) }}
+                        </div>
+                    {% endif %}
+                </td>
+            {% endfor %}
+
+            {{ form_end(form) }}
+        </tr>
+    {% endfor %}
+    </tbody>
+
+</table>
+

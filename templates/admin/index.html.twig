@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block body %}
-    {% if forms is defined %}
+    {% if forms is defined and forms is not empty %}
         {{ include('/admin/_admin-crud.html.twig') }}
     {% endif %}
 {% endblock %}

@@ -21,7 +21,8 @@ class AdminController extends AbstractController
         private readonly PostRepository         $postRepository,
         private readonly FormFactoryInterface   $formFactory,
         private readonly EntityManagerInterface $entityManager,
-        private readonly UserRepository         $userRepository
+        private readonly UserRepository         $userRepository,
+        private readonly RedirectController     $redirectController
     )
     {
     }
@@ -55,18 +56,14 @@ class AdminController extends AbstractController
 
             if ($entity == $entityName) {
                 $forms = $this->generateAdminForms($collection, $formType);
-
-                foreach ($forms as $form) {
-                    $formViews[] = $form->createView();
-                    $form->handleRequest($request);
-                }
-
-                foreach ($collection as $object) {
-                    $this->entityManager->persist($object);
+                $this->handleAdminFormRequests($forms, $request);
+                $formViews = $this->generateAdminFormViews($forms);
+                if ($this->persistAdminFormObjects($forms, $collection)) {
+                    $this->addFlash('success', "C'est modifié !");
+                    return $this->redirectToRoute('app_redirect_referer');
                 }
             }
         }
-
 
         return $this->render('admin/index.html.twig', [
             'forms' => $formViews,
@@ -83,10 +80,38 @@ class AdminController extends AbstractController
         return $forms;
     }
 
-    public function manageAdminForms(Request $request, array $forms, $object): void
+    public function generateAdminFormViews(array $forms): array
     {
+        $formViews = [];
+        foreach ($forms as $form) {
+            $formViews[] = $form->createView();
+        }
+        return $formViews;
+    }
 
+    public function persistAdminFormObjects(array $forms, array $collection): bool
+    {
+        $associatedFormsAndObjects = [];
 
+        for ($i = 0; $i < count($collection) - 1; $i++) {
+            $associatedFormsAndObjects[] = ['object' => $collection[$i], 'form' => $forms[$i]];
+        }
+
+        foreach ($associatedFormsAndObjects as $objectAndForm) {
+            if ($objectAndForm['form']->isSubmitted() && $objectAndForm['form']->isValid()) {
+                $this->entityManager->persist($objectAndForm['object']);
+                $this->entityManager->flush();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function handleAdminFormRequests(array $forms, Request $request): void
+    {
+        foreach ($forms as $form) {
+            $form->handleRequest($request);
+        }
     }
 
     // ------------------------------------------------------------------
