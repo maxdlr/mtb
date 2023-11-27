@@ -94,7 +94,7 @@ class PostManager
     {
         $iterator = $postCollection->getIterator();
         $iterator->uasort(function ($a, $b) {
-            return ($a->getPrompt()->getDayNumber() < $b->getPrompt()->getDayNumber()) ? -1 : 1;
+            return ($a->getPrompt()?->getDayNumber() < $b->getPrompt()?->getDayNumber()) ? -1 : 1;
         });
 
         return new ArrayCollection(iterator_to_array($iterator));

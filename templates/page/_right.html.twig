@@ -1,0 +1,37 @@
+<div class="btn-group d-none d-lg-block row row-cols-auto mb-2 text-center" role="group">
+    <button class="btn btn-outline-primary rounded-start-pill w-50 m-0" disabled>{{ owner.username|title }}</button>
+    {{ include('shared/buttons/_button.html.twig', {
+        route: path('app_logout'),
+        icon: 'box-arrow-right',
+        color: 'outline-danger',
+        id: 'offCanvasOwnerEditLabel',
+        type: 'button',
+        class: 'rounded-end-pill w-25'
+    }) }}
+</div>
+
+<div class="offcanvas-lg offcanvas-end"
+     data-bs-scroll="true"
+     tabindex="-1"
+     id="offCanvasOwnerEdit"
+     aria-labelledby="offCanvasOwnerEditLabel">
+
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offCanvasOwnerEditLabel">{{ owner.username|title }}</h5>
+        {{ include('shared/buttons/_button.html.twig', {
+            route: path('app_logout'),
+            icon: 'box-arrow-right',
+            color: 'danger',
+            class: 'rounded-pill',
+            id: 'offCanvasOwnerEditLabel'
+        }) }}
+    </div>
+
+    <div class="offcanvas-body flex-column">
+
+        {{ include('page/_post-management_html.twig') }}
+
+        {{ include('page/_promptless-post-management.html.twig') }}
+
+    </div>
+</div>
