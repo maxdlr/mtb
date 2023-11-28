@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Post;
 use App\Form\admin\AdminPostType;
+use App\Form\admin\AdminPromptType;
 use App\Form\admin\AdminUserType;
-use App\Form\AdminPromptType;
 use App\Repository\PostRepository;
 use App\Repository\PromptRepository;
 use App\Repository\UserRepository;
@@ -12,6 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -77,6 +79,32 @@ class AdminController extends AbstractController
             'names' => $names,
         ]);
     }
+
+    #[Route('/post/{id}/{token}', name: '_post_delete', methods: ['POST'])]
+    public function adminDeleteOnePost(
+        Post                   $post,
+        EntityManagerInterface $entityManager,
+        string                 $token
+    ): RedirectResponse
+    {
+        $postPromptName = ucfirst($post->getPrompt()->getNameFr());
+        $postUsers = '';
+
+        foreach ($post->getUser() as $oneUser) {
+            $postUsers .= ucfirst($oneUser->getUsername()) . ' - ';
+        }
+
+        if ($this->isCsrfTokenValid('adminDeleteOnePost' . $post->getId(), $token)) {
+            $entityManager->remove($post);
+            $entityManager->flush();
+            $this->addFlash('success', "Post de [$postUsers] du thème $postPromptName supprimé !");
+        } else {
+            $this->addFlash('danger', "Erreur de suppression");
+        }
+        return $this->redirectToRoute('app_redirect_referer');
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
 
     public function generateAdminForms($objects, $formType): array
     {

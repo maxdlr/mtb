@@ -8,8 +8,8 @@
         <button class="btn btn-danger {{ btnClass|default('') }}"
                 data-post-token-param="{{ token }}"
                 data-post-id-param="{{ id|default('') }}"
-                data-post-username-param="{{ username }}"
-                {{ stimulus_action(controller, action) }}
+                data-post-username-param="{{ username|default(false) }}"
+                {{ stimulus_action(controller|default(false), action|default(false)) }}
         >
             {{ label|default('') }}
             <i class="bi bi-{{ icon|default('trash') }}"></i>
@@ -21,8 +21,8 @@
     <button class="btn btn-danger {{ btnClass|default('') }}"
             data-post-token-param="{{ token }}"
             data-post-id-param="{{ id|default('') }}"
-            data-post-username-param="{{ username }}"
-            {{ stimulus_action(controller, action) }}
+            data-post-username-param="{{ username|default(false) }}"
+            {{ stimulus_action(controller|default(false), action|default(false)) }}
     >
         {{ label|default('') }}
         <i class="bi bi-{{ icon|default('trash') }}"></i>

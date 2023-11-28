@@ -17,26 +17,26 @@
 
 <body class="container-fluid row">
 
-<div {{ stimulus_controller('flash') }}>
-    {% for type, messages in app.flashes %}
-        {% for message in messages %}
-
-            <div
-                    class="toastifyFlash"
-                    data-type="{{ type }}"
-                    data-message="{{ message }}"
-                    hidden
-            >{{ message }}</div>
-
-        {% endfor %}
-    {% endfor %}
-</div>
-
 <nav class="col-1">
     {% block sidebar %}{% endblock %}
 </nav>
 
 <main class="col-11">
+    <div {{ stimulus_controller('flash') }}>
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+
+                <div
+                        class="toastifyFlash"
+                        data-type="{{ type }}"
+                        data-message="{{ message }}"
+                        hidden
+                >{{ message }}</div>
+
+            {% endfor %}
+        {% endfor %}
+    </div>
+
     {% block body %}{% endblock %}
 </main>
 

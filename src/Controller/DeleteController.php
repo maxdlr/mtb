@@ -25,7 +25,7 @@ class DeleteController extends AbstractController
     }
 
     #[Route('/post/{id}/{username}/{token}', name: 'app_post_delete', methods: ['POST'])]
-    public function delete(
+    public function deleteOnePost(
         Post                   $post,
         EntityManagerInterface $entityManager,
         UserRepository         $userRepository,
@@ -51,7 +51,7 @@ class DeleteController extends AbstractController
     }
 
     #[Route('/posts/{username}/{token}', name: 'app_post_delete_all', methods: ['POST'])]
-    public function deleteAll(
+    public function deleteAllPosts(
         EntityManagerInterface $entityManager,
         UserRepository         $userRepository,
         SecurityManager        $securityManager,

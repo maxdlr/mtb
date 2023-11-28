@@ -16,7 +16,6 @@
     </tr>
     </thead>
     <tbody>
-
     {% for form in forms %}
         {{ form_start(form) }}
 
@@ -38,8 +37,18 @@
                     {% endif %}
                 </td>
             {% endfor %}
-
             {{ form_end(form) }}
+            <td>
+                {{ include('shared/buttons/_deleteButton.html.twig',{
+                    route: path('app_admin_post_delete', {
+                        id: form.vars.data.id,
+                        token: csrf_token('adminDeleteOnePost' ~ form.vars.data.id)
+                    }),
+                    type: 'danger',
+                    label: 'supprimer',
+                    token: csrf_token('adminDeleteOnePost')
+                }) }}
+            </td>
         </tr>
     {% endfor %}
     </tbody>
