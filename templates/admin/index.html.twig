@@ -1,11 +1,34 @@
 {% extends 'base-admin.html.twig' %}
 
+
 {% block sidebar %}
-    <ul>
+    <ul class="w-100">
+        <li class="list-unstyled mb-4">
+            <a href="{{ path('app_home') }}" class="btn btn-outline-secondary rounded-pill w-100">
+                <i class="bi bi-arrow-left"></i>
+                Retour
+            </a>
+        </li>
+        <li class="list-unstyled mt-2 nav">
+            <a
+                    class="btn {{ app.current_route_parameters['entity'] is not null ? 'btn-outline-dark text-start' : 'btn-primary text-end' }} w-100 rounded-pill"
+                    href="{{ path('app_admin') }}">
+                Dashboard
+                {% if app.current_route_parameters['entity'] is null %}
+                    <i class="bi bi-arrow-right"></i>
+                {% endif %}
+            </a>
+        </li>
         {% for entityName in names %}
-            <li class="list-unstyled">
-                <a class="btn btn-primary" href="/admin/{{ entityName }}">
+            {% set activePage = entityName is same as app.current_route_parameters['entity'] %}
+            <li class="list-unstyled mt-2 nav">
+                <a
+                        class="btn {{ activePage ? 'btn-primary text-end' : 'btn-outline-dark text-start' }} w-100 rounded-pill"
+                        href="{{ path('app_admin', {'entity': entityName}) }}">
                     {{ entityName|title }}
+                    {% if activePage %}
+                        <i class="bi bi-arrow-right"></i>
+                    {% endif %}
                 </a>
             </li>
         {% endfor %}

@@ -41,8 +41,8 @@ class AdminPostType extends AbstractType
                 'label' => false,
                 'input' => 'datetime_immutable',
                 'widget' => 'single_text'
-            ])
-            ->add('submit', SubmitType::class);
+            ])// ->add('submit', SubmitType::class)
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

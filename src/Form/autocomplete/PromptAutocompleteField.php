@@ -17,7 +17,7 @@ class PromptAutocompleteField extends AbstractType
             'class' => Prompt::class,
             'placeholder' => 'Tape le nom ou le numero d\'un thème',
             'choice_label' => function (?Prompt $prompt) {
-                return $prompt->getDayNumber() . ' - ' . $prompt->getNameFr() . ' / ' . $prompt->getNameEn();
+                return $prompt->getDayNumber() . ' - ' . $prompt->getNameFr();
             },
             'no_results_found_text' => 'On a rien trouvé !',
             'no_more_results_text' => 'Y a plus rien !',

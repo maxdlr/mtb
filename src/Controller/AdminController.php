@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function PHPUnit\Framework\isEmpty;
 
 #[Route('/admin', name: 'app_admin')]
 class AdminController extends AbstractController
@@ -67,9 +68,10 @@ class AdminController extends AbstractController
                 $forms = $this->generateAdminForms($collection, $formType);
                 $this->handleAdminFormRequests($forms, $request);
                 $formViews = $this->generateAdminFormViews($forms);
+
                 if ($this->persistAdminFormObjects($forms, $collection)) {
                     $this->addFlash('success', "C'est modifié !");
-                    return $this->redirectToRoute('app_redirect_referer');
+                    return $this->redirectToRoute('app_admin', ['entity' => $entityName]);
                 }
             }
         }
@@ -80,28 +82,20 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/post/{id}/{token}', name: '_post_delete', methods: ['POST'])]
-    public function adminDeleteOnePost(
-        Post                   $post,
-        EntityManagerInterface $entityManager,
-        string                 $token
+    #[Route('/{object}/{id}/{token}', name: '_delete', methods: ['POST'])]
+    public function adminDeleteOne(
+        $object,
+        int $id,
+        string $token,
+        Request $request
     ): RedirectResponse
     {
-        $postPromptName = ucfirst($post->getPrompt()->getNameFr());
-        $postUsers = '';
-
-        foreach ($post->getUser() as $oneUser) {
-            $postUsers .= ucfirst($oneUser->getUsername()) . ' - ';
-        }
-
-        if ($this->isCsrfTokenValid('adminDeleteOnePost' . $post->getId(), $token)) {
-            $entityManager->remove($post);
-            $entityManager->flush();
-            $this->addFlash('success', "Post de [$postUsers] du thème $postPromptName supprimé !");
-        } else {
-            $this->addFlash('danger', "Erreur de suppression");
-        }
-        return $this->redirectToRoute('app_redirect_referer');
+        match ($object) {
+            'posts' => $this->adminDeleteOnePost($id, $token),
+            'users' => $this->adminDeleteOneUser($id, $token),
+            default => $this->addFlash('danger', 'Object a supprimer non identifiée')
+        };
+        return $this->redirect($request->headers->get('referer'));
     }
 
     // ----------------------------------------------------------------------------------------------------------------
@@ -149,6 +143,67 @@ class AdminController extends AbstractController
         }
     }
 
-    // ------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------------------------
+
+    public function adminDeleteOnePost(
+        int    $id,
+        string $token
+    ): void
+    {
+        $post = $this->postRepository->findOneById($id);
+
+        $postPromptName = ucfirst($post->getPrompt()->getNameFr());
+        $postUsers = '';
+
+        foreach ($post->getUser() as $oneUser) {
+            $postUsers .= ucfirst($oneUser->getUsername()) . ' - ';
+        }
+
+        if ($this->isCsrfTokenValid('adminDeletePosts' . $post->getId(), $token)) {
+            $this->entityManager->remove($post);
+            $this->entityManager->flush();
+            $this->addFlash('success', "Post de [$postUsers] du thème $postPromptName supprimé !");
+        } else {
+            $this->addFlash('danger', "Erreur de suppression");
+        }
+    }
+
+    public function adminDeleteOneUser(
+        int    $id,
+        string $token
+    ): void
+    {
+        $user = $this->userRepository->findOneById($id);
+        $userPosts = $user->getPosts();
+        $username = ucfirst($user->getUsername());
+        $totalUserPosts = count($userPosts);
+        $deletedUserPosts = 0;
+        $associatedDeletedPostsMessage = '';
+
+        if ($this->isCsrfTokenValid('adminDeleteUsers' . $user->getId(), $token)) {
+
+            foreach ($userPosts as $post) {
+                if ($post->getUser()->contains($user))
+                    $post->removeUser($user);
+
+                if ($post->getUser()->isEmpty()) {
+                    $this->entityManager->remove($post);
+                    $this->entityManager->flush();
+                    $deletedUserPosts++;
+                    $associatedDeletedPostsMessage = " avec ses $deletedUserPosts posts";
+                } else if ($deletedUserPosts != 0) {
+                    $remainingPosts = $totalUserPosts - $deletedUserPosts;
+                    $associatedDeletedPostsMessage = ", $deletedUserPosts de ses posts on été supprimés mais $remainingPosts n'ont pas été supprimés: $username n'était pas le seul propriétaire";
+                }
+            }
+
+            $this->entityManager->remove($user);
+            $this->entityManager->flush();
+            $this->addFlash('success', "Le compte de $username a été supprimé" . $associatedDeletedPostsMessage . ' !');
+
+        } else {
+            $this->addFlash('danger', "Erreur de suppression");
+        }
+    }
 
 }

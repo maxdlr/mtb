@@ -23,10 +23,8 @@ class AdminPromptType extends AbstractType
             ])
             ->add('name_en', TextType::class, [
                 'label' => false
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'Enregistrer'
-            ]);
+            ])// ->add('submit', SubmitType::class)
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

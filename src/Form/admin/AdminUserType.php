@@ -56,8 +56,8 @@ class AdminUserType extends AbstractType
                 'choice_label' => function (?Page $page) {
                     return $page->getId();
                 }
-            ])
-            ->add('submit', SubmitType::class);
+            ])// ->add('submit', SubmitType::class)
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
