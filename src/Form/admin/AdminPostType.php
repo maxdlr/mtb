@@ -18,7 +18,6 @@ class AdminPostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            //todo: add post edit feat when click on picture
             ->add('id', IntegerType::class, [
                 'label' => false,
                 'disabled' => true
@@ -41,14 +40,14 @@ class AdminPostType extends AbstractType
                 'label' => false,
                 'input' => 'datetime_immutable',
                 'widget' => 'single_text'
-            ])// ->add('submit', SubmitType::class)
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Post::class,
+            'object_id' => null
         ]);
     }
 }

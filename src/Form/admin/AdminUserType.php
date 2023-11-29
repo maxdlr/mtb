@@ -64,6 +64,7 @@ class AdminUserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'object_id' => null
         ]);
     }
 }

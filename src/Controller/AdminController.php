@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Form\admin\AdminPostType;
+use App\Form\admin\AdminPromptListType;
 use App\Form\admin\AdminPromptType;
 use App\Form\admin\AdminUserType;
 use App\Repository\PostRepository;
+use App\Repository\PromptListRepository;
 use App\Repository\PromptRepository;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -27,7 +29,8 @@ class AdminController extends AbstractController
         private readonly FormFactoryInterface   $formFactory,
         private readonly EntityManagerInterface $entityManager,
         private readonly UserRepository         $userRepository,
-        private readonly PromptRepository       $promptRepository
+        private readonly PromptRepository       $promptRepository,
+        private readonly PromptListRepository   $promptListRepository
     )
     {
     }
@@ -54,6 +57,11 @@ class AdminController extends AbstractController
                 'collection' => $this->promptRepository->findAll(),
                 'formType' => AdminPromptType::class
             ]),
+            'promptlists' => new ArrayCollection([
+                'name' => 'promptlists',
+                'collection' => $this->promptListRepository->findAll(),
+                'formType' => AdminPromptListType::class
+            ]),
         ]);
 
         $names = [];
@@ -71,7 +79,7 @@ class AdminController extends AbstractController
 
                 if ($this->persistAdminFormObjects($forms, $collection)) {
                     $this->addFlash('success', "C'est modifié !");
-                    return $this->redirectToRoute('app_admin', ['entity' => $entityName]);
+                    return $this->redirect($request->headers->get('referer'));
                 }
             }
         }
@@ -93,6 +101,7 @@ class AdminController extends AbstractController
         match ($object) {
             'posts' => $this->adminDeleteOnePost($id, $token),
             'users' => $this->adminDeleteOneUser($id, $token),
+            'promptlists' => $this->adminDeleteOnePromptList($id, $token),
             default => $this->addFlash('danger', 'Object a supprimer non identifiée')
         };
         return $this->redirect($request->headers->get('referer'));
@@ -104,7 +113,7 @@ class AdminController extends AbstractController
     {
         $forms = [];
         foreach ($objects as $object) {
-            $forms[] = $this->formFactory->createNamed('admin-post-form-' . $object->getId(), $formType, $object);
+            $forms[] = $this->formFactory->createNamed('admin-post-form-' . $object->getId(), $formType, $object, ['object_id' => $object->getId()]);
         }
         return $forms;
     }
@@ -193,7 +202,7 @@ class AdminController extends AbstractController
                     $associatedDeletedPostsMessage = " avec ses $deletedUserPosts posts";
                 } else if ($deletedUserPosts != 0) {
                     $remainingPosts = $totalUserPosts - $deletedUserPosts;
-                    $associatedDeletedPostsMessage = ", $deletedUserPosts de ses posts on été supprimés mais $remainingPosts n'ont pas été supprimés: $username n'était pas le seul propriétaire";
+                    $associatedDeletedPostsMessage = ", $deletedUserPosts de ses posts ont été supprimés mais $remainingPosts n'ont pas été supprimés: $username n'était pas le seul propriétaire";
                 }
             }
 
@@ -201,6 +210,44 @@ class AdminController extends AbstractController
             $this->entityManager->flush();
             $this->addFlash('success', "Le compte de $username a été supprimé" . $associatedDeletedPostsMessage . ' !');
 
+        } else {
+            $this->addFlash('danger', "Erreur de suppression");
+        }
+    }
+
+    public function adminDeleteOnePromptList(
+        int    $id,
+        string $token
+    ): void
+    {
+        $list = $this->promptListRepository->findOneById($id);
+        $listYear = $list->getYear();
+        $listPrompts = $list->getPrompts();
+        $totalPrompts = count($listPrompts);
+        $deletedPrompts = 0;
+        $associatedDeletedPromptsMessage = '';
+
+        if ($this->isCsrfTokenValid('adminDeletePromptlists' . $list->getId(), $token)) {
+
+            foreach ($listPrompts as $prompt) {
+                if ($prompt->getPromptList()->contains($list))
+                    $prompt->removePromptList($list);
+
+                if ($prompt->getPromptList()->isEmpty() && $prompt->getPosts()->isEmpty()) {
+                    $this->entityManager->remove($prompt);
+                    $this->entityManager->flush();
+                    $deletedPrompts++;
+                    $associatedDeletedPromptsMessage = " avec ses $deletedPrompts posts";
+                } else if ($deletedPrompts != 0) {
+                    $remainingPrompts = $totalPrompts - $deletedPrompts;
+                    $associatedDeletedPromptsMessage = ", $deletedPrompts thème ont été supprimés mais $remainingPrompts restent car présents dans d'autres listes";
+                }
+            }
+
+            $this->entityManager->remove($list);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', "Liste $listYear supprimée" . $associatedDeletedPromptsMessage . ' !');
         } else {
             $this->addFlash('danger', "Erreur de suppression");
         }

@@ -48,7 +48,7 @@ class Prompt
 
     public function setNameFr(string $name_fr): static
     {
-        $this->name_fr = $name_fr;
+        $this->name_fr = strtolower($name_fr);
 
         return $this;
     }
@@ -84,7 +84,7 @@ class Prompt
 
     public function setNameEn(string $name_en): static
     {
-        $this->name_en = $name_en;
+        $this->name_en = strtolower($name_en);
 
         return $this;
     }
