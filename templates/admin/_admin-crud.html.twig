@@ -1,0 +1,68 @@
+{% set checkBtn = "<i class='bi bi-check'></i>" %}
+
+<table class="table table-responsive">
+    <thead>
+    <tr>
+        {% if app.current_route_parameters['entity'] == 'posts' %}
+            <th>
+                Gif
+            </th>
+        {% endif %}
+        {% for key, fieldInput in forms[0].children %}
+            {% if fieldInput.vars.name is not same as '_token' %}
+                <th>
+                    {{ fieldInput.vars.name|title }}
+                </th>
+            {% endif %}
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for form in forms %}
+        {{ form_start(form) }}
+
+        <tr>
+            {% if app.current_route_parameters['entity'] == 'posts' %}
+                <td>
+                    <img class="admin-post-thumbnail"
+                         src="{{ asset('/images/posts/' ~ form.vars.data.fileName) }}"
+                         alt="admin post crud">
+                </td>
+            {% endif %}
+
+            {% for key, fieldInput in form.children %}
+                <td>
+                    {% if fieldInput.vars.name is not same as '_token' %}
+                        <div>
+                            {{ form_row(fieldInput) }}
+                        </div>
+                    {% endif %}
+                </td>
+            {% endfor %}
+            <td>
+                {{ include('shared/buttons/_button.html.twig', {
+                    color: 'primary',
+                    type: 'submit',
+                    icon: 'check-lg',
+                    class: 'w-100 rounded-pill',
+                    dataTurboFrame: '_top'
+                }) }}
+            </td>
+            {{ form_end(form) }}
+            <td>
+                {{ include('shared/buttons/_deleteButton.html.twig',{
+                    route: path('app_admin_delete', {
+                        object: app.current_route_parameters['entity'],
+                        id: form.vars.data.id,
+                        token: csrf_token('adminDelete' ~ app.current_route_parameters['entity']|title ~ form.vars.data.id)
+                    }),
+                    token: csrf_token('adminDelete' ~ app.current_route_parameters['entity']|title ~ form.vars.data.id),
+                    class: 'w-100 rounded-pill',
+                }) }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+
+</table>
+

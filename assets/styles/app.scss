@@ -23,6 +23,10 @@ $yellow-color: #ffaa01;
   font-family: 'Geomanist', serif;
 }
 
+.para-font {
+  font-family: 'Geomanist Book', serif;
+}
+
 .bg-red {
   background-color: $red-color;
 }
@@ -35,9 +39,6 @@ $yellow-color: #ffaa01;
   background-color: $yellow-color;
 }
 
-.para-font {
-  font-family: 'Geomanist Book', serif;
-}
 
 .bg-red-hover {
   &:hover {
@@ -99,4 +100,9 @@ $yellow-color: #ffaa01;
   }
 }
 
-// ---------------------
+// ------ admin --------
+
+.admin-post-thumbnail {
+  aspect-ratio: 1/1;
+  width: 40px;
+}

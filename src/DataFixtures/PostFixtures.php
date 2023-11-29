@@ -80,6 +80,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
                 ->setFileName($postGif)
                 ->setFileSize(10)
                 ->setUploadedOn($now)
+                ->addUser($this->getReference('user_' . $users[rand(0, count($users) - 1)]))
                 ->addUser($this->getReference('user_' . $users[rand(0, count($users) - 1)]));
 
             $manager->persist($post);

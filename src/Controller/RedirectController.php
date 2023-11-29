@@ -25,7 +25,7 @@ class RedirectController extends AbstractController
     }
 
     #[Route('/referer', name: 'referer')]
-    public function referer(Request $request)
+    public function referer(Request $request): RedirectResponse
     {
         return $this->redirect($request->headers->get('referer'));
     }

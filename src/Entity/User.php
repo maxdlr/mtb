@@ -60,7 +60,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setUsername(string $username): static
     {
-        $this->username = $username;
+        $this->username = strtolower($username);
 
         return $this;
     }
@@ -130,7 +130,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getRegistrationDate(): ?DateTimeImmutable
+    public function getRegistrationDate(): ?\DateTimeImmutable
     {
         return $this->registrationDate;
     }
