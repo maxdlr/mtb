@@ -5,7 +5,9 @@ namespace App\Repository;
 use App\Entity\Post;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Collection;
 
 /**
  * @extends ServiceEntityRepository<Post>
@@ -17,6 +19,15 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PostRepository extends ServiceEntityRepository
 {
+    private string $fileName = 'fileName';
+    private string $owner = 'owner';
+    private string $dayNumber = 'dayNumber';
+    private string $promptNameFr = 'promptNameFr';
+    private string $promptNameEn = 'promptNameEn';
+    private string $promptListYear = 'promptListYear';
+    private string $id = 'id';
+    private string $date = 'date';
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Post::class);
@@ -47,13 +58,14 @@ class PostRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('post')
             ->select(
-                'post.fileName, 
-                user.username as owner, 
-                prompt.dayNumber, 
-                prompt.name_fr as promptNameFr, 
-                promptList.year as promptListYear, 
-                post.id,
-                post.uploadedOn as date'
+                'post.id as ' . $this->id . ',
+                post.fileName as ' . $this->fileName . ', 
+                post.uploadedOn as ' . $this->date . ',
+                user.username as ' . $this->owner . ', 
+                prompt.dayNumber as ' . $this->dayNumber . ', 
+                prompt.name_fr as ' . $this->promptNameFr . ', 
+                prompt.name_en as ' . $this->promptNameEn . ', 
+                promptList.year as ' . $this->promptListYear
             )
             ->leftJoin('post.prompt', 'prompt')
             ->leftJoin('post.user', 'user')
@@ -77,13 +89,14 @@ class PostRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('post')
             ->select(
-                'post.fileName, 
-                user.username as owner, 
-                prompt.dayNumber, 
-                prompt.name_fr as promptNameFr, 
-                promptList.year as promptListYear, 
-                post.id,
-                post.uploadedOn as date'
+                'post.id as ' . $this->id . ',
+                post.fileName as ' . $this->fileName . ', 
+                post.uploadedOn as ' . $this->date . ',
+                user.username as ' . $this->owner . ', 
+                prompt.dayNumber as ' . $this->dayNumber . ', 
+                prompt.name_fr as ' . $this->promptNameFr . ', 
+                prompt.name_en as ' . $this->promptNameEn . ', 
+                promptList.year as ' . $this->promptListYear
             )
             ->leftJoin('post.prompt', 'prompt')
             ->leftJoin('post.user', 'user')
@@ -107,13 +120,14 @@ class PostRepository extends ServiceEntityRepository
 
         return $this->createQueryBuilder('post')
             ->select(
-                'post.fileName, 
-                user.username as owner, 
-                prompt.dayNumber, 
-                prompt.name_fr as promptNameFr, 
-                promptList.year as promptListYear, 
-                post.id,
-                post.uploadedOn as date'
+                'post.id as ' . $this->id . ',
+                post.fileName as ' . $this->fileName . ', 
+                post.uploadedOn as ' . $this->date . ',
+                user.username as ' . $this->owner . ', 
+                prompt.dayNumber as ' . $this->dayNumber . ', 
+                prompt.name_fr as ' . $this->promptNameFr . ', 
+                prompt.name_en as ' . $this->promptNameEn . ', 
+                promptList.year as ' . $this->promptListYear
             )
             ->leftJoin('post.prompt', 'prompt')
             ->leftJoin('prompt.promptList', 'promptList')
@@ -129,13 +143,14 @@ class PostRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('post')
             ->select(
-                'post.id, 
-                post.fileName, 
-                user.username as owner, 
-                prompt.dayNumber, 
-                prompt.name_fr as promptNameFr, 
-                promptList.year as promptListYear,
-                post.uploadedOn as date'
+                'post.id as ' . $this->id . ',
+                post.fileName as ' . $this->fileName . ', 
+                post.uploadedOn as ' . $this->date . ',
+                user.username as ' . $this->owner . ', 
+                prompt.dayNumber as ' . $this->dayNumber . ', 
+                prompt.name_fr as ' . $this->promptNameFr . ', 
+                prompt.name_en as ' . $this->promptNameEn . ', 
+                promptList.year as ' . $this->promptListYear
             )
             ->leftJoin('post.prompt', 'prompt')
             ->leftJoin('prompt.promptList', 'promptList')
@@ -147,5 +162,29 @@ class PostRepository extends ServiceEntityRepository
             ->orderBy($orderBy)
             ->getQuery()
             ->getResult();
+    }
+
+    public function findOneById($id): ArrayCollection
+    {
+        $result = $this->createQueryBuilder('post')
+            ->select(
+                'post.id as ' . $this->id . ',
+                post.fileName as ' . $this->fileName . ', 
+                post.uploadedOn as ' . $this->date . ',
+                user.username as ' . $this->owner . ', 
+                prompt.dayNumber as ' . $this->dayNumber . ', 
+                prompt.name_fr as ' . $this->promptNameFr . ', 
+                prompt.name_en as ' . $this->promptNameEn . ', 
+                promptList.year as ' . $this->promptListYear
+            )
+            ->leftJoin('post.prompt', 'prompt')
+            ->leftJoin('prompt.promptList', 'promptList')
+            ->leftJoin('post.user', 'user')
+            ->where('post.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getResult();
+
+        return new ArrayCollection($result[0]);
     }
 }

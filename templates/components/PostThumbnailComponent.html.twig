@@ -1,0 +1,65 @@
+<div{{ attributes }}>
+    <div class="position-relative p-2 d-inline-block">
+        {% if rich %}
+            <div class="title-font position-absolute start-0 top-0 pt-4 ps-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <a class="btn btn-sm btn-primary rounded-pill"
+                       href="{{ path('app_user_page', {'username': post.owner}) }}">
+                        {{ post.owner|title }}
+                    </a>
+                    <i class="bi bi-arrow-right-short text-light"></i>
+                    <button class="btn btn-sm btn-light rounded-pill"
+                            {{ stimulus_controller('postsearch') }}
+                            {{ stimulus_action('postsearch', 'filter', 'click') }}
+                            data-postsearch-promptname-param="{{ post.promptNameFr }}"
+                    >
+                        {{ post.promptNameFr|title }}
+                    </button>
+                </div>
+            </div>
+
+            <div class="position-absolute end-0 top-0 pt-4 pe-4 d-flex justify-content-between align-items-center">
+
+                <button
+                        class="btn btn-sm btn-dark rounded-pill mx-2"
+                        {{ stimulus_controller('post') }}
+                        {{ stimulus_action('post', 'copyToClipboard', 'click') }}
+                        data-post-url-param="{{ app.request.httpHost }}{{ path('app_post_show', {'id': post.id}) }}"
+                >
+                    <i class="bi bi-copy"></i>
+                </button>
+
+                <button class="btn btn-sm btn-danger rounded-pill">
+                    <i class="bi bi-flag-fill"></i>
+                </button>
+            </div>
+
+            <div class="position-absolute end-0 bottom-0 pb-4 pe-4 d-flex justify-content-between align-items-center">
+
+                {% if app.user is defined and app.user.username is same as post.owner %}
+                    {{ include('shared/buttons/_button.html.twig', {
+                        route: path('app_user_page_edit', {'username': post.owner}),
+                        class: 'btn-sm rounded-pill mx-2',
+                        color: 'warning',
+                        icon: 'pencil-fill'
+                    }) }}
+
+                    {{ include('shared/buttons/_deleteButton.html.twig',{
+                        token: csrf_token('delete' ~ post.id),
+                        class: 'btn-sm rounded-pill',
+                        id: post.id,
+                        username: post.owner,
+                        controller: 'post',
+                        action: 'deleteOnePost'
+                    }) }}
+                {% endif %}
+
+            </div>
+
+        {% endif %}
+        <img
+                class="post-img img-fluid m-0 p-0 rounded-4"
+                src="{{ asset('images/posts/' ~ post.fileName ) }}"
+                alt="Post de {{ post.owner }}">
+    </div>
+</div>
