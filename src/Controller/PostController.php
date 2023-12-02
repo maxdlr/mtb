@@ -77,6 +77,25 @@ class PostController extends AbstractController
 
     //    ----------------------------------------------------------------------------
 
+    #[Route('/{id}', name: 'show', methods: ['GET'])]
+    public function showPost(
+        int $id
+    ): Response
+    {
+        $post = $this->postRepository->findOneById($id);
+
+        return $this->render('post/post-show.html.twig', [
+            'post' => $post
+        ]);
+    }
+
+    public function getMessages(): ?Collection
+    {
+        return $this->messages;
+    }
+
+    //    ----------------------------------------------------------------------------
+
     public function validatePost($uploadedPost): void
     {
         $notGifPost = '';
@@ -112,22 +131,5 @@ class PostController extends AbstractController
         if ($numberOfPromptlessPost > 0)
             $this->messages->add(['type' => 'warning', 'message' => "$numberOfPromptlessPost posts sans thème."]);
 
-    }
-
-    #[Route('/{id}', name: 'show', methods: ['GET'])]
-    public function showPost(
-        int $id
-    ): Response
-    {
-        $post = $this->postRepository->findOneById($id);
-
-        return $this->render('page/post-show.html.twig', [
-            'post' => $post
-        ]);
-    }
-
-    public function getMessages(): ?Collection
-    {
-        return $this->messages;
     }
 }

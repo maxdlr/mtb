@@ -25,9 +25,12 @@
                 class="row row-cols-xxl-3 row-cols-lg-2 row-cols-md-1 "
         >
             {% for post in computed.posts %}
-                {{ include('shared/post/_thumbnail.html.twig', {
-                    rich: owner is not null ? false : true
+
+                {{ component('PostThumbnailComponent', {
+                    post: post,
+                    showOwner: owner is null ? true : false
                 }) }}
+
             {% endfor %}
         </div>
     {% else %}

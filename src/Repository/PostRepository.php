@@ -75,6 +75,7 @@ class PostRepository extends ServiceEntityRepository
             ->orWhere('prompt.dayNumber LIKE :query')
             ->orWhere('user.username LIKE :query')
             ->orWhere('promptList.year LIKE :query')
+            ->andWhere('post.prompt IS NOT NULL')
             ->setParameter('query', '%' . $query . '%')
             ->orderBy($orderBy, $ascDesc)
             ->setMaxResults($limit)
@@ -106,6 +107,7 @@ class PostRepository extends ServiceEntityRepository
             ->orWhere('prompt.dayNumber LIKE :query')
             ->orWhere('promptList.year LIKE :query')
             ->andWhere('user.username = :thisOwner')
+            ->andWhere('post.prompt IS NOT NULL')
             ->setParameter('query', '%' . $query . '%')
             ->setParameter('thisOwner', $owner->getUsername())
             ->orderBy($orderBy, $ascDesc)
@@ -133,6 +135,7 @@ class PostRepository extends ServiceEntityRepository
             ->leftJoin('prompt.promptList', 'promptList')
             ->leftJoin('post.user', 'user')
             ->where($where . ' = :val')
+            ->andWhere('post.prompt IS NOT NULL')
             ->setParameter('val', $value)
             ->orderBy($orderBy)
             ->getQuery()
@@ -156,6 +159,7 @@ class PostRepository extends ServiceEntityRepository
             ->leftJoin('prompt.promptList', 'promptList')
             ->leftJoin('post.user', 'user')
             ->where('user.username = :val')
+            ->andWhere('post.prompt IS NOT NULL')
             ->andWhere('promptList.year = :val2')
             ->setParameter('val', $userUsername)
             ->setParameter('val2', $year)
@@ -181,7 +185,34 @@ class PostRepository extends ServiceEntityRepository
             ->leftJoin('prompt.promptList', 'promptList')
             ->leftJoin('post.user', 'user')
             ->where('post.id = :val')
+            ->andWhere('post.prompt IS NOT NULL')
             ->setParameter('val', $id)
+            ->getQuery()
+            ->getResult();
+
+        return new ArrayCollection($result[0]);
+    }
+
+    public function findLatestPostOfUser(User $user): ArrayCollection
+    {
+        $result = $this->createQueryBuilder('post')
+            ->select(
+                'post.id as ' . $this->id . ',
+                post.fileName as ' . $this->fileName . ', 
+                post.uploadedOn as ' . $this->date . ',
+                user.username as ' . $this->owner . ', 
+                prompt.dayNumber as ' . $this->dayNumber . ', 
+                prompt.name_fr as ' . $this->promptNameFr . ', 
+                prompt.name_en as ' . $this->promptNameEn . ', 
+                promptList.year as ' . $this->promptListYear
+            )
+            ->leftJoin('post.prompt', 'prompt')
+            ->leftJoin('prompt.promptList', 'promptList')
+            ->leftJoin('post.user', 'user')
+            ->where('user.username = :val')
+            ->andWhere('post.prompt IS NOT NULL')
+            ->setParameter('val', $user->getUsername())
+            ->orderBy('post.uploadedOn', 'DESC')
             ->getQuery()
             ->getResult();
 

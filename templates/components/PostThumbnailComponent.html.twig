@@ -1,61 +1,85 @@
-<div{{ attributes }}>
-    <div class="position-relative p-2 d-inline-block">
-        {% if rich %}
+<div{{ attributes }} class="d-inline-block m-0 p-0">
+    <div class="position-relative p-2">
+        <div class="position-absolute end-0 top-0 pt-4 pe-4 d-flex justify-content-between align-items-center">
+
+            <div class="btn-group dropdown-center">
+                <button type="button"
+                        class="btn text-light btn-lg dropdown-toggle rounded-pill"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                </button>
+
+                <ul class="dropdown-menu bg-transparent border-0 text-center">
+                    {% if allowCopy %}
+                        <li style="max-width: fit-content;">
+                            <button
+                                    class="btn btn-sm btn-dark rounded-pill"
+                                    {{ stimulus_controller('post') }}
+                                    {{ stimulus_action('post', 'copyToClipboard', 'click') }}
+                                    data-post-url-param="{{ app.request.httpHost }}{{ path('app_post_show', {'id': post.id}) }}"
+                            >
+                                <i class="bi bi-copy"></i>
+                            </button>
+                        </li>
+                    {% endif %}
+                    {% if allowReport %}
+                        <li style="max-width: fit-content;">
+                            <button class="btn btn-sm btn-danger rounded-pill">
+                                <i class="bi bi-flag-fill"></i>
+                            </button>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
+
+        {% if showOwner or showPrompt %}
             <div class="title-font position-absolute start-0 top-0 pt-4 ps-4 d-flex justify-content-between align-items-center">
                 <div>
-                    <a class="btn btn-sm btn-primary rounded-pill"
-                       href="{{ path('app_user_page', {'username': post.owner}) }}">
-                        {{ post.owner|title }}
-                    </a>
-                    <i class="bi bi-arrow-right-short text-light"></i>
-                    <button class="btn btn-sm btn-light rounded-pill"
-                            {{ stimulus_controller('postsearch') }}
-                            {{ stimulus_action('postsearch', 'filter', 'click') }}
-                            data-postsearch-promptname-param="{{ post.promptNameFr }}"
-                    >
-                        {{ post.promptNameFr|title }}
-                    </button>
+                    {% if showOwner %}
+                        <a class="btn btn-sm btn-primary rounded-pill"
+                           href="{{ path('app_user_page', {'username': post.owner}) }}">
+                            {{ post.owner|title }}
+                        </a>
+                    {% endif %}
+
+                    {% if showOwner and showPrompt %}
+                        <i class="bi bi-arrow-right-short text-light"></i>
+                    {% endif %}
+
+                    {% if showPrompt %}
+                        <button class="btn btn-sm btn-light rounded-pill"
+                                {{ stimulus_controller('postsearch') }}
+                                {{ stimulus_action('postsearch', 'filter', 'click') }}
+                                data-postsearch-promptname-param="{{ post.promptNameFr }}"
+                        >
+                            {{ post.promptNameFr|title }}
+                        </button>
+                    {% endif %}
                 </div>
             </div>
+        {% endif %}
 
-            <div class="position-absolute end-0 top-0 pt-4 pe-4 d-flex justify-content-between align-items-center">
-
-                <button
-                        class="btn btn-sm btn-dark rounded-pill mx-2"
-                        {{ stimulus_controller('post') }}
-                        {{ stimulus_action('post', 'copyToClipboard', 'click') }}
-                        data-post-url-param="{{ app.request.httpHost }}{{ path('app_post_show', {'id': post.id}) }}"
-                >
-                    <i class="bi bi-copy"></i>
-                </button>
-
-                <button class="btn btn-sm btn-danger rounded-pill">
-                    <i class="bi bi-flag-fill"></i>
-                </button>
-            </div>
-
+        {% if app.user.username is defined and app.user.username is same as post.owner %}
             <div class="position-absolute end-0 bottom-0 pb-4 pe-4 d-flex justify-content-between align-items-center">
 
-                {% if app.user is defined and app.user.username is same as post.owner %}
-                    {{ include('shared/buttons/_button.html.twig', {
-                        route: path('app_user_page_edit', {'username': post.owner}),
-                        class: 'btn-sm rounded-pill mx-2',
-                        color: 'warning',
-                        icon: 'pencil-fill'
-                    }) }}
+                {{ include('shared/buttons/_button.html.twig', {
+                    route: path('app_user_page_edit', {'username': post.owner}),
+                    class: 'btn-sm rounded-pill mx-2',
+                    color: 'warning',
+                    icon: 'pencil-fill'
+                }) }}
 
-                    {{ include('shared/buttons/_deleteButton.html.twig',{
-                        token: csrf_token('delete' ~ post.id),
-                        class: 'btn-sm rounded-pill',
-                        id: post.id,
-                        username: post.owner,
-                        controller: 'post',
-                        action: 'deleteOnePost'
-                    }) }}
-                {% endif %}
-
+                {{ include('shared/buttons/_deleteButton.html.twig',{
+                    token: csrf_token('delete' ~ post.id),
+                    class: 'btn-sm rounded-pill',
+                    id: post.id,
+                    username: post.owner,
+                    controller: 'post',
+                    action: 'deleteOnePost'
+                }) }}
             </div>
-
         {% endif %}
         <img
                 class="post-img img-fluid m-0 p-0 rounded-4"

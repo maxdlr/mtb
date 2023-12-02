@@ -13,5 +13,8 @@ final class PostThumbnailComponent
     use DefaultActionTrait;
 
     public ArrayCollection $post;
-    public bool $rich = true;
+    public bool $showOwner = true;
+    public bool $showPrompt = true;
+    public bool $allowCopy = true;
+    public bool $allowReport = true;
 }
