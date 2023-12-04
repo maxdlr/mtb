@@ -8,6 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ReportRepository::class)]
 class Report
 {
+
+    //todo: create Actions to resolve entity
+    //todo: create Reasons to report entity
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
