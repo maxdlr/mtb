@@ -30,9 +30,13 @@ class Post
     #[ORM\Column]
     private ?int $fileSize = null;
 
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Report::class)]
+    private Collection $reports;
+
     public function __construct()
     {
         $this->user = new ArrayCollection();
+        $this->reports = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -108,6 +112,36 @@ class Post
     public function setFileSize(int $fileSize): static
     {
         $this->fileSize = $fileSize;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Report>
+     */
+    public function getReports(): Collection
+    {
+        return $this->reports;
+    }
+
+    public function addReport(Report $report): static
+    {
+        if (!$this->reports->contains($report)) {
+            $this->reports->add($report);
+            $report->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReport(Report $report): static
+    {
+        if ($this->reports->removeElement($report)) {
+            // set the owning side to null (unless already changed)
+            if ($report->getPost() === $this) {
+                $report->setPost(null);
+            }
+        }
 
         return $this;
     }
