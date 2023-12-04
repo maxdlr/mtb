@@ -4,32 +4,28 @@
 
             <div class="btn-group dropdown-center">
                 <button type="button"
-                        class="btn text-light btn-lg dropdown-toggle rounded-pill"
+                        class="btn text-light btn-lg dropdown-toggle rounded-pill border-0 text-center"
                         data-bs-toggle="dropdown"
                         aria-expanded="false">
                 </button>
 
-                <ul class="dropdown-menu bg-transparent border-0 text-center">
+                <div class="dropdown-menu thumbnail-options bg-transparent border-0 text-center">
                     {% if allowCopy %}
-                        <li style="max-width: fit-content;">
-                            <button
-                                    class="btn btn-sm btn-dark rounded-pill"
-                                    {{ stimulus_controller('post') }}
-                                    {{ stimulus_action('post', 'copyToClipboard', 'click') }}
-                                    data-post-url-param="{{ app.request.httpHost }}{{ path('app_post_show', {'id': post.id}) }}"
-                            >
-                                <i class="bi bi-copy"></i>
-                            </button>
-                        </li>
+                        <button
+                                class="btn btn-sm btn-dark rounded-pill my-1"
+                                {{ stimulus_controller('post') }}
+                                {{ stimulus_action('post', 'copyToClipboard', 'click') }}
+                                data-post-url-param="{{ app.request.httpHost }}{{ path('app_post_show', {'id': post.id}) }}"
+                        >
+                            <i class="bi bi-copy"></i>
+                        </button>
                     {% endif %}
                     {% if allowReport %}
-                        <li style="max-width: fit-content;">
-                            <button class="btn btn-sm btn-danger rounded-pill">
-                                <i class="bi bi-flag-fill"></i>
-                            </button>
-                        </li>
+                        <button class="btn btn-sm btn-danger rounded-pill my-1" disabled>
+                            <i class="bi bi-flag-fill"></i>
+                        </button>
                     {% endif %}
-                </ul>
+                </div>
             </div>
         </div>
 
