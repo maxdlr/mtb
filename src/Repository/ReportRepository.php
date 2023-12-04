@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Report;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -21,28 +22,35 @@ class ReportRepository extends ServiceEntityRepository
         parent::__construct($registry, Report::class);
     }
 
-//    /**
-//     * @return Report[] Returns an array of Report objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('r.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findOneByPostId(int $postId): ?array
+    {
+        $results = $this->createQueryBuilder('report')
+            ->select(
+                'report.id as id,
+                report.reportedOn as reportedOn,
+                report.isResolved as isResolved,
+                post.id as postId,
+                post.fileName as postFileName,
+                reporter.username as reporterUsername,
+                violation.name as violationName,
+                violation.description as violationDescription,
+                resolution.name as resolutionName,
+                resolution.description as resolutionDescription'
+            )
+            ->join('report.reporter', 'reporter')
+            ->join('report.violation', 'violation')
+            ->join('report.resolution', 'resolution')
+            ->join('report.post', 'post')
+            ->andWhere('post.id = :val')
+            ->setParameter('val', $postId)
+            ->getQuery()
+            ->getResult();
 
-//    public function findOneBySomeField($value): ?Report
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        $collectedResults = [];
+        foreach ($results as $result) {
+            $collectedResults[] = new ArrayCollection($result);
+        }
+
+        return $collectedResults;
+    }
 }

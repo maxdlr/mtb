@@ -21,7 +21,7 @@ class ViolationAutocompleteField extends AbstractType
                 return $violation->getName() . ' - ' . $violation->getDescription();
             },
             'no_results_found_text' => 'Aucun résultat',
-            'no_more_results_text' => 'Y a plus rien.',
+            'no_more_results_text' => '...',
             'searchable_fields' => ['name'],
             'multiple' => false,
             'row_attr' => ['class' => 'py-0 px-2 m-0'],

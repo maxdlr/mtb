@@ -22,9 +22,12 @@ class ReportType extends AbstractType
             ])
             ->add('description', TextareaType::class, [
                 'label' => false,
+                'attr' => [
+                    'placeholder' => 'Détaillez le problème...'
+                ]
             ])
             ->add('submit', SubmitType::class, [
-                'label' => false,
+                'label' => 'Envoyer',
             ]);
     }
 
