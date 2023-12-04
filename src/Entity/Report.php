@@ -36,6 +36,13 @@ class Report
     #[ORM\Column(nullable: false)]
     private ?bool $isResolved = false;
 
+    #[ORM\ManyToOne(inversedBy: 'reports')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Violation $violation = null;
+
+    #[ORM\ManyToOne(inversedBy: 'reports')]
+    private ?Resolution $resolution = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -109,6 +116,30 @@ class Report
     public function setIsResolved(bool $isResolved): static
     {
         $this->isResolved = $isResolved;
+
+        return $this;
+    }
+
+    public function getViolation(): ?Violation
+    {
+        return $this->violation;
+    }
+
+    public function setViolation(?Violation $violation): static
+    {
+        $this->violation = $violation;
+
+        return $this;
+    }
+
+    public function getResolution(): ?Resolution
+    {
+        return $this->resolution;
+    }
+
+    public function setResolution(?Resolution $resolution): static
+    {
+        $this->resolution = $resolution;
 
         return $this;
     }
