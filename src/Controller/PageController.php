@@ -40,7 +40,9 @@ class PageController extends AbstractController
         private readonly EntityManagerInterface $entityManager,
         private readonly FormFactoryInterface   $formFactory,
         private readonly PostManager            $postManager,
-        private readonly PromptListManager      $promptListManager
+        private readonly PromptListManager      $promptListManager,
+        private readonly UserRepository         $userRepository,
+        private readonly PostRepository         $postRepository
     )
     {
         $this->now = new \DateTimeImmutable();
@@ -48,13 +50,12 @@ class PageController extends AbstractController
 
     #[Route('/{username}', name: 'app_user_page', methods: ['GET', 'POST'])]
     public function index(
-        UserRepository $userRepository,
         string         $username,
         PostRepository $postRepository,
     ): Response
     {
-        $owner = $userRepository->findOneBy(['username' => $username]);
-        $user = $userRepository->findOneBy(['username' => $this->getUser()?->getUserIdentifier()]);
+        $owner = $this->userRepository->findOneBy(['username' => $username]);
+        $user = $this->userRepository->findOneBy(['username' => $this->getUser()?->getUserIdentifier()]);
 
         if (!$owner) {
             $this->addFlash('danger', 'Page inexistante');
@@ -81,15 +82,14 @@ class PageController extends AbstractController
      */
     #[Route('/{username}/edit', name: 'app_user_page_edit', methods: ['GET', 'POST'])]
     public function edit(
-        UserRepository  $userRepository,
         string          $username,
         SecurityManager $securityManager,
         PostManager     $postManager,
         Request         $request
     ): Response|array
     {
-        $user = $userRepository->findOneBy(['username' => $this->getUser()?->getUserIdentifier()]);
-        $owner = $userRepository->findOneBy(['username' => $username]);
+        $user = $this->userRepository->findOneBy(['username' => $this->getUser()?->getUserIdentifier()]);
+        $owner = $this->userRepository->findOneBy(['username' => $username]);
         $posts = $postManager->sortPostsByDayNumber($owner->getPosts());
         $promptlessPosts = $postManager->getPromptlessPosts($posts);
 

@@ -112,4 +112,19 @@ export default class extends Controller {
             }).showToast();
         }
     }
+
+    copyToClipboard(event) {
+        const url = event.params.url;
+
+        console.log(url);
+
+        navigator.clipboard.writeText(url).then(r => Toastify({
+            text: 'Lien du post copié !',
+            className: 'success rounded-pill px-4 fw-bold',
+            gravity: "bottom", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            duration: 10000
+        }).showToast())
+    }
 }
