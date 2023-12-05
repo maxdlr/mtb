@@ -21,9 +21,24 @@
                         </button>
                     {% endif %}
                     {% if allowReport %}
-                        <button class="btn btn-sm btn-danger rounded-pill my-1" disabled>
-                            <i class="bi bi-flag-fill"></i>
-                        </button>
+                        <div
+                                {{ stimulus_controller('modal') }}
+                                {{ stimulus_action('modal', 'openReportForm', 'click') }}
+                                data-modal-postid-param="{{ post.id }}"
+                        >
+                            {{ include('shared/buttons/_button.html.twig', {
+                                color: 'danger',
+                                class: 'btn-sm rounded-pill my-1',
+                                icon: 'flag-fill',
+                                modal: true,
+                                modalId: 'report_post'
+                            }) }}
+                        </div>
+                        {#                        <button #}
+                        {#                                class="btn btn-sm btn-danger rounded-pill my-1" #}
+                        {#                        > #}
+                        {#                            <i class="bi bi-flag-fill"></i> #}
+                        {#                        </button> #}
                     {% endif %}
                 </div>
             </div>

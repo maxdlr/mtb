@@ -25,7 +25,9 @@ final class ResolvePromptlessPostsComponent extends AbstractController
     public ?Post $post = null;
     private AddPromptToOrphanPostType $addPromptToOrphanPostType;
 
-    public function __construct(private readonly FormFactoryInterface $formFactory)
+    public function __construct(
+        private readonly FormFactoryInterface $formFactory
+    )
     {
     }
 
