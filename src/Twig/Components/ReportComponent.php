@@ -54,6 +54,7 @@ final class ReportComponent extends AbstractController
         return $this->createForm(ReportType::class, $this->report);
     }
 
+    // todo: make sure ReportComponent.html.twig submit button points to this method.
     #[LiveAction]
     public function save(Request $request): RedirectResponse
     {
