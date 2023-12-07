@@ -52,6 +52,7 @@ final class ReportComponent extends AbstractController
     #[LiveAction]
     protected function instantiateForm(): FormInterface
     {
+        //todo: repair report reason choice list
         return $this->formFactory->createNamed(
             'report_' . $this->postId,
             ReportType::class,
@@ -65,6 +66,7 @@ final class ReportComponent extends AbstractController
     {
         $this->submitForm();
         $this->reporter = $this->userRepository->findOneByUsername($this->getUser()?->getUserIdentifier());
+        //todo: prompt login form if user undefined
 
         $this->report
             ->setReportedOn(new \DateTimeImmutable())
