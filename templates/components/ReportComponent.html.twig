@@ -1,3 +1,10 @@
-<div{{ attributes }} id="report-component">
-    <h1>hello</h1>
+<div{{ attributes }}>
+    {{ form_start(form, {
+        attr: {
+            'data-action': 'live#action',
+            'data-action-name': 'prevent|save'
+        }
+    }) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
 </div>

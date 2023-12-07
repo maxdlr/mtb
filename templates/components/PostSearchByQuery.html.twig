@@ -1,60 +1,59 @@
-<div {{ attributes }} id="post-search-by-query-component">
-
-    <div class="flex-nowrap input-group w-100 border border-0 rounded-pill bg-yellow mb-4">
-        <input
-                type="search"
-                data-model="query"
-                data-value=""
-                placeholder="Cherche n'importe quoi..."
-                class="text-center text-light form-control bg-yellow py-3 rounded-start-pill rounded-end-pill input-bg-yellow"
-                id="live-post-search"
-                {{ stimulus_action('postsearch', 'type', 'input') }}
-        >
-        <button
-                class="btn btn-danger d-none input-group-text rounded-end-pill"
-                {{ stimulus_action('postsearch', 'clear', 'click') }}
-                id="close-search"
-        >
-            <i class="bi bi-x-lg"></i>
-        </button>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="report_post" tabindex="-1"
-         aria-labelledby="report_postLabel" aria-hidden="true"
-            {{ stimulus_controller('modal') }}
-    >
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content" {{ stimulus_target('modal', 'content') }}>
-
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="report_postLabel" {{ stimulus_target('modal', 'title') }}></h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div {{ attributes }}>
+    <div class="d-none">{{ component('ReportComponent') }}</div>
+    <div {{ stimulus_controller('postsearch') }}>
+        <div class="flex-nowrap input-group w-100 border border-0 rounded-pill bg-yellow mb-4">
+            <input
+                    type="search"
+                    data-model="query"
+                    data-value=""
+                    placeholder="Cherche n'importe quoi..."
+                    class="text-center text-light form-control bg-yellow py-3 rounded-start-pill rounded-end-pill input-bg-yellow"
+                    id="live-post-search"
+                    {{ stimulus_action('postsearch', 'type', 'input') }}
+            >
+            <button
+                    class="btn btn-danger d-none input-group-text rounded-end-pill"
+                    {{ stimulus_action('postsearch', 'clear', 'click') }}
+                    id="close-search"
+            >
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+        <div {{ stimulus_controller('modal') }} {{ stimulus_controller('post') }}>
+            <!-- Modal -->
+            <div class="modal fade" id="report_post" tabindex="-1"
+                 aria-labelledby="report_postLabel" aria-hidden="true"
+                    {{ stimulus_target('modal', 'modal') }}
+            >
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header" {{ stimulus_target('modal', 'title') }}>
+                            <h1 class="modal-title fs-5" id="report_postLabel"></h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body container-fluid" {{ stimulus_target('modal', 'body') }}></div>
+                        <div class="modalFooter" {{ stimulus_target('modal', 'footer') }}></div>
+                    </div>
                 </div>
-                <div class="modal-body container-fluid" {{ stimulus_target('modal', 'body') }}>
-                    {{ component('ReportComponent') }}
-                </div>
-                <div class="modalFooter" {{ stimulus_target('modal', 'footer') }}></div>
-
             </div>
+
+            {% if computed.posts|length > 0 %}
+                <div
+                        data-loading="addClass(opacity-50)"
+                        class="row row-cols-xxl-3 row-cols-lg-2 row-cols-md-1 "
+                >
+                    {% for post in computed.posts %}
+
+                        {{ component('PostThumbnailComponent', {
+                            post: post,
+                            showOwner: owner is null ? true : false
+                        }) }}
+
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="pt-3">Ah! Rien ne correspond à "{{ query }}" !!</div>
+            {% endif %}
         </div>
     </div>
-
-    {% if computed.posts|length > 0 %}
-        <div
-                data-loading="addClass(opacity-50)"
-                class="row row-cols-xxl-3 row-cols-lg-2 row-cols-md-1 "
-        >
-            {% for post in computed.posts %}
-
-                {{ component('PostThumbnailComponent', {
-                    post: post,
-                    showOwner: owner is null ? true : false
-                }) }}
-
-            {% endfor %}
-        </div>
-    {% else %}
-        <div class="pt-3">Ah! Rien ne correspond à "{{ query }}" !!</div>
-    {% endif %}
 </div>

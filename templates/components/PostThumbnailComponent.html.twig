@@ -13,7 +13,6 @@
                     {% if allowCopy %}
                         <button
                                 class="btn btn-sm btn-dark rounded-pill my-1"
-                                {{ stimulus_controller('post') }}
                                 {{ stimulus_action('post', 'copyToClipboard', 'click') }}
                                 data-post-url-param="{{ app.request.httpHost }}{{ path('app_post_show', {'id': post.id}) }}"
                         >
@@ -22,9 +21,10 @@
                     {% endif %}
                     {% if allowReport %}
                         <div
-                                {{ stimulus_controller('modal') }}
                                 {{ stimulus_action('modal', 'openReportForm', 'click') }}
                                 data-modal-postid-param="{{ post.id }}"
+                                data-modal-prompt-param="{{ post.promptNameFr|title }}"
+                                data-modal-owner-param="{{ post.owner|title }}"
                         >
                             {{ include('shared/buttons/_button.html.twig', {
                                 color: 'danger',
@@ -34,11 +34,6 @@
                                 modalId: 'report_post'
                             }) }}
                         </div>
-                        {#                        <button #}
-                        {#                                class="btn btn-sm btn-danger rounded-pill my-1" #}
-                        {#                        > #}
-                        {#                            <i class="bi bi-flag-fill"></i> #}
-                        {#                        </button> #}
                     {% endif %}
                 </div>
             </div>
@@ -61,7 +56,6 @@
 
                     {% if showPrompt %}
                         <button class="btn btn-sm btn-light rounded-pill"
-                                {{ stimulus_controller('postsearch') }}
                                 {{ stimulus_action('postsearch', 'filter', 'click') }}
                                 data-postsearch-promptname-param="{{ post.promptNameFr }}"
                         >

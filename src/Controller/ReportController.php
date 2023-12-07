@@ -18,46 +18,46 @@ use Symfony\Component\Routing\Annotation\Route;
 class ReportController extends AbstractController
 {
     public function __construct(
-        private readonly UserRepository         $userRepository,
-        private readonly PostRepository         $postRepository,
-        private readonly EntityManagerInterface $entityManager
+        // private readonly UserRepository         $userRepository,
+        // private readonly PostRepository         $postRepository,
+        // private readonly EntityManagerInterface $entityManager
     )
     {
     }
 
-    #[Route('/new/post/{id}', name: 'new')]
-    public function index(
-        int     $id,
-        Request $request
-    ): Response
-    {
-        $report = new Report();
-        $form = $this->createForm(ReportType::class, $report);
-        $form->handleRequest($request);
-        $reporter = $this->userRepository->findOneByUsername($this->getUser()?->getUserIdentifier());
-        $post = $this->postRepository->findOneBy(['id' => $id]);
-
-        if (!isset($reporter)) {
-            $this->addFlash('danger', 'Tu dois te connecter pour signaler un post.');
-            return $this->redirectToRoute('app_login', ['index' => true]);
-        }
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $report
-                ->setReportedOn(new \DateTimeImmutable())
-                ->setReporter($reporter)
-                ->setPost($post);
-
-            $this->entityManager->persist($report);
-            $this->entityManager->flush();
-
-            $this->addFlash('success', 'Merci pour votre signalement !');
-            return $this->redirectToRoute('app_redirect_user_fallback');
-        }
-
-        return $this->render('report/index.html.twig', [
-            'form' => $form,
-        ]);
-    }
+    // #[Route('/new/post/{id}', name: 'new')]
+    // public function index(
+    //     int     $id,
+    //     Request $request
+    // ): Response
+    // {
+    //     $report = new Report();
+    //     $form = $this->createForm(ReportType::class, $report);
+    //     $form->handleRequest($request);
+    //     $reporter = $this->userRepository->findOneByUsername($this->getUser()?->getUserIdentifier());
+    //     $post = $this->postRepository->findOneBy(['id' => $id]);
+    //
+    //     if (!isset($reporter)) {
+    //         $this->addFlash('danger', 'Tu dois te connecter pour signaler un post.');
+    //         return $this->redirectToRoute('app_login', ['index' => true]);
+    //     }
+    //
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //
+    //         $report
+    //             ->setReportedOn(new \DateTimeImmutable())
+    //             ->setReporter($reporter)
+    //             ->setPost($post);
+    //
+    //         $this->entityManager->persist($report);
+    //         $this->entityManager->flush();
+    //
+    //         $this->addFlash('success', 'Merci pour votre signalement !');
+    //         return $this->redirectToRoute('app_redirect_user_fallback');
+    //     }
+    //
+    //     return $this->render('report/index.html.twig', [
+    //         'form' => $form,
+    //     ]);
+    // }
 }

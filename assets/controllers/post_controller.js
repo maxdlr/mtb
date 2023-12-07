@@ -11,10 +11,10 @@ export default class extends Controller {
 
     async initialize() {
         super.initialize();
-        this.listenToNewPostAction();
+        // this.listenToNewPostAction();
 
         this.input = document.getElementById('live-post-search');
-        this.searchPostByQuery = document.getElementById('post-search-by-query-component');
+        this.searchPostByQuery = document.querySelector("[data-live-name-value=\"PostSearchByQuery\"]");
         this.component = await getComponent(this.searchPostByQuery);
     }
 
