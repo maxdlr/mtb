@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
@@ -29,7 +30,6 @@ final class ReportComponent extends AbstractController
 
     public ?int $postId = null;
     public ?Report $report = null;
-    private ?User $reporter = null;
     private ?Post $post = null;
 
     public function __construct(
@@ -49,28 +49,21 @@ final class ReportComponent extends AbstractController
         $this->postId = $postId;
     }
 
-    #[LiveAction]
     protected function instantiateForm(): FormInterface
     {
-        //todo: repair report reason choice list
-        return $this->formFactory->createNamed(
-            'report_' . $this->postId,
-            ReportType::class,
-            $this->report,
-            ['post_id' => $this->postId]
-        );
+        return $this->createForm(ReportType::class, $this->report);
     }
 
     #[LiveAction]
-    public function save()
+    public function save(Request $request): RedirectResponse
     {
         $this->submitForm();
-        $this->reporter = $this->userRepository->findOneByUsername($this->getUser()?->getUserIdentifier());
+        $reporter = $this->userRepository->findOneByUsername($this->getUser()?->getUserIdentifier());
         //todo: prompt login form if user undefined
 
         $this->report
             ->setReportedOn(new \DateTimeImmutable())
-            ->setReporter($this->reporter)
+            ->setReporter($reporter)
             ->setPost($this->post);
 
         $this->entityManager->persist($this->report);
@@ -78,6 +71,7 @@ final class ReportComponent extends AbstractController
 
         $this->addFlash('success', 'Merci pour votre signalement !');
 
-        return $this->redirectToRoute('app_redirect_user_fallback');
+        return $this->redirect($request->headers->get('referer'));
+
     }
 }

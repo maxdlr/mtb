@@ -12,13 +12,11 @@ export default class extends Controller {
     footer = this.footerTarget;
 
     // Components
-    report
+    reportComponent
 
     async initialize() {
         super.initialize();
-        this.report = document.querySelector("[data-live-name-value=\"ReportComponent\"]")
-        this.reportComponent = await getComponent(this.report);
-
+        await this.getReportComponent();
         this.listenToModalClosure();
     }
 
@@ -79,7 +77,6 @@ export default class extends Controller {
 
     listenToModalClosure() {
         this.modal.addEventListener('hidden.bs.modal', event => {
-            console.log('modal closed')
 
             this.title.firstElementChild.innerText = '';
             for (const e of this.title.getElementsByTagName('p')) {
@@ -90,5 +87,14 @@ export default class extends Controller {
         })
 
 
+    }
+
+    async getReportComponent() {
+        const report = document.querySelector("[data-live-name-value=\"ReportComponent\"]")
+        this.reportComponent = await getComponent(report);
+        report.parentElement.remove();
+        report.remove();
+
+        return this.reportComponent;
     }
 }

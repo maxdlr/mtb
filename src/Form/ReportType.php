@@ -35,7 +35,6 @@ class ReportType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Report::class,
-            'post_id' => null,
         ]);
     }
 }
