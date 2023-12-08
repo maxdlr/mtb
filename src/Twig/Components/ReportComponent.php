@@ -4,8 +4,6 @@ namespace App\Twig\Components;
 
 use App\Entity\Post;
 use App\Entity\Report;
-use App\Entity\User;
-use App\Form\AddPromptToOrphanPostType;
 use App\Form\ReportType;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
@@ -19,6 +17,7 @@ use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveListener;
+use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\ComponentWithFormTrait;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
@@ -28,8 +27,11 @@ final class ReportComponent extends AbstractController
     use DefaultActionTrait;
     use ComponentWithFormTrait;
 
+    #[LiveProp(updateFromParent: true)]
     public ?int $postId = null;
+
     public ?Report $report = null;
+
     private ?Post $post = null;
 
     public function __construct(
@@ -40,13 +42,18 @@ final class ReportComponent extends AbstractController
     )
     {
         $this->report = new Report();
-        $this->post = $this->postRepository->findOneBy(['id' => $this->postId]);
+        $this->post = $this->postRepository->findOneBy(['id' => $this->getPostId()]);
     }
 
     #[LiveListener('setPostToReportForm')]
     public function setPost(#[LiveArg('post_id')] int $postId): void
     {
         $this->postId = $postId;
+    }
+
+    public function getPostId(): int|null
+    {
+        return $this->postId;
     }
 
     protected function instantiateForm(): FormInterface

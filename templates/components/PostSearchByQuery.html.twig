@@ -19,20 +19,31 @@
                 <i class="bi bi-x-lg"></i>
             </button>
         </div>
-        <div {{ stimulus_controller('modal') }} {{ stimulus_controller('post') }}>
+        <div
+                {#                {{ stimulus_controller('modal') }} #}
+                {{ stimulus_controller('post') }}
+        >
             <!-- Modal -->
             <div class="modal fade" id="report_post" tabindex="-1"
                  aria-labelledby="report_postLabel" aria-hidden="true"
-                    {{ stimulus_target('modal', 'modal') }}
+                    {#                    {{ stimulus_target('modal', 'modal') }} #}
             >
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content">
-                        <div class="modal-header" {{ stimulus_target('modal', 'title') }}>
+                        <div class="modal-header"
+                                {#                                {{ stimulus_target('modal', 'title') }} #}
+                        >
                             <h1 class="modal-title fs-5" id="report_postLabel"></h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body container-fluid" {{ stimulus_target('modal', 'body') }}></div>
-                        <div class="modalFooter" {{ stimulus_target('modal', 'footer') }}></div>
+                        <div class="modal-body container-fluid"
+                                {#                                {{ stimulus_target('modal', 'body') }} #}
+                        >
+                            {{ modalContent }}
+                        </div>
+                        <div class="modalFooter"
+                                {#                                {{ stimulus_target('modal', 'footer') }} #}
+                        ></div>
                     </div>
                 </div>
             </div>

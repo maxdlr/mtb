@@ -20,20 +20,30 @@
                         </button>
                     {% endif %}
                     {% if allowReport %}
-                        <div
-                                {{ stimulus_action('modal', 'openReportForm', 'click') }}
-                                data-modal-postid-param="{{ post.id }}"
-                                data-modal-prompt-param="{{ post.promptNameFr|title }}"
-                                data-modal-owner-param="{{ post.owner|title }}"
+                        {#                        <div #}
+                        {#                                {{ stimulus_action('modal', 'openReportForm', 'click') }} #}
+                        {#                                data-modal-postid-param="{{ post.id }}" #}
+                        {#                                data-modal-prompt-param="{{ post.promptNameFr|title }}" #}
+                        {#                                data-modal-owner-param="{{ post.owner|title }}" #}
+                        {#                                data-action="live#action" #}
+                        {#                                data-action-name="click->prevent|openReportForm" #}
+                        {#                        > #}
+
+                        <button class="btn btn-sm btn-danger rounded-pill my-1"
+                                data-action="live#action"
+                                data-action-name="emitPostId(id={{ post.id }})"
+                                data-bs-toggle='modal'
+                                data-bs-target='#report_post'
                         >
-                            {{ include('shared/buttons/_button.html.twig', {
-                                color: 'danger',
-                                class: 'btn-sm rounded-pill my-1',
-                                icon: 'flag-fill',
-                                modal: true,
-                                modalId: 'report_post'
-                            }) }}
-                        </div>
+
+                            <i class="bi bi-flag-fill"></i>
+                        </button>
+
+                        {#                            {{ include('shared/buttons/_button.html.twig', { #}
+                        {#                                color: 'danger', #}
+                        {#                                class: 'btn-sm rounded-pill my-1', #}
+                        {#                                icon: 'flag-fill' #}
+                        {#                            }) }} #}
                     {% endif %}
                 </div>
             </div>

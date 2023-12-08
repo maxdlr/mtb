@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
+use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveListener;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
@@ -21,15 +22,24 @@ class PostSearchByQuery
     public ?string $query = '';
     public Collection $posts;
     public string $orderBy = 'prompt.dayNumber';
+    public ?string $modalContent = null;
     public string $ascDesc = 'ASC';
 
     #[LiveProp]
     public ?User $owner = null;
 
     public function __construct(
-        private readonly PostRepository $postRepository,
+        private readonly PostRepository  $postRepository,
+        private readonly ReportComponent $reportComponent
     )
     {
+    }
+
+    #[LiveListener('selectedPostId')]
+    public function openReportForm(#[LiveArg('post_id')] int $postId)
+    {
+        $this->reportComponent->setPost($postId);
+        dd($this->reportComponent);
     }
 
     #[LiveListener('updatePosts')]
