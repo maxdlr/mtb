@@ -22,7 +22,6 @@ class PostSearchByQuery
     public ?string $query = '';
     public Collection $posts;
     public string $orderBy = 'prompt.dayNumber';
-    public ?string $modalContent = null;
     public string $ascDesc = 'ASC';
 
     #[LiveProp]
@@ -36,10 +35,9 @@ class PostSearchByQuery
     }
 
     #[LiveListener('selectedPostId')]
-    public function openReportForm(#[LiveArg('post_id')] int $postId)
+    public function openReportForm(#[LiveArg('post_id')] int $postId): void
     {
         $this->reportComponent->setPost($postId);
-        dd($this->reportComponent);
     }
 
     #[LiveListener('updatePosts')]
