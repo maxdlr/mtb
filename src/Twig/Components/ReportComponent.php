@@ -31,11 +31,10 @@ final class ReportComponent extends AbstractController
     use ComponentWithFormTrait;
     use ValidatableComponentTrait;
 
-    public ?int $postId = null;
-
     public ?Report $report = null;
 
-    private ?Post $post = null;
+    #[LiveProp]
+    private ?Post $post;
 
     public function __construct(
         private readonly FormFactoryInterface   $formFactory,
@@ -49,12 +48,12 @@ final class ReportComponent extends AbstractController
 
     public function setPost(#[LiveArg('post_id')] int $postId): void
     {
-        $this->postId = $postId;
+        $this->post = $this->postRepository->find($postId);
     }
 
-    public function getPostId(): int|null
+    public function getPost(): ?Post
     {
-        return $this->postId;
+        return $this->post;
     }
 
     protected function instantiateForm(): FormInterface
@@ -78,9 +77,11 @@ final class ReportComponent extends AbstractController
         $this->report
             ->setReportedOn(new \DateTimeImmutable())
             ->setReporter($reporter)
-            ->setPost($this->post);
+            ->setPost($this->getPost());
 
         $this->entityManager->persist($this->report);
+
+        dd($this->report);
         $this->entityManager->flush();
 
         $this->addFlash('success', 'Merci pour votre signalement !');
@@ -90,10 +91,10 @@ final class ReportComponent extends AbstractController
 
     private function IsUserAuthenticated(): bool|User
     {
-        $this->reporter = $this->userRepository->findOneByUsername($this->getUser()?->getUserIdentifier());
+        $reporter = $this->userRepository->findOneByUsername($this->getUser()?->getUserIdentifier());
 
-        if ($this->reporter) {
-            return $this->reporter;
+        if ($reporter) {
+            return $reporter;
         } else {
             throw new AuthenticationException('Veuillez vous connecter');
         }
