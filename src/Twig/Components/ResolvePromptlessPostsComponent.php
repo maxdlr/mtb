@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveListener;
@@ -23,9 +24,10 @@ final class ResolvePromptlessPostsComponent extends AbstractController
 
     #[LiveProp]
     public ?Post $post = null;
-    private AddPromptToOrphanPostType $addPromptToOrphanPostType;
 
-    public function __construct(private readonly FormFactoryInterface $formFactory)
+    public function __construct(
+        private readonly FormFactoryInterface $formFactory
+    )
     {
     }
 
@@ -40,7 +42,7 @@ final class ResolvePromptlessPostsComponent extends AbstractController
     }
 
     #[LiveAction]
-    public function save(EntityManagerInterface $entityManager)
+    public function save(EntityManagerInterface $entityManager, Request $request)
     {
         $this->submitForm();
 
@@ -51,7 +53,7 @@ final class ResolvePromptlessPostsComponent extends AbstractController
 
         $this->addFlash('success', '"' . ucfirst($post->getPrompt()->getNameFr()) . '" enregistré sur le post !');
 
-        return $this->redirectToRoute('app_redirect_referer');
+        return $this->redirect($request->headers->get('referer'));
     }
 
 }

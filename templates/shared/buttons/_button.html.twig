@@ -22,6 +22,8 @@
             type="{{ type|default('') }}"
             data-turbo-frame="{{ dataTurboFrame|default() }}"
     {{ attribute|default('') }}="{{ attributeValue|default('') }}"
+    data-bs-toggle="{{ modal|default(false) ? 'modal' : '' }}"
+    data-bs-target="#{{ modalId|default('') ? modalId : '' }}"
     >
 
     {{ label|default('') }}

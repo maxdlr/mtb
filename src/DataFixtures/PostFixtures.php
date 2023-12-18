@@ -7,12 +7,11 @@ use App\Service\PostManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Faker\Factory as Faker;
 
 class PostFixtures extends Fixture implements DependentFixtureInterface
 {
     public array $listPrompts;
-    public array $fixturesPosts = [
+    const FIXTURES_POSTS = [
         '01_bounce_sd.gif',
         '02_stretch_sd.gif',
         '03_roll_sd.gif',
@@ -74,7 +73,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         $now = new \DateTimeImmutable();
         $users = UserFixtures::USERNAMES;
 
-        foreach ($this->fixturesPosts as $postGif) {
+        foreach (self::FIXTURES_POSTS as $postGif) {
             $post = new Post();
             $post->setPrompt($this->postManager->autoPromptSelect($postGif))
                 ->setFileName($postGif)
@@ -83,6 +82,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
                 ->addUser($this->getReference('user_' . $users[rand(0, count($users) - 1)]));
 
             $manager->persist($post);
+            $this->setReference('post_' . $postGif, $post);
         }
 
         $manager->flush();
@@ -92,7 +92,7 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             UserFixtures::class,
-            PromptFixtures::class
+            PromptFixtures::class,
         ];
     }
 }

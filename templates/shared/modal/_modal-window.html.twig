@@ -1,12 +1,14 @@
 <!-- Modal -->
-<div class="modal fade" id="{{ id|raw }}" tabindex="-1"
-     aria-labelledby="{{ id|raw }}Label" aria-hidden="true">
+<div class="modal fade" id="{{ id|default('')|raw }}" tabindex="-1"
+     aria-labelledby="{{ id|default('')|raw }}Label" aria-hidden="true"
+        {#        {{ stimulus_controller('modal') }} #}
+>
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
 
             {% if title|default(false) %}
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="{{ id }}Label">
+                    <h1 class="modal-title fs-5" id="{{ id|default('')|raw }}Label">
                         {{ title|raw }}
                     </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

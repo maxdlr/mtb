@@ -22,7 +22,6 @@
             data-post-token-param="{{ token }}"
             data-post-id-param="{{ id|default('') }}"
             data-post-username-param="{{ username }}"
-            {{ stimulus_controller(controller) }}
             {{ stimulus_action(controller, action) }}
     >
         {{ label|default('') }}

@@ -13,17 +13,37 @@
                     {% if allowCopy %}
                         <button
                                 class="btn btn-sm btn-dark rounded-pill my-1"
-                                {{ stimulus_controller('post') }}
                                 {{ stimulus_action('post', 'copyToClipboard', 'click') }}
                                 data-post-url-param="{{ app.request.httpHost }}{{ path('app_post_show', {'id': post.id}) }}"
                         >
                             <i class="bi bi-copy"></i>
                         </button>
                     {% endif %}
-                    {% if allowReport %}
-                        <button class="btn btn-sm btn-danger rounded-pill my-1" disabled>
+                    {% if allowReport and app.user %}
+                        {#                        <div #}
+                        {#                                {{ stimulus_action('modal', 'openReportForm', 'click') }} #}
+                        {#                                data-modal-postid-param="{{ post.id }}" #}
+                        {#                                data-modal-prompt-param="{{ post.promptNameFr|title }}" #}
+                        {#                                data-modal-owner-param="{{ post.owner|title }}" #}
+                        {#                                data-action="live#action" #}
+                        {#                                data-action-name="click->prevent|openReportForm" #}
+                        {#                        > #}
+
+                        <button class="btn btn-sm btn-danger rounded-pill my-1"
+                                data-action="live#action"
+                                data-action-name="emitPostId(id={{ post.id }})"
+                                data-bs-toggle='modal'
+                                data-bs-target='#report_post'
+                        >
+
                             <i class="bi bi-flag-fill"></i>
                         </button>
+
+                        {#                            {{ include('shared/buttons/_button.html.twig', { #}
+                        {#                                color: 'danger', #}
+                        {#                                class: 'btn-sm rounded-pill my-1', #}
+                        {#                                icon: 'flag-fill' #}
+                        {#                            }) }} #}
                     {% endif %}
                 </div>
             </div>
@@ -46,7 +66,6 @@
 
                     {% if showPrompt %}
                         <button class="btn btn-sm btn-light rounded-pill"
-                                {{ stimulus_controller('postsearch') }}
                                 {{ stimulus_action('postsearch', 'filter', 'click') }}
                                 data-postsearch-promptname-param="{{ post.promptNameFr }}"
                         >

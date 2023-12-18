@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
+use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\Attribute\LiveListener;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
@@ -27,9 +28,16 @@ class PostSearchByQuery
     public ?User $owner = null;
 
     public function __construct(
-        private readonly PostRepository $postRepository,
+        private readonly PostRepository  $postRepository,
+        private readonly ReportComponent $reportComponent
     )
     {
+    }
+
+    #[LiveListener('selectedPostId')]
+    public function openReportForm(#[LiveArg('post_id')] int $postId): void
+    {
+        $this->reportComponent->setPost($postId);
     }
 
     #[LiveListener('updatePosts')]
