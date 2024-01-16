@@ -12,6 +12,7 @@ final class ListComponent
 {
     use DefaultActionTrait;
 
+    public string $year;
     public string $listYear;
     public array $prompts;
 
@@ -20,11 +21,8 @@ final class ListComponent
         private readonly PromptRepository     $promptRepository
     )
     {
-        $now = new \DateTimeImmutable();
-        // $currentYear = $now->format('Y');
-        $currentYear = '2023';
-        $this->listYear = $this->promptListRepository->findOneBy(['year' => $currentYear])->getYear();
-        $this->prompts = $this->promptRepository->findByYear($currentYear);
+        $this->listYear = $this->promptListRepository->findOneBy(['year' => $this->year])->getYear();
+        $this->prompts = $this->promptRepository->findByYear($this->year);
     }
 
 }

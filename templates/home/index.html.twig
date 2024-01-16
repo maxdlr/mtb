@@ -6,57 +6,14 @@
     <main class="container-fluid mt-4">
         <div class="row">
 
-            {#        LEFT BAR ----------------------------------------- -#}
-
-            <section class="col-lg-3 col-md-5">
+            <section class="col-lg-6 col-md-5 m-auto">
                 {{ include('shared/assets/mtb_logo.html.twig') }}
 
-                <button class="btn btn-primary d-md-none d-block w-100 rounded-pill text-center border-0 py-3 mb-3"
-                        type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseList"
-                        aria-expanded="false" aria-controls="collapseList">
-                    Liste {{ currentYear }}
-                </button>
-
-                <div class="collapse" id="collapseList">
-                    <div class="d-block d-md-none">
-                        {{ component('ListComponent') }}
-                    </div>
-                </div>
-
-                <div class="d-md-block d-none">
-                    {{ component('ListComponent') }}
+                <div class="d-md-block">
+                    {{ component('ListComponent', {year: year}) }}
                 </div>
 
             </section>
-
-            {#        END LEFT BAR ------------------------------------- -#}
-            {#        CENTER BAR --------------------------------------- -#}
-
-            <section class="col-lg-6 col-md-7" {{ stimulus_controller('postsearch') }}>
-                {{ component('PostSearchByQuery', {orderBy: 'date', ascDesc: 'DESC'}) }}
-            </section>
-
-            {#        END CENTER BAR ----------------------------------- -#}
-            {#        RIGHT BAR ---------------------------------------- -#}
-
-            <section class="col-3 d-none d-lg-block">
-                {% if not app.user %}
-                    {{ include('auth/_component.html.twig') }}
-                {% else %}
-                    <a href="{{ path('app_user_page', {'username': app.user.username}) }}">{{ app.user.username|title }}</a>
-                    -
-                    <a href="{{ path('app_logout') }}">Se déconnecter</a>
-
-                    {{ component('PostThumbnailComponent', {
-                        post: latestUserPost,
-                        allowReport: false,
-                        showOwner: false,
-                    }) }}
-                {% endif %}
-
-            </section>
-            {#        END RIGHT BAR ------------------------------------ -#}
         </div>
     </main>
 {% endblock %}
