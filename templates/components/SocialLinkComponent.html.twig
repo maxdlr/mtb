@@ -1,0 +1,12 @@
+<div{{ attributes }}>
+    {% for link in this.socialLinks %}
+
+        <button class="btn btn-lg text-red">
+            <a href="{{ link.link }}"
+               class="{% if loop.index0 % 3 == 0 %}text-red{% elseif loop.index % 3 == 0 %}text-blue{% else %}text-yellow{% endif %}">
+                <i class="bi bi-{{ link.iconName }}"></i>
+            </a>
+        </button>
+
+    {% endfor %}
+</div>

@@ -6,10 +6,15 @@
     <main class="container-fluid mt-4">
         <div class="row">
 
-            <section class="col-lg-6 col-md-5 m-auto">
+            <section class="col-lg-6 m-auto">
+
                 {{ include('shared/assets/mtb_logo.html.twig') }}
 
-                <div class="d-md-block">
+                <div class="text-center">
+                    {{ component('SocialLinkComponent') }}
+                </div>
+
+                <div class="">
                     {{ component('ListComponent', {year: year}) }}
                 </div>
 

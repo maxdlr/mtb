@@ -9,11 +9,11 @@
 
         <article>
 
-            <div class="row">
+            <div class="row row-cols-sm-2">
 
-                <ul class="list-unstyled col">
+                <ul class="list-unstyled m-0 p-0">
 
-                    {% for prompt in prompts %}
+                    {% for prompt in this.prompts %}
 
                         {% if loop.index <= listCut %}
 
@@ -29,11 +29,11 @@
                                 </div>
 
                                 <div class="col-5 p-0 m-0 align-middle text-nowrap">
-                                    {{ prompt.nameFr }}
+                                    {{ prompt.nameFr|title }}
                                 </div>
 
                                 <div class="col-5 p-0 m-0 align-middle text-nowrap">
-                                    {{ prompt.nameEn }}
+                                    {{ prompt.nameEn|title }}
                                 </div>
                             </li>
                         {% endif %}
@@ -41,7 +41,7 @@
                     {% endfor %}
                 </ul>
 
-                <ul class="list-unstyled col">
+                <ul class="list-unstyled m-0 p-0">
 
                     {% for prompt in prompts %}
 

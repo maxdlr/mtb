@@ -4,25 +4,29 @@ namespace App\Twig\Components;
 
 use App\Repository\PromptListRepository;
 use App\Repository\PromptRepository;
-use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
-use Symfony\UX\LiveComponent\DefaultActionTrait;
+use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
-#[AsLiveComponent()]
+#[AsTwigComponent()]
 final class ListComponent
 {
-    use DefaultActionTrait;
 
-    public string $year;
-    public string $listYear;
-    public array $prompts;
+    public ?string $year = null;
+    public ?array $prompts;
 
     public function __construct(
-        private readonly PromptListRepository $promptListRepository,
-        private readonly PromptRepository     $promptRepository
+        private readonly PromptRepository $promptRepository
     )
     {
-        $this->listYear = $this->promptListRepository->findOneBy(['year' => $this->year])->getYear();
-        $this->prompts = $this->promptRepository->findByYear($this->year);
     }
 
+    public function mount(?string $year): void
+    {
+        $this->year = $year;
+        $this->prompts = $this->promptRepository->findByYear($year);
+    }
+
+    public function getPrompts(): array
+    {
+        return $this->prompts;
+    }
 }
