@@ -63,9 +63,9 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
         private readonly PostManager $postManager)
     {
         $this->listPrompts = [
-            ['fr' => $promptFixtures->twentyOneListFr, 'en' => $promptFixtures->twentyOneListEn],
-            ['fr' => $promptFixtures->twentyTwoListFr, 'en' => $promptFixtures->twentyTwoListEn],
-            ['fr' => $promptFixtures->twentyThreeListFr, 'en' => $promptFixtures->twentyThreeListEn]
+            ['fr' => $promptFixtures->listFr2021, 'en' => $promptFixtures->listEn2021],
+            ['fr' => $promptFixtures->listFr2022, 'en' => $promptFixtures->listEn2022],
+            ['fr' => $promptFixtures->listFr2023, 'en' => $promptFixtures->listEn2023]
         ];
     }
 
