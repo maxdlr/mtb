@@ -1,0 +1,365 @@
+-- MariaDB dump 10.19-11.2.2-MariaDB, for Linux (x86_64)
+--
+-- Host: 0.0.0.0    Database: mtb
+-- ------------------------------------------------------
+-- Server version	11.2.2-MariaDB
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `doctrine_migration_versions`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `doctrine_migration_versions` (
+  `version` varchar(191) NOT NULL,
+  `executed_at` datetime DEFAULT NULL,
+  `execution_time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`version`)
+);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `doctrine_migration_versions`
+--
+
+/*!40000 ALTER TABLE `doctrine_migration_versions` DISABLE KEYS */;
+INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES ('DoctrineMigrations\\Version20230914143843','2024-01-16 19:08:26',438),
+('DoctrineMigrations\\Version20230921085615','2024-01-16 19:08:27',321),
+('DoctrineMigrations\\Version20231005141921','2024-01-16 19:08:27',71),
+('DoctrineMigrations\\Version20231113111405','2024-01-16 19:08:27',37),
+('DoctrineMigrations\\Version20231113211047','2024-01-16 19:08:27',60),
+('DoctrineMigrations\\Version20240116152018','2024-01-16 19:08:27',200),
+('DoctrineMigrations\\Version20240116190306','2024-01-16 19:08:27',26),
+('DoctrineMigrations\\Version20240116190828','2024-01-16 19:08:28',46);
+/*!40000 ALTER TABLE `doctrine_migration_versions` ENABLE KEYS */;
+
+--
+-- Table structure for table `messenger_messages`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `messenger_messages` (
+  `id` bigint(20) NOT NULL,
+  `body` longtext NOT NULL,
+  `headers` longtext NOT NULL,
+  `queue_name` varchar(190) NOT NULL,
+  `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+  `available_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+  `delivered_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
+  PRIMARY KEY (`id`),
+  KEY `IDX_75EA56E0FB7336F0` (`queue_name`),
+  KEY `IDX_75EA56E0E3BD61CE` (`available_at`),
+  KEY `IDX_75EA56E016BA31DB` (`delivered_at`)
+);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `messenger_messages`
+--
+
+/*!40000 ALTER TABLE `messenger_messages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `messenger_messages` ENABLE KEYS */;
+
+--
+-- Table structure for table `prompt`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `prompt` (
+  `id` int(11) NOT NULL,
+  `name_fr` varchar(255) NOT NULL,
+  `name_en` varchar(255) NOT NULL,
+  `day_number` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `prompt`
+--
+
+/*!40000 ALTER TABLE `prompt` DISABLE KEYS */;
+INSERT INTO `prompt` (`id`, `name_fr`, `name_en`, `day_number`) VALUES (1,'rebond','bounce',1),
+(2,'etirement','stretch',2),
+(3,'roule','roll',3),
+(4,'tir','shot',4),
+(5,'retourne','flip',5),
+(6,'vitesse','speed',6),
+(7,'saut','jump',7),
+(8,'bosse','bump',8),
+(9,'courbe','curve',9),
+(10,'colle','stick',10),
+(11,'vole','fly',11),
+(12,'fendre','slice',12),
+(13,'jumeaux','twin',13),
+(14,'torsion','twist',14),
+(15,'gravité','gravity',15),
+(16,'volume','volume',16),
+(17,'Evolue','evolve',17),
+(18,'Attire','attract',18),
+(19,'tourner','revolve',19),
+(20,'ruse','trick',20),
+(21,'marche','walk',21),
+(22,'commence','start',22),
+(23,'soufle','blow',23),
+(24,'espace','space',24),
+(25,'ride','ride',25),
+(26,'tombe','fall',26),
+(27,'glisse','slide',27),
+(28,'plie','bend',28),
+(29,'balance','swing',29),
+(30,'tire','pull',30),
+(31,'branche','plug',31),
+(32,'scalpel','scalpel',1),
+(33,'boucle','loop',2),
+(34,'Chenille','caterpillar',3),
+(35,'art Martial','martial art',4),
+(36,'velu','hairy',5),
+(37,'renard','fox',6),
+(38,'galaxie','galaxy',7),
+(39,'verticale','vertical',8),
+(40,'torche','torch',9),
+(41,'vague','wave',10),
+(42,'astronome','astronomer',11),
+(43,'botanique','botanic',12),
+(44,'foudre','lightning',13),
+(45,'foulard','scarf',14),
+(46,'totem','totem',15),
+(47,'invisible','invisible',16),
+(48,'plan','plan',17),
+(49,'hallucination','hallucination',18),
+(50,'ligne','line',19),
+(51,'chaud','hot',20),
+(52,'petit','small',21),
+(53,'bar','bar',22),
+(54,'colline','hill',23),
+(55,'penché','leaning',24),
+(56,'laser','laser',25),
+(57,'magicien','wizard',26),
+(58,'gros','fat',27),
+(59,'reculer','move back',28),
+(60,'fleur','flower',29),
+(61,'lampe','lamp',30),
+(62,'extensible','expandable',31),
+(63,'Fluide','Fluid',1),
+(64,'Notification','Notification',2),
+(65,'Géométrie','Geometry',3),
+(66,'Bébé','Baby',4),
+(67,'Lumière','Light',5),
+(68,'Dinosaure','Dinosaur',6),
+(69,'Montagne','Mountain',7),
+(70,'Pizza','Pizza',8),
+(71,'Bracelet','Bracelet',9),
+(72,'Drag Queen','Drag Queen',10),
+(73,'Ondulation','Ondulation',11),
+(74,'Pétrichor','Petrichor',12),
+(75,'Citrouille','Pumpkin',13),
+(76,'Boite','Box',14),
+(77,'Cloporte','Woodlouse',15),
+(78,'Bougie','Candle',16),
+(79,'Champignon','Mushroom',17),
+(80,'Cuisine','Kitchen',18),
+(81,'Papier','Paper',19),
+(82,'Saut','Jump',20),
+(83,'Corde','Rope',21),
+(84,'Perspective','Perspective',22),
+(85,'Amis','Friends',23),
+(86,'Vivant','Living',24),
+(87,'Escargot','Snail',25),
+(88,'Isométrique','Isometric',26),
+(89,'Piano','Piano',27),
+(90,'Brillant','Brilliant',28),
+(91,'Sucreries','Sweets',29),
+(92,'Aventure','Adventure',30),
+(93,'Haltères','Dumbbells',31);
+/*!40000 ALTER TABLE `prompt` ENABLE KEYS */;
+
+--
+-- Table structure for table `prompt_list`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `prompt_list` (
+  `id` int(11) NOT NULL,
+  `year` varchar(4) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `prompt_list`
+--
+
+/*!40000 ALTER TABLE `prompt_list` DISABLE KEYS */;
+INSERT INTO `prompt_list` (`id`, `year`) VALUES (1,'2021'),
+(2,'2022'),
+(3,'2023');
+/*!40000 ALTER TABLE `prompt_list` ENABLE KEYS */;
+
+--
+-- Table structure for table `prompt_prompt_list`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `prompt_prompt_list` (
+  `prompt_id` int(11) NOT NULL,
+  `prompt_list_id` int(11) NOT NULL,
+  PRIMARY KEY (`prompt_id`,`prompt_list_id`),
+  KEY `IDX_AE13A462B5C4AA38` (`prompt_id`),
+  KEY `IDX_AE13A462573814D5` (`prompt_list_id`),
+  CONSTRAINT `FK_AE13A462573814D5` FOREIGN KEY (`prompt_list_id`) REFERENCES `prompt_list` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_AE13A462B5C4AA38` FOREIGN KEY (`prompt_id`) REFERENCES `prompt` (`id`) ON DELETE CASCADE
+);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `prompt_prompt_list`
+--
+
+/*!40000 ALTER TABLE `prompt_prompt_list` DISABLE KEYS */;
+INSERT INTO `prompt_prompt_list` (`prompt_id`, `prompt_list_id`) VALUES (1,1),
+(2,1),
+(3,1),
+(4,1),
+(5,1),
+(6,1),
+(7,1),
+(8,1),
+(9,1),
+(10,1),
+(11,1),
+(12,1),
+(13,1),
+(14,1),
+(15,1),
+(16,1),
+(17,1),
+(18,1),
+(19,1),
+(20,1),
+(21,1),
+(22,1),
+(23,1),
+(24,1),
+(25,1),
+(26,1),
+(27,1),
+(28,1),
+(29,1),
+(30,1),
+(31,1),
+(32,2),
+(33,2),
+(34,2),
+(35,2),
+(36,2),
+(37,2),
+(38,2),
+(39,2),
+(40,2),
+(41,2),
+(42,2),
+(43,2),
+(44,2),
+(45,2),
+(46,2),
+(47,2),
+(48,2),
+(49,2),
+(50,2),
+(51,2),
+(52,2),
+(53,2),
+(54,2),
+(55,2),
+(56,2),
+(57,2),
+(58,2),
+(59,2),
+(60,2),
+(61,2),
+(62,2),
+(63,3),
+(64,3),
+(65,3),
+(66,3),
+(67,3),
+(68,3),
+(69,3),
+(70,3),
+(71,3),
+(72,3),
+(73,3),
+(74,3),
+(75,3),
+(76,3),
+(77,3),
+(78,3),
+(79,3),
+(80,3),
+(81,3),
+(82,3),
+(83,3),
+(84,3),
+(85,3),
+(86,3),
+(87,3),
+(88,3),
+(89,3),
+(90,3),
+(91,3),
+(92,3),
+(93,3);
+/*!40000 ALTER TABLE `prompt_prompt_list` ENABLE KEYS */;
+
+--
+-- Table structure for table `social_link`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `social_link` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `link` varchar(255) NOT NULL,
+  `icon_name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `social_link`
+--
+
+/*!40000 ALTER TABLE `social_link` DISABLE KEYS */;
+INSERT INTO `social_link` (`id`, `name`, `link`, `icon_name`) VALUES (1,'Instagram','https://www.instagram.com/motion.tober/','instagram'),
+(2,'Youtube','https://www.youtube.com/@motiontober','youtube'),
+(3,'Linkedin','https://www.linkedin.com/company/motiontober/','linkedin'),
+(4,'Twitter','https://twitter.com/motiontober','twitter-x');
+/*!40000 ALTER TABLE `social_link` ENABLE KEYS */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2024-01-25 16:57:12
