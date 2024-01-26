@@ -17,7 +17,7 @@
         {% if owner.posts.count > 0 %}
             {{ include('shared/buttons/_deleteButton.html.twig',{
                 token: csrf_token('deleteAllPosts'),
-                btnClass: 'rounded-pill w-100',
+                class: 'rounded-pill w-100',
                 username: owner.username,
                 controller: 'post',
                 action: 'deleteAllPosts'
