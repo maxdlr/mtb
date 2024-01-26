@@ -1,35 +1,22 @@
 {% if route|default(false) %}
-
     <a
             href="{{ route }}"
             class="btn btn-{{ color|raw }} {{ class|default('') }}"
             data-turbo-frame="{{ dataTurboFrame|default() }}"
-
+            id="{{ id|default() }}"
+            type="{{ type|default() }}"
     >
-
         {{ label|default('') }}
-
         {% if icon|default(false) %}
             <i class="bi bi-{{ icon|raw }} p-0 m-0"></i>
         {% endif %}
-
-
     </a>
-
 {% else %}
-
-    <button class="btn btn-{{ color|raw }} {{ class|default('') }}"
-            type="{{ type|default('') }}"
+    <button class="btn btn-{{ color|raw }} {{ class|default() }}"
+            type="{{ type|default() }}"
             data-turbo-frame="{{ dataTurboFrame|default() }}"
-    {{ attribute|default('') }}="{{ attributeValue|default('') }}"
-    >
-
-    {{ label|default('') }}
-
-    {% if icon|default(false) %}
-        <i class="bi bi-{{ icon|raw }} p-0 m-0"></i>
-    {% endif %}
+            data-{{ stimulusController|default() }}-target="{{ attributeValue|default() }}">
+        {{ label|default() }}
+        {% if icon|default(false) %}<i class="bi bi-{{ icon|raw }} p-0 m-0"></i>{% endif %}
     </button>
-
 {% endif %}
-

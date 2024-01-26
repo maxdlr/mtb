@@ -4,11 +4,19 @@
 
 {% block body %}
 
+    <nav class="d-lg-none d-block fixed-top navbar">
+        <button class="btn btn-primary"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offCanvasOwnerEdit"
+                aria-controls="offCanvasOwnerEdit">
+            <i class="bi bi-menu-button"></i>
+        </button>
+    </nav>
+
     <main class="container-fluid mt-4" {{ stimulus_controller('post') }}>
         <div class="row">
 
-
-            {#        LEFT BAR ----------------------------------------- -#}
             <section class="col-lg-3 col-md-5">
                 {{ include('shared/assets/mtb_logo.html.twig') }}
                 {{ component('ListComponent') }}
@@ -20,52 +28,21 @@
             <section class="col-lg-6 col-md-7" {{ stimulus_controller('postsearch') }}>
 
                 <h1>Page de {{ owner.username |title }}</h1>
-                {# todo: show upload progress bar #}
-                {% if app.user == owner %}
-
-                    {% if posts|length > 0 %}
-                        {{ include('shared/buttons/_button.html.twig', {
-                            route: path('app_user_page_edit', {'username': owner.username}),
-                            icon: 'pencil',
-                            color: 'outline-warning'
-                        }) }}
-                    {% endif %}
-
-                    {% if owner.posts.count > 0 %}
-                        {{ include('shared/buttons/_deleteButton.html.twig',{
-                            token: csrf_token('deleteAllPosts'),
-                            btnClass: 'btn-sm rounded-pill',
-                            label: 'Tout supprimer',
-                            username: owner.username,
-                            controller: 'post',
-                            action: 'deleteAllPosts'
-                        }) }}
-                    {% endif %}
-
-
-                {% endif %}
 
                 {{ component('PostSearchByQuery', {orderBy: 'date', ascDesc: 'DESC', owner: owner}) }}
 
             </section>
-            <section class="col-3 d-none d-lg-block">
+
+            {#        END CENTER BAR ------------------------------------- -#}
+            {#        RIGHT BAR --------------------------------------- -#}
+
+            <section class="col-3">
 
                 {% if not app.user %}
                     {{ include('auth/_component.html.twig') }}
-                {% else %}
-                    <a href="{{ path('app_user_page', {'username': app.user.username}) }}">{{ app.user.username|title }}</a>
-                    -
-                    <a href="{{ path('app_logout') }}">Se déconnecter</a>
-                {% endif %}
+                {% elseif app.user == owner %}
 
-                {% if app.user == owner %}
-
-                    {{ include('post/_newPost.html.twig', { form: form }) }}
-                    {% if promptlessPosts %}
-                        {% for post in promptlessPosts %}
-                            {{ component('ResolvePromptlessPostsComponent', {post: post}) }}
-                        {% endfor %}
-                    {% endif %}
+                    {{ include('page/_right.html.twig') }}
 
                 {% endif %}
 

@@ -93,30 +93,30 @@ class PageController extends AbstractController
         $posts = $postManager->sortPostsByDayNumber($owner->getPosts());
         $promptlessPosts = $postManager->getPromptlessPosts($posts);
 
-        $editPostForms = $this->createEditPostsForms($posts, $owner, $request);
-        $forms = $postManager->extractForms($editPostForms, 'formViews');
-        $persistedForms = $postManager->extractForms($editPostForms, 'persistedForms');
+//        $editPostForms = $this->createEditPostsForms($posts, $owner, $request);
+//        $forms = $postManager->extractForms($editPostForms, 'formViews');
+//        $persistedForms = $postManager->extractForms($editPostForms, 'persistedForms');
 
         if ($posts->isEmpty()) {
             $this->addFlash('danger', 'Aucun post a modifier !');
             return $this->redirectToRoute('app_redirect_user_fallback');
         }
 
-        if ($persistedForms) {
-            try {
-                $postManager->flushPosts($persistedForms);
-                $this->addFlash('success', 'Post modifié !');
-                return $this->redirectToRoute('app_user_page_edit', ['username' => $owner->getUsername()]);
-            } catch (\Exception $e) {
-                dump($e);
-                $this->addFlash('danger', 'Aucun post modifié');
-            }
-        }
+//        if ($persistedForms) {
+//            try {
+//                $postManager->flushPosts($persistedForms);
+//                $this->addFlash('success', 'Post modifié !');
+//                return $this->redirectToRoute('app_user_page_edit', ['username' => $owner->getUsername()]);
+//            } catch (\Exception $e) {
+//                dump($e);
+//                $this->addFlash('danger', 'Aucun post modifié');
+//            }
+//        }
 
         if ($securityManager->userIsOwner($user, $owner)) {
             return $this->render('page/edit.html.twig', [
                 'owner' => $owner,
-                'forms' => $forms,
+//                'forms' => $forms,
                 'promptlessPosts' => $promptlessPosts
             ]);
         } else {
@@ -127,38 +127,38 @@ class PageController extends AbstractController
 
     // -------------------------------------------------------------
 
-    public function createEditPostsForms(
-        Collection $posts,
-        User       $owner,
-        Request    $request
-    ): array
-    {
-        $formViews = [];
-        $persistedForms = [];
-
-        foreach ($posts as $post) {
-            $form = $this->formFactory->createNamed('post_' . $post->getId(), PostType::class, $post);
-            $form->handleRequest($request);
-            $formViews[] = $form->createView();
-
-            if ($form->isSubmitted() && $form->isValid()) {
-
-                $postFile = $form->get('post')->getData();
-
-                if ($postFile) {
-                    $newFilename = $this->fileUploadManager->upload($postFile);
-                    $originalFilename = pathinfo($postFile->getClientOriginalName(), PATHINFO_FILENAME);
-                    $this->postManager->setPost($post, $owner, $newFilename, $originalFilename);
-                    $this->entityManager->persist($post);
-                }
-                $this->entityManager->persist($post);
-                $persistedForms[] = $form;
-            }
-        }
-        return [
-            'formViews' => $formViews,
-            'persistedForms' => $persistedForms
-        ];
-    }
+//    public function createEditPostsForms(
+//        Collection $posts,
+//        User       $owner,
+//        Request    $request
+//    ): array
+//    {
+//        $formViews = [];
+//        $persistedForms = [];
+//
+//        foreach ($posts as $post) {
+//            $form = $this->formFactory->createNamed('post_' . $post->getId(), PostType::class, $post);
+//            $form->handleRequest($request);
+//            $formViews[] = $form->createView();
+//
+//            if ($form->isSubmitted() && $form->isValid()) {
+//
+//                $postFile = $form->get('post')->getData();
+//
+//                if ($postFile) {
+//                    $newFilename = $this->fileUploadManager->upload($postFile);
+//                    $originalFilename = pathinfo($postFile->getClientOriginalName(), PATHINFO_FILENAME);
+//                    $this->postManager->setPost($post, $owner, $newFilename, $originalFilename);
+//                    $this->entityManager->persist($post);
+//                }
+//                $this->entityManager->persist($post);
+//                $persistedForms[] = $form;
+//            }
+//        }
+//        return [
+//            'formViews' => $formViews,
+//            'persistedForms' => $persistedForms
+//        ];
+//    }
 
 }
