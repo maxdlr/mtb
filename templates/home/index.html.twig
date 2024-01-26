@@ -44,9 +44,20 @@
                 {% if not app.user %}
                     {{ include('auth/_component.html.twig') }}
                 {% else %}
-                    <a href="{{ path('app_user_page', {'username': app.user.username}) }}">{{ app.user.username|title }}</a>
-                    -
-                    <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                    <div class="btn-group d-none d-lg-block row row-cols-auto mb-2 text-center" role="group">
+                        <a
+                                class="btn btn-outline-primary rounded-start-pill w-50 m-0"
+                                href="{{ path('app_user_page', {'username': user.username}) }}"
+                        >{{ user.username|title }}</a>
+                        {{ include('shared/buttons/_button.html.twig', {
+                            route: path('app_logout'),
+                            icon: 'box-arrow-right',
+                            color: 'outline-danger',
+                            id: 'offCanvasOwnerEditLabel',
+                            type: 'button',
+                            class: 'rounded-end-pill w-25'
+                        }) }}
+                    </div>
 
                     {{ component('PostThumbnailComponent', {
                         post: latestUserPost,

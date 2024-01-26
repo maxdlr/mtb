@@ -39,6 +39,7 @@ class HomeController extends AbstractController
             'posts' => $posts,
             'latestUserPost' => $latestUserPost ?? null,
             'currentYear' => $currentYear,
+            'user' => $user
         ]);
     }
 }

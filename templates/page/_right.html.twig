@@ -1,5 +1,5 @@
 <div class="btn-group d-none d-lg-block row row-cols-auto mb-2 text-center" role="group">
-    <button class="btn btn-outline-primary rounded-start-pill w-50 m-0" disabled>{{ owner.username|title }}</button>
+    <button class="btn btn-primary rounded-start-pill w-50 m-0" disabled>{{ owner.username|title }}</button>
     {{ include('shared/buttons/_button.html.twig', {
         route: path('app_logout'),
         icon: 'box-arrow-right',
