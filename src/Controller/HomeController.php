@@ -52,7 +52,8 @@ class HomeController extends AbstractController
     ): Response
     {
         $now = new \DateTimeImmutable();
-        $currentYear = $now->format('Y');
+//        $currentYear = $now->format('Y');
+        $currentYear = '2023';
 
         $prompts = $this->promptRepository->findByYear($currentYear);
         $list = $this->promptListRepository->findOneBy(['year' => $currentYear])->getYear();

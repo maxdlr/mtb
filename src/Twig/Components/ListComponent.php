@@ -21,7 +21,8 @@ final class ListComponent
     )
     {
         $now = new \DateTimeImmutable();
-        $currentYear = $now->format('Y');
+//        $currentYear = $now->format('Y');
+        $currentYear = '2023';
         $this->listYear = $this->promptListRepository->findOneBy(['year' => $currentYear])->getYear();
         $this->prompts = $this->promptRepository->findByYear($currentYear);
     }
