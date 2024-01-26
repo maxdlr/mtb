@@ -100,13 +100,17 @@ class PostManager
         return new ArrayCollection(iterator_to_array($iterator));
     }
 
-    public function getLatestPost(?Collection $posts): ?Post
+    public function getLatestPost(?Collection $posts): ?ArrayCollection
     {
         $orderBy = (Criteria::create())->orderBy([
             'uploadedOn' => Criteria::DESC,
         ]);
 
-        return $posts?->matching($orderBy)[0];
+        $latestPost = $posts?->matching($orderBy)[0];
+
+        dd($latestPost);
+
+//        return;
     }
 
     public function PostToArray(?Post $post): array

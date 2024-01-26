@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Form\PostType;
+use App\Repository\PostRepository;
 use App\Repository\UserRepository;
 use App\Service\FileUploadManager;
 use App\Service\PostManager;
@@ -14,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/post', name: 'app_post_')]
@@ -25,7 +27,8 @@ class PostController extends AbstractController
         private readonly UserRepository         $userRepository,
         private readonly EntityManagerInterface $entityManager,
         private readonly FileUploadManager      $fileUploadManager,
-        private readonly PostManager            $postManager
+        private readonly PostManager            $postManager,
+        private readonly PostRepository         $postRepository
     )
     {
         $this->messages = new ArrayCollection();
@@ -72,7 +75,26 @@ class PostController extends AbstractController
         return $this->json($this->getMessages());
     }
 
-//    ----------------------------------------------------------------------------
+    //    ----------------------------------------------------------------------------
+
+    #[Route('/{id}', name: 'show', methods: ['GET'])]
+    public function showPost(
+        int $id
+    ): Response
+    {
+        $post = $this->postRepository->findOneById($id);
+
+        return $this->render('post/post-show.html.twig', [
+            'post' => $post
+        ]);
+    }
+
+    public function getMessages(): ?Collection
+    {
+        return $this->messages;
+    }
+
+    //    ----------------------------------------------------------------------------
 
     public function validatePost($uploadedPost): void
     {
@@ -109,10 +131,5 @@ class PostController extends AbstractController
         if ($numberOfPromptlessPost > 0)
             $this->messages->add(['type' => 'warning', 'message' => "$numberOfPromptlessPost posts sans thème."]);
 
-    }
-
-    public function getMessages(): ?Collection
-    {
-        return $this->messages;
     }
 }

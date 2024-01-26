@@ -103,6 +103,8 @@ $yellow-color: #ffaa01;
   }
 }
 
-// ---------------------
+// ----- dropdown customs ----
 
-
+.dropdown-menu.thumbnail-options.show {
+  min-width: fit-content !important;
+}

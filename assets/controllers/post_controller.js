@@ -11,12 +11,11 @@ export default class extends Controller {
 
     async initialize() {
         super.initialize();
+        this.listenToNewPostAction();
+
         this.input = document.getElementById('live-post-search');
         this.searchPostByQuery = document.getElementById('post-search-by-query-component');
         this.component = await getComponent(this.searchPostByQuery);
-        this.newPostButtonTarget.addEventListener('click', () => {
-            this.filesTarget.click()
-        })
     }
 
     async submit(event) {
@@ -111,5 +110,26 @@ export default class extends Controller {
                 duration: 10000
             }).showToast();
         }
+    }
+
+    copyToClipboard(event) {
+        const url = event.params.url;
+
+        console.log(url);
+
+        navigator.clipboard.writeText(url).then(r => Toastify({
+            text: 'Lien du post copié !',
+            className: 'success rounded-pill px-4 fw-bold',
+            gravity: "bottom", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            duration: 10000
+        }).showToast())
+    }
+
+    listenToNewPostAction() {
+        this.newPostButtonTarget.addEventListener('click', () => {
+            this.filesTarget.click()
+        })
     }
 }

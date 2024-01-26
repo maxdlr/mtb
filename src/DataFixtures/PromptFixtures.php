@@ -9,7 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class PromptFixtures extends Fixture implements DependentFixtureInterface
 {
-    public array $twentyThreeListFr = [
+    public array $listFr2023 = [
         "Fluide",
         "Notification",
         "Géométrie",
@@ -42,7 +42,7 @@ class PromptFixtures extends Fixture implements DependentFixtureInterface
         "Aventure",
         "Haltères"
     ];
-    public array $twentyThreeListEn = [
+    public array $listEn2023 = [
         "Fluid",
         "Notification",
         "Geometry",
@@ -75,7 +75,7 @@ class PromptFixtures extends Fixture implements DependentFixtureInterface
         "Adventure",
         "Dumbbells",
     ];
-    public array $twentyTwoListFr = [
+    public array $listFr2022 = [
         'scalpel',
         'boucle',
         'Chenille',
@@ -108,7 +108,7 @@ class PromptFixtures extends Fixture implements DependentFixtureInterface
         'lampe',
         'extensible',
     ];
-    public array $twentyTwoListEn = [
+    public array $listEn2022 = [
         'scalpel',
         'loop',
         'caterpillar',
@@ -141,7 +141,7 @@ class PromptFixtures extends Fixture implements DependentFixtureInterface
         'lamp',
         'expandable',
     ];
-    public array $twentyOneListFr = [
+    public array $listFr2021 = [
         'rebond',
         'etirement',
         'roule',
@@ -174,7 +174,7 @@ class PromptFixtures extends Fixture implements DependentFixtureInterface
         'tire',
         'branche',
     ];
-    public array $twentyOneListEn = [
+    public array $listEn2021 = [
         'bounce',
         'stretch',
         'roll',
@@ -212,21 +212,21 @@ class PromptFixtures extends Fixture implements DependentFixtureInterface
     public function __construct()
     {
         $this->listPrompts = [
-            ['fr' => $this->twentyOneListFr, 'en' => $this->twentyOneListEn],
-            ['fr' => $this->twentyTwoListFr, 'en' => $this->twentyTwoListEn],
-            ['fr' => $this->twentyThreeListFr, 'en' => $this->twentyThreeListEn]
+            ['fr' => $this->listFr2021, 'en' => $this->listEn2021],
+            ['fr' => $this->listFr2022, 'en' => $this->listEn2022],
+            ['fr' => $this->listFr2023, 'en' => $this->listEn2023]
         ];
     }
 
     public function load(ObjectManager $manager): void
     {
-        for ($y = 0; $y < count(PromptListFixtures::PROMPTLISTS); $y++) {
+        for ($y = 0; $y < count(PromptListFixtures::PROMPT_LISTS); $y++) {
             for ($i = 0; $i <= 30; $i++) {
                 $prompt = new Prompt();
                 $prompt->setNameFr($this->listPrompts[$y]['fr'][$i])
                     ->setNameEn($this->listPrompts[$y]['en'][$i])
                     ->setDayNumber($i + 1)
-                    ->addPromptList($this->getReference('promptList_' . PromptListFixtures::PROMPTLISTS[$y]));
+                    ->addPromptList($this->getReference('promptList_' . PromptListFixtures::PROMPT_LISTS[$y]));
                 $this->addReference('prompt_' . $this->listPrompts[$y]['fr'][$i], $prompt);
                 $manager->persist($prompt);
             }

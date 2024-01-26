@@ -17,11 +17,8 @@ use function PHPUnit\Framework\isEmpty;
 class HomeController extends AbstractController
 {
     public function __construct(
-        private readonly PostRepository       $postRepository,
-        private readonly PromptRepository     $promptRepository,
-        private readonly PromptListRepository $promptListRepository,
-        private readonly UserRepository       $userRepository,
-        private readonly PostManager          $postManager
+        private readonly PostRepository $postRepository,
+        private readonly UserRepository $userRepository,
     )
     {
     }
@@ -33,42 +30,15 @@ class HomeController extends AbstractController
         $currentYear = $now->format('Y');
         $user = $this->userRepository->findOneBy(['username' => $this->getUser()?->getUserIdentifier()]);
 
-        $latestUserPost = $this->postManager
-            ->PostToArray($this->postManager->getLatestPost($user?->getPosts()));
+        if ($user)
+            $latestUserPost = $this->postRepository->findLatestPostOfUser($user);
 
         $posts = $this->postRepository->findAllBy('promptList.year', $currentYear, 'post.uploadedOn');
 
         return $this->render('home/index.html.twig', [
             'posts' => $posts,
-            'latestUserPost' => $latestUserPost,
+            'latestUserPost' => $latestUserPost ?? null,
             'currentYear' => $currentYear,
-        ]);
-    }
-
-    #[Route('/f/{promptName}', name: 'app_home_search_by_prompt')]
-    public function searchByPrompt(
-        string      $promptName,
-        DataManager $dataManager,
-    ): Response
-    {
-        $now = new \DateTimeImmutable();
-//        $currentYear = $now->format('Y');
-        $currentYear = '2023';
-
-        $prompts = $this->promptRepository->findByYear($currentYear);
-        $list = $this->promptListRepository->findOneBy(['year' => $currentYear])->getYear();
-
-        if ($dataManager->isInFilteredArray($promptName, $prompts, 'nameEn')) {
-            $posts = $this->postRepository->findAllBy('prompt.name_en', $promptName, 'post.uploadedOn');
-        } else {
-            $this->addFlash('danger', 'Thème inconnu');
-            return $this->redirectToRoute('app_home');
-        };
-
-        return $this->render('home/index.html.twig', [
-            'posts' => $posts,
-            'prompts' => $prompts,
-            'list' => $list,
         ]);
     }
 }

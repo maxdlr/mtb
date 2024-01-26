@@ -47,7 +47,12 @@
                     <a href="{{ path('app_user_page', {'username': app.user.username}) }}">{{ app.user.username|title }}</a>
                     -
                     <a href="{{ path('app_logout') }}">Se déconnecter</a>
-                    {{ include('shared/post/_thumbnail.html.twig', {post: latestUserPost, rich: false}) }}
+
+                    {{ component('PostThumbnailComponent', {
+                        post: latestUserPost,
+                        allowReport: false,
+                        showOwner: false,
+                    }) }}
                 {% endif %}
 
             </section>
