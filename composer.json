@@ -81,6 +81,7 @@
   },
   "scripts": {
     "ss": "symfony server:start -d && symfony open:local",
+    "yy": "yarn build && yarn watch",
     "db": "symfony console d:d:d -f && symfony console d:d:c && symfony console d:m:m --no-interaction && symfony console d:f:l --no-interaction",
     "dbu": "symfony console d:d:d -f && symfony console d:d:c && symfony console d:m:m --no-interaction && symfony console make:migration && symfony console d:m:m --no-interaction && symfony console d:f:l --no-interaction",
     "auto-scripts": {
