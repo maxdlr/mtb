@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\ParticipantType;
 use App\Repository\SocialLinkRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,14 +12,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
 
-    public function __construct(private SocialLinkRepository $socialLinkRepository)
+    public function __construct(
+        private SocialLinkRepository $socialLinkRepository
+    )
     {
     }
 
     #[Route('/', name: 'app_default')]
     public function default(): Response
     {
-        return $this->redirectToRoute('app_home', ['year' => 2023]);
+        return $this->redirectToRoute('app_home', ['year' => 2024]);
     }
 
     #[Route('/{year}', name: 'app_home')]

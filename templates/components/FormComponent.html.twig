@@ -1,0 +1,27 @@
+<div{{ attributes }}>
+    <div
+            {{ attributes }}
+    >
+        {% if isSuccessful %}
+        {% else %}
+            {{ form_start(form, {
+                attr: {
+                    'novalidate': true,
+                    'data-action': 'live#action',
+                    'data-action-name': 'prevent|save',
+                }
+            }) }}
+
+            {{ form_widget(form) }}
+
+            <button
+                    type="submit"
+                    class="btn btn-primary {{ this.hasValidationErrors ? 'disabled' : '' }}"
+            >Envoyer
+            </button>
+
+            {{ form_end(form) }}
+            </form>
+        {% endif %}
+    </div>
+</div>

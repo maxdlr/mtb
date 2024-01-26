@@ -14,13 +14,9 @@
                     {{ component('SocialLinkComponent') }}
                 </div>
 
-                <div class="">
-                    {{ component('ListComponent', {year: year}) }}
+                <div>
+                    {{ component('FormComponent', {typeClass: formClassName}) }}
                 </div>
-
-                <a href="{{ path('app_form_show', {formName: 'participant'}) }}">
-                    Bla
-                </a>
 
             </section>
         </div>

@@ -18,7 +18,7 @@
                         {% if loop.index <= listCut %}
 
                             <li
-                                    class="row btn btn-group w-100 rounded-pill hand text-white-hover {% if loop.index0 % 3 == 0 %}text-red bg-red-hover{% elseif loop.index % 3 == 0 %}text-blue bg-blue-hover{% else %}text-yellow bg-yellow-hover{% endif %} para-font prompt-list-item py-1"
+                                    class="row text-center w-100 rounded-pill hand text-white-hover {% if loop.index0 % 3 == 0 %}text-red bg-red-hover{% elseif loop.index % 3 == 0 %}text-blue bg-blue-hover{% else %}text-yellow bg-yellow-hover{% endif %} para-font prompt-list-item py-1"
                             >
                                 <div class="col-2 text-nowrap p-0 m-0 align-middle">#
                                     {% if prompt.dayNumber|length < 2 %}
@@ -48,7 +48,7 @@
                         {% if loop.index > listCut %}
 
                             <li
-                                    class="row btn btn-group w-100 rounded-pill hand text-white-hover {% if loop.index0 % 3 == 0 %}text-yellow bg-yellow-hover{% elseif loop.index % 3 == 0 %}text-red bg-red-hover{% else %}text-blue bg-blue-hover{% endif %} para-font prompt-list-item py-1"
+                                    class="row text-center w-100 rounded-pill hand text-white-hover {% if loop.index0 % 3 == 0 %}text-yellow bg-yellow-hover{% elseif loop.index % 3 == 0 %}text-red bg-red-hover{% else %}text-blue bg-blue-hover{% endif %} para-font prompt-list-item py-1"
                             >
                                 <div class="col-2 text-nowrap p-0 m-0 align-middle">#
                                     {% if prompt.dayNumber|length < 2 %}
@@ -73,6 +73,12 @@
 
             </div>
 
+        </article>
+
+        <article>
+            {% if this.prompts is empty %}
+                <h1 class="text-center title-font text-red">C'est en chemin...</h1>
+            {% endif %}
         </article>
     </div>
 </div>
