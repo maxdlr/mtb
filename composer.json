@@ -33,6 +33,7 @@
     "symfony/process": "6.3.*",
     "symfony/property-access": "6.3.*",
     "symfony/property-info": "6.3.*",
+    "symfony/requirements-checker": "*",
     "symfony/runtime": "6.3.*",
     "symfony/security-bundle": "6.3.*",
     "symfony/serializer": "6.3.*",
@@ -85,7 +86,8 @@
     "dbu": "symfony console d:d:d -f && symfony console d:d:c && symfony console d:m:m --no-interaction && symfony console make:migration && symfony console d:m:m --no-interaction && symfony console d:f:l --no-interaction",
     "auto-scripts": {
       "cache:clear": "symfony-cmd",
-      "assets:install %PUBLIC_DIR%": "symfony-cmd"
+      "assets:install %PUBLIC_DIR%": "symfony-cmd",
+      "requirements-checker": "script"
     },
     "post-install-cmd": [
       "@auto-scripts"
