@@ -9,7 +9,6 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 #[AsTwigComponent()]
 final class ListComponent
 {
-
     public ?string $year = null;
     public ?array $prompts;
 

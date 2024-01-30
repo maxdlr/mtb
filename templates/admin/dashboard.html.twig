@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    {{ include('shared/buttons/_button.html.twig', {
+        route: path('app_list_new'),
+        color: 'primary',
+        label: 'Créer une nouvelle liste',
+        icon: 'plus-lg'
+    }) }}
+
+{% endblock %}

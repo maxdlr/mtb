@@ -18,7 +18,7 @@ class PromptList
     #[ORM\Column(length: 4)]
     private ?string $year = null;
 
-    #[ORM\ManyToMany(targetEntity: Prompt::class, mappedBy: 'promptList')]
+    #[ORM\ManyToMany(targetEntity: Prompt::class, mappedBy: 'promptList', cascade: ['persist'])]
     private Collection $prompts;
 
     public function __construct()

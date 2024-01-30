@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    {{ dump(form) }}
+
+    {{ component('FormComponent', {
+        entity: newList,
+        formTypeClassName: form,
+    }) }}
+
+{% endblock %}
