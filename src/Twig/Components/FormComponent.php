@@ -2,7 +2,6 @@
 
 namespace App\Twig\Components;
 
-use App\Form\PromptListType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
@@ -47,7 +46,11 @@ final class FormComponent extends AbstractController
         $this->submitForm();
 
         if (count($this->getForm()->get('prompts')->getData()) < 31) {
-            $this->addFlash('danger', "Tu n'as ajouté que " . count($this->getForm()->get('prompts')->getData()));
+            $this->addFlash(
+                'danger',
+                "Attention, tu n'as ajouté que " . count($this->getForm()->get('prompts')->getData())) . " thèmes.";
+            $this->isSuccessful = false;
+            return;
         }
 
         $this->entity = $this->getForm()->getData();

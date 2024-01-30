@@ -1,0 +1,47 @@
+<table>
+    <thead>
+    <tr>
+        <td>Jour du mois</td>
+        <td>Thème FR</td>
+        <td>Thème EN</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for key, promptForm in form.prompts %}
+        <tr>
+            <td>
+                {{ form_row(promptForm.dayNumber, {
+                    label: false,
+                    row_attr: {class: ''},
+                    attr: {
+                        placeholder: '31'
+                    }
+                }) }}
+            </td>
+            <td>
+                {{ form_row(promptForm.name_fr, {
+                    label: false,
+                    row_attr: {class: ''},
+                    attr: {
+                        placeholder: 'Caca'
+                    }
+                }) }}
+            </td>
+            <td>
+                {{ form_row(promptForm.name_en, {
+                    label: false,
+                    row_attr: {class: ''},
+                    attr: {
+                        placeholder: 'Shit'
+                    }
+                }) }}
+            </td>
+            <td>
+                {{ form_row(promptForm.vars.button_delete, {label: 'X', attr: {class: 'btn btn-outline-danger'}}) }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{{ form_widget(form.prompts.vars.button_add, {label: '+ Ajouter un thème', attr: {class: 'btn btn-outline-primary'}}) }}

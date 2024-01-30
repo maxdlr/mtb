@@ -1,77 +1,76 @@
 <div{{ attributes }}>
-    {% if isSuccessful %}
-        <div>Welcome</div>
-    {% else %}
-        {{ form_start(form, {
-            attr: {
-                'novalidate': true,
-                'data-action': 'live#action',
-                'data-action-name': 'prevent|save',
-            }
-        }) }}
 
-        {{ form_row(form.year, {
-            label: false,
-            attr: {
-                placeholder: 'Année de la liste'
-            }
-        }) }}
+    {#    todo: replace with generic values #}
 
-        <table>
-            <thead>
+    {{ form_start(form, {
+        attr: {
+            'novalidate': true,
+            'data-action': 'live#action',
+            'data-action-name': 'prevent|save',
+        }
+    }) }}
+
+    {{ form_row(form.year, {
+        label: false,
+        attr: {
+            placeholder: 'Année de la liste'
+        }
+    }) }}
+
+    <table>
+        <thead>
+        <tr>
+            <td>Jour du mois</td>
+            <td>Thème FR</td>
+            <td>Thème EN</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for key, promptForm in form.prompts %}
             <tr>
-                <td>Jour du mois</td>
-                <td>Thème FR</td>
-                <td>Thème EN</td>
+                <td>
+                    {{ form_row(promptForm.dayNumber, {
+                        label: false,
+                        row_attr: {class: ''},
+                        attr: {
+                            placeholder: '31'
+                        }
+                    }) }}
+                </td>
+                <td>
+                    {{ form_row(promptForm.name_fr, {
+                        label: false,
+                        row_attr: {class: ''},
+                        attr: {
+                            placeholder: 'Caca'
+                        }
+                    }) }}
+                </td>
+                <td>
+                    {{ form_row(promptForm.name_en, {
+                        label: false,
+                        row_attr: {class: ''},
+                        attr: {
+                            placeholder: 'Shit'
+                        }
+                    }) }}
+                </td>
+                <td>
+                    {{ form_row(promptForm.vars.button_delete, {label: 'X', attr: {class: 'btn btn-outline-danger'}}) }}
+                </td>
             </tr>
-            </thead>
-            <tbody>
-            {% for key, promptForm in form.prompts %}
-                <tr>
-                    <td>
-                        {{ form_row(promptForm.dayNumber, {
-                            label: false,
-                            row_attr: {class: ''},
-                            attr: {
-                                placeholder: '31'
-                            }
-                        }) }}
-                    </td>
-                    <td>
-                        {{ form_row(promptForm.name_fr, {
-                            label: false,
-                            row_attr: {class: ''},
-                            attr: {
-                                placeholder: 'Caca'
-                            }
-                        }) }}
-                    </td>
-                    <td>
-                        {{ form_row(promptForm.name_en, {
-                            label: false,
-                            row_attr: {class: ''},
-                            attr: {
-                                placeholder: 'Shit'
-                            }
-                        }) }}
-                    </td>
-                    <td>
-                        {{ form_row(promptForm.vars.button_delete, {label: 'X', attr: {class: 'btn btn-outline-danger'}}) }}
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+        {% endfor %}
+        </tbody>
+    </table>
 
-        {{ form_widget(form.prompts.vars.button_add, {label: '+ Ajouter un thème', attr: {class: 'btn btn-outline-primary'}}) }}
+    {{ form_widget(form.prompts.vars.button_add, {label: '+ Ajouter un thème', attr: {class: 'btn btn-outline-primary'}}) }}
 
-        <button
-                type="submit"
-                class="btn btn-primary {{ this.hasValidationErrors ? 'disabled' : '' }}"
-        >Enregistrer
-        </button>
+    <button
+            type="submit"
+            class="btn btn-primary {{ this.hasValidationErrors ? 'disabled' : '' }}"
+    >Enregistrer
+    </button>
 
-        {{ form_end(form) }}
-    {% endif %}
+    {{ form_end(form) }}
 
 </div>
