@@ -40,24 +40,24 @@ final class FormComponent extends AbstractController
         return $this->getForm()->isSubmitted() && !$this->getForm()->isValid();
     }
 
-    #[LiveAction]
-    public function save(): void
-    {
-        $this->submitForm();
-
-        if (count($this->getForm()->get('prompts')->getData()) < 31) {
-            $this->addFlash(
-                'danger',
-                "Attention, tu n'as ajouté que " . count($this->getForm()->get('prompts')->getData())) . " thèmes.";
-            $this->isSuccessful = false;
-            return;
-        }
-
-        $this->entity = $this->getForm()->getData();
-
-        $this->entityManager->persist($this->entity);
-        $this->entityManager->flush();
-
-        $this->isSuccessful = true;
-    }
+//    #[LiveAction]
+//    public function save(): void
+//    {
+//        $this->submitForm();
+//
+//        if (count($this->getForm()->get('prompts')->getData()) < 31) {
+//            $this->addFlash(
+//                'danger',
+//                "Attention, tu n'as ajouté que " . count($this->getForm()->get('prompts')->getData())) . " thèmes.";
+//            $this->isSuccessful = false;
+//            return;
+//        }
+//
+//        $this->entity = $this->getForm()->getData();
+//
+//        $this->entityManager->persist($this->entity);
+//        $this->entityManager->flush();
+//
+//        $this->isSuccessful = true;
+//    }
 }

@@ -2,74 +2,80 @@
 
     {#    todo: replace with generic values #}
 
-    {{ form_start(form, {
-        attr: {
-            'novalidate': true,
-            'data-action': 'live#action',
-            'data-action-name': 'prevent|save',
-        }
-    }) }}
+    {{ form_start(form) }}
 
-    {{ form_row(form.year, {
-        label: false,
-        attr: {
-            placeholder: 'Année de la liste'
-        }
-    }) }}
 
-    <table>
-        <thead>
-        <tr>
-            <td>Jour du mois</td>
-            <td>Thème FR</td>
-            <td>Thème EN</td>
-        </tr>
-        </thead>
-        <tbody>
-        {% for key, promptForm in form.prompts %}
-            <tr>
-                <td>
-                    {{ form_row(promptForm.dayNumber, {
-                        label: false,
-                        row_attr: {class: ''},
-                        attr: {
-                            placeholder: '31'
-                        }
-                    }) }}
-                </td>
-                <td>
-                    {{ form_row(promptForm.name_fr, {
-                        label: false,
-                        row_attr: {class: ''},
-                        attr: {
-                            placeholder: 'Caca'
-                        }
-                    }) }}
-                </td>
-                <td>
-                    {{ form_row(promptForm.name_en, {
-                        label: false,
-                        row_attr: {class: ''},
-                        attr: {
-                            placeholder: 'Shit'
-                        }
-                    }) }}
-                </td>
-                <td>
-                    {{ form_row(promptForm.vars.button_delete, {label: 'X', attr: {class: 'btn btn-outline-danger'}}) }}
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% for row in form.children %}
+        {% if 'collection' not in row.vars.block_prefixes %}
+            {{ include('shared/form/_form-row.html.twig', {
+                formRow: row
+            }) }}
+        {% endif %}
+    {% endfor %}
 
-    {{ form_widget(form.prompts.vars.button_add, {label: '+ Ajouter un thème', attr: {class: 'btn btn-outline-primary'}}) }}
+    {% for row in form.children %}
+        {% if 'collection' in row.vars.block_prefixes %}
+            {{ include('shared/form/_form-row-collection.html.twig', {
+                formRow: row
+            }) }}
+        {% endif %}
+    {% endfor %}
 
-    <button
-            type="submit"
-            class="btn btn-primary {{ this.hasValidationErrors ? 'disabled' : '' }}"
-    >Enregistrer
-    </button>
+
+
+    {#    <table> #}
+    {#        <thead> #}
+    {#        <tr> #}
+    {#            <td>Jour du mois</td> #}
+    {#            <td>Thème FR</td> #}
+    {#            <td>Thème EN</td> #}
+    {#        </tr> #}
+    {#        </thead> #}
+    {#        <tbody> #}
+    {#        {% for key, promptForm in form.prompts %} #}
+    {#            <tr> #}
+    {#                <td> #}
+    {#                    {{ form_row(promptForm.dayNumber, { #}
+    {#                        label: false, #}
+    {#                        row_attr: {class: ''}, #}
+    {#                        attr: { #}
+    {#                            placeholder: '31' #}
+    {#                        } #}
+    {#                    }) }} #}
+    {#                </td> #}
+    {#                <td> #}
+    {#                    {{ form_row(promptForm.name_fr, { #}
+    {#                        label: false, #}
+    {#                        row_attr: {class: ''}, #}
+    {#                        attr: { #}
+    {#                            placeholder: 'Caca' #}
+    {#                        } #}
+    {#                    }) }} #}
+    {#                </td> #}
+    {#                <td> #}
+    {#                    {{ form_row(promptForm.name_en, { #}
+    {#                        label: false, #}
+    {#                        row_attr: {class: ''}, #}
+    {#                        attr: { #}
+    {#                            placeholder: 'Shit' #}
+    {#                        } #}
+    {#                    }) }} #}
+    {#                </td> #}
+    {#                <td> #}
+    {#                    {{ form_row(promptForm.vars.button_delete, {label: 'X', attr: {class: 'btn btn-outline-danger'}}) }} #}
+    {#                </td> #}
+    {#            </tr> #}
+    {#        {% endfor %} #}
+    {#        </tbody> #}
+    {#    </table> #}
+
+    {#    {{ form_widget(form.prompts.vars.button_add, {label: '+ Ajouter un thème', attr: {class: 'btn btn-outline-primary'}}) }} #}
+
+    {#    <button #}
+    {#            type="submit" #}
+    {#            class="btn btn-primary {{ this.hasValidationErrors ? 'disabled' : '' }}" #}
+    {#    >Enregistrer #}
+    {#    </button> #}
 
     {{ form_end(form) }}
 

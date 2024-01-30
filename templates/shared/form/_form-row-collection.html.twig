@@ -7,41 +7,59 @@
     </tr>
     </thead>
     <tbody>
-    {% for key, promptForm in form.prompts %}
+    {% for key, embeddedForm in row %}
+        {{ dump(embeddedForm) }}
+
+        {# todo: fix this. embeddedRow #}
+
         <tr>
-            <td>
-                {{ form_row(promptForm.dayNumber, {
-                    label: false,
-                    row_attr: {class: ''},
-                    attr: {
-                        placeholder: '31'
-                    }
-                }) }}
-            </td>
-            <td>
-                {{ form_row(promptForm.name_fr, {
-                    label: false,
-                    row_attr: {class: ''},
-                    attr: {
-                        placeholder: 'Caca'
-                    }
-                }) }}
-            </td>
-            <td>
-                {{ form_row(promptForm.name_en, {
-                    label: false,
-                    row_attr: {class: ''},
-                    attr: {
-                        placeholder: 'Shit'
-                    }
-                }) }}
-            </td>
-            <td>
-                {{ form_row(promptForm.vars.button_delete, {label: 'X', attr: {class: 'btn btn-outline-danger'}}) }}
-            </td>
+            {% for embbededRow in embeddedForm.children %}
+                <td>
+                    {{ form_row(embeddedRow, {
+                        label: false,
+                        row_attr: {class: ''},
+                        attr: {
+                            placeholder: '31'
+                        }
+                    }) }}
+                </td>
+            {% endfor %}
         </tr>
+
+        {#        <tr> #}
+        {#            <td> #}
+        {#                {{ form_row(embeddedForm.dayNumber, { #}
+        {#                    label: false, #}
+        {#                    row_attr: {class: ''}, #}
+        {#                    attr: { #}
+        {#                        placeholder: '31' #}
+        {#                    } #}
+        {#                }) }} #}
+        {#            </td> #}
+        {#            <td> #}
+        {#                {{ form_row(embeddedForm.name_fr, { #}
+        {#                    label: false, #}
+        {#                    row_attr: {class: ''}, #}
+        {#                    attr: { #}
+        {#                        placeholder: 'Caca' #}
+        {#                    } #}
+        {#                }) }} #}
+        {#            </td> #}
+        {#            <td> #}
+        {#                {{ form_row(embeddedForm.name_en, { #}
+        {#                    label: false, #}
+        {#                    row_attr: {class: ''}, #}
+        {#                    attr: { #}
+        {#                        placeholder: 'Shit' #}
+        {#                    } #}
+        {#                }) }} #}
+        {#            </td> #}
+        {#            <td> #}
+        {#                {{ form_row(embeddedForm.vars.button_delete, {label: 'X', attr: {class: 'btn btn-outline-danger'}}) }} #}
+        {#            </td> #}
+        {#        </tr> #}
     {% endfor %}
     </tbody>
 </table>
 
-{{ form_widget(form.prompts.vars.button_add, {label: '+ Ajouter un thème', attr: {class: 'btn btn-outline-primary'}}) }}
+{{ form_widget(row.vars.button_add, {label: '+ Ajouter un thème', attr: {class: 'btn btn-outline-primary'}}) }}
