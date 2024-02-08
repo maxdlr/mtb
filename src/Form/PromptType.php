@@ -14,9 +14,24 @@ class PromptType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name_fr', TextType::class)
-            ->add('name_en', TextType::class)
-            ->add('dayNumber', IntegerType::class);
+            ->add('dayNumber', IntegerType::class, [
+                'label' => 'Jour du mois',
+                'attr' => [
+                    'placeholder' => '31'
+                ]
+            ])
+            ->add('name_fr', TextType::class, [
+                'label' => 'Thème FR',
+                'attr' => [
+                    'placeholder' => 'Gros cul thème'
+                ]
+            ])
+            ->add('name_en', TextType::class, [
+                'label' => 'Thème EN',
+                'attr' => [
+                    'placeholder' => 'Big ass theme'
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

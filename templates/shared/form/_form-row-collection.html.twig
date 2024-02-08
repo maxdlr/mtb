@@ -1,63 +1,31 @@
 <table>
     <thead>
     <tr>
-        <td>Jour du mois</td>
-        <td>Thème FR</td>
-        <td>Thème EN</td>
+        {% for key, embeddedForm in row.children %}
+            {{ dump('hello', embeddedForm) }}
+            <td>{{ embeddedForm.vars.label }}</td>
+        {% endfor %}
     </tr>
     </thead>
     <tbody>
     {% for key, embeddedForm in row %}
-        {{ dump(embeddedForm) }}
 
         {# todo: fix this. embeddedRow #}
 
         <tr>
-            {% for embbededRow in embeddedForm.children %}
+            {% for embeddedRow in embeddedForm.children %}
                 <td>
                     {{ form_row(embeddedRow, {
                         label: false,
                         row_attr: {class: ''},
-                        attr: {
-                            placeholder: '31'
-                        }
                     }) }}
                 </td>
             {% endfor %}
+            <td>
+                {{ form_row(embeddedForm.vars.button_delete, {label: 'X', attr: {class: 'btn btn-outline-danger'}}) }}
+            </td>
         </tr>
 
-        {#        <tr> #}
-        {#            <td> #}
-        {#                {{ form_row(embeddedForm.dayNumber, { #}
-        {#                    label: false, #}
-        {#                    row_attr: {class: ''}, #}
-        {#                    attr: { #}
-        {#                        placeholder: '31' #}
-        {#                    } #}
-        {#                }) }} #}
-        {#            </td> #}
-        {#            <td> #}
-        {#                {{ form_row(embeddedForm.name_fr, { #}
-        {#                    label: false, #}
-        {#                    row_attr: {class: ''}, #}
-        {#                    attr: { #}
-        {#                        placeholder: 'Caca' #}
-        {#                    } #}
-        {#                }) }} #}
-        {#            </td> #}
-        {#            <td> #}
-        {#                {{ form_row(embeddedForm.name_en, { #}
-        {#                    label: false, #}
-        {#                    row_attr: {class: ''}, #}
-        {#                    attr: { #}
-        {#                        placeholder: 'Shit' #}
-        {#                    } #}
-        {#                }) }} #}
-        {#            </td> #}
-        {#            <td> #}
-        {#                {{ form_row(embeddedForm.vars.button_delete, {label: 'X', attr: {class: 'btn btn-outline-danger'}}) }} #}
-        {#            </td> #}
-        {#        </tr> #}
     {% endfor %}
     </tbody>
 </table>
